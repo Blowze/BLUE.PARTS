@@ -1,0 +1,34 @@
+extends common/layout
+
+block header
+    include common/header-inner
+block content
+    main.main.pt-3.pt-md-5
+      .container
+        h1 List of modifications for MAZDA MAZDA3 2014
+        nav.breadcrumb(aria-label="breadcrumb")
+          ol.breadcrumb.fs-7
+            li.breadcrumb-item
+              a(href="/") blue.parts
+            li.breadcrumb-item.active(aria-current="page") MODELS MAZDA MAZDA3
+        p.lead.mb-5.d-none.d-md-block On this page you can select modification of your MAZDA MAZDA3   car. You can see engine name, chassis type, body, transmission, and region of origin of the vehicle. Select the required parameters and follow the link to see more detailed information about the model.
+        hr.mb-1.mt-1
+        table#myTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+          thead
+            tr
+              th code
+              th Years
+              th Engine Type
+              th Transmission
+              th body
+              th Region
+          tbody
+            - for (var x = 0; x < 30; x++)
+              tr
+                td BADM 
+                td 2014
+                td 
+                  a(href="") 2000 GASOLINE
+                td AUTOMATIC TRANSMISSION 6-SPEED
+                td SEDAN 4-DOOR
+                td TH

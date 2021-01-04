@@ -1,0 +1,18 @@
+doctype html
+html.h-100(lang="ru")
+    block head
+        head
+            meta(charset="utf-8")
+            title Title your site
+            meta(content="width=device-width, initial-scale=1" name="viewport")
+            meta(content="ie=edge" http-equiv="x-ua-compatible")
+            link(rel="stylesheet" href="css/style.min.css")
+    body.text-center.h-100.d-flex.bg-primary
+        main.form-signin.mt-visual
+            em.h4.fw-bold.text-white BLUE.PARTS
+            from.card.py-3.px-3.mt-3
+                h1.h5.mb-3.fw-normal Login with
+                button.w-100.btn.btn-primary.mb-2(type="submit") Google
+                button.w-100.btn.btn-primary(type="submit") Line
+        block scripts
+            script(src="js/main.min.js")
