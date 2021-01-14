@@ -12,17 +12,16 @@ header.position-absolute.w-100.fixed-top
           li.nav-item
             a(href="#").nav-link.link-light.px-3.py-0  Help
           li.nav-item
-            a(href="/login.html").nav-link.link-light.px-3.py-0.pe-0 Login
-          
+            a(th:href="@{/login}").nav-link.link-light.px-3.py-0.pe-0(th:text="#{label.login}") Login
+
 
   .py-2
     .navbar.navbar-expand-lg
       .container
         .d-flex.align-items-center.w-100
-          a.navbar-brand.me-auto(href="/")
-            em.h5.fw-bold.text-white BLUE.PARTS
-          
-          
-  
+          a.navbar-brand.me-auto(th:href="${lang_prefix} + @{/}")
+            em.h5.fw-bold.text-white(th:text="#{logo.text}") BLUE.PARTS
 
-          
+
+
+

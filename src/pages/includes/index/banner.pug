@@ -1,56 +1,57 @@
 div.h-100.d-flex.align-items-center.home
     .container.mt-visual
-        h1.text-light FIND AUTOPARTS
+        h1.text-light(th:utext="#{main.search-slogan.vin.heading}") FIND AUTOPARTS
         .col-12.col-lg-6.d-none.d-sm-block
-            p.lead.text-light Something short and leading about the collection below—its contents
+            p.lead.text-light(th:utext="#{main.search-slogan.vin.description}") Something short and leading about the collection below—its contents
         ul.nav.nav-tabs.mt-5#myTab(role="tablist")
             li.nav-item.pe-1.pe-md-2(role="presentation")
-                a.nav-link.active.px-md-4#home-tab(href="#home" data-bs-toggle="tab" role="tab" aria-controls="home" aria-selected="true") VIN 
+                a.nav-link.active.px-md-4#home-tab(href="#home" data-bs-toggle="tab" role="tab" aria-controls="home" aria-selected="true")(th:text="#{main_page.vin}") VIN
             li.nav-item.pe-1.pe-md-2(role="presentation")
-                a.nav-link.px-md-4#home-tab(href="#profile" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="true") Car Model 
+                a.nav-link.px-md-4#home-tab(href="#profile" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="true")(th:text="#{main_page.car_model}") Car Model
             li.nav-item.pe-1.pe-md-2(role="presentation")
-                a.nav-link.px-md-4#home-tab(href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="true") Part Number 
+                a.nav-link.px-md-4#home-tab(href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="true")(th:text="#{main_page.car_model}") Part Number
         .tab-content#myTabContent
             .tab-pane.show.active#home(role="tabpanel" aria-labelledby="home-tab")
                 .card.px-3.py-3
-                    form(action="").d-flex
+                    form(action="#" method="get")(th:action="${lang_prefix} + @{/garagevin}").d-flex
                         .input-group
-                            input.form-control(type="text" placeholder="Enter VIN number MRHCP16308P303236" aria-label="Search").me-2
+                            input.form-control(type="text" placeholder="Enter VIN number MRHCP16308P303236" aria-label="Search")(th:placeholder="#{_.placeholder.search-form.vin}").me-2
                         button.btn.btn-primary
                             i.bi.bi-search
             .tab-pane#profile(role="tabpanel" aria-labelledby="profile-tab")
                 .card.px-3.py-3
                     .row
-                        .col.col-6.col-md-3.mb-3.mb-md-0
-                            p.mb-2 Make:
-                            select.form-select(aria-label="Default select example" )
-                                option(selected) Select a make...
-                                option(value="1") One
-                                option(value="1") Two
-                                option(value="1") one
-                        .col.col-6.col-md-3.mb-3.mb-md-0
-                            p.mb-2 Year:
-                            select.form-select(aria-label="Default select example" disabled)
-                                option(selected) Select year...
-                                option(value="1") One
-                                option(value="1") Two
-                                option(value="1") one
-                        .col.col-6.col-md-3
-                            p.mb-2 Model:
-                            select.form-select(aria-label="Default select example" disabled)
-                                option(selected) Select a model...
-                                option(value="1") One
-                                option(value="1") Two
-                                option(value="1") one
-                        .col.col-6.col-md-3
-                            .d-flex.h-100.align-items-end
-                                button.btn.btn-primary.w-100(disabled) Search
+                        form(action="#" method="get")(th:action="${lang_prefix} + @{/models}").d-flex
+                            .col.col-6.col-md-3.mb-3.mb-md-0
+                                p.mb-2 Make:
+                                select.form-select(aria-label="Default select example" )
+                                    option(selected) Select a make...
+                                    option(value="1") One
+                                    option(value="1") Two
+                                    option(value="1") one
+                            .col.col-6.col-md-3.mb-3.mb-md-0
+                                p.mb-2 Year:
+                                select.form-select(aria-label="Default select example" disabled)
+                                    option(selected) Select year...
+                                    option(value="1") One
+                                    option(value="1") Two
+                                    option(value="1") one
+                            .col.col-6.col-md-3
+                                p.mb-2 Model:
+                                select.form-select(aria-label="Default select example" disabled)
+                                    option(selected) Select a model...
+                                    option(value="1") One
+                                    option(value="1") Two
+                                    option(value="1") one
+                            .col.col-6.col-md-3
+                                .d-flex.h-100.align-items-end
+                                    button.btn.btn-primary.w-100(disabled) Search
 
             .tab-pane#contact(role="tabpanel" aria-labelledby="contact-tab")
                 .card.px-3.py-3
-                    form(action="").d-flex
+                    form(action="#" method="get")(th:action="${lang_prefix} + @{/partprice}").d-flex
                         .input-group
-                            input.form-control(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Search").me-2
+                            input.form-control(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Search")(th:placeholder="#{_.placeholder.search-form.partnum}").me-2
                         button.btn.btn-primary
                             i.bi.bi-search
 

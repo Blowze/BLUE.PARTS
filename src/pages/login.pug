@@ -1,5 +1,5 @@
 doctype html
-html.h-100(lang="ru")
+html.h-100(lang="ru")(th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="http://www.thymeleaf.org")
     block head
         head
             meta(charset="utf-8")
@@ -9,10 +9,10 @@ html.h-100(lang="ru")
             link(rel="stylesheet" href="css/style.min.css")
     body.text-center.h-100.d-flex.bg-primary
         main.form-signin.mt-visual
-            em.h4.fw-bold.text-white BLUE.PARTS
+            em.h4.fw-bold.text-white(th:text="#{logo.text}") BLUE.PARTS
             from.card.py-3.px-3.mt-3
-                h1.h5.mb-3.fw-normal Login with
-                button.w-100.btn.btn-primary.mb-2(type="submit") Google
-                button.w-100.btn.btn-primary(type="submit") Line
+                h1.h5.mb-3.fw-normal(th:text="#{login.with}") Login with
+                a.button.w-100.btn.btn-primary.mb-2(type="submit")(th:href="${lang_prefix} + @{/login/oauth2/authorization/google}") Google
+                a.button.w-100.btn.btn-primary(type="submit")(th:href="${lang_prefix} + @{/login/oauth2/authorization/line}") Line
         block scripts
             script(src="js/main.min.js")

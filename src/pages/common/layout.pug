@@ -1,5 +1,5 @@
 doctype html
-html(lang="ru").h-100
+html(lang="ru")(th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="http://www.thymeleaf.org").h-100
     block head
         head
             meta(charset="utf-8")
@@ -23,40 +23,40 @@ html(lang="ru").h-100
                     .modal-body
                         ul.nav
                             li.border-bottom.nav-item.py-3.w-100.pb-4
-                                span.d-block Алексей Крайнов
-                                span.fs-7.d-block.text-secondary krainovlife@gmail.com
+                                span.d-block(sec:authentication="principal.username") Алексей Крайнов
+                                span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
                             li.w-100.py-2
-                                .d-flex.align-items-center 
+                                .d-flex.align-items-center
                                     i.bi.bi-person.fs-5.me-2
                                     span.d-block Client details
                             li.w-100.py-2
-                                .d-flex.align-items-center 
+                                .d-flex.align-items-center
                                     i.bi.bi-box-arrow-up-right.fs-5.me-2
                                     span.d-block Generate invitation
                             li.w-100.py-2
-                                .d-flex.align-items-center 
+                                .d-flex.align-items-center
                                     div.d-flex.align-items-center.w-100
                                         i.bi.bi-cart2.fs-5.me-2
                                         span.d-block My cart
                                     span.badge.bg-danger 1
                             li.w-100.py-2
-                                .d-flex.align-items-center 
+                                .d-flex.align-items-center
                                     div.d-flex.align-items-center.w-100
                                         i.bi.bi-shop.fs-5.me-2
                                         span.d-block Garage
                                     span.badge.bg-danger 1
-                            
+
                             li.w-100.py-2
-                                .d-flex.align-items-center 
+                                .d-flex.align-items-center
                                     i.bi.bi-box.fs-5.me-2
                                     span.d-block Orders
-                            
+
                             li.w-100.py-2
-                                .d-flex.align-items-center 
+                                .d-flex.align-items-center
                                     i.bi.bi-gear.fs-5.me-2
                                     span.d-block Settings
                             li.w-100.py-2
-                                .d-flex.align-items-center 
+                                .d-flex.align-items-center
                                     i.bi.bi-box-arrow-in-right.fs-5.me-2
                                     span.d-block Logout
-                                
+
