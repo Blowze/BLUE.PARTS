@@ -3,23 +3,23 @@ div.h-100.d-flex.align-items-center.home
         h1.text-light FIND AUTOPARTS
         .col-12.col-lg-6.d-none.d-sm-block
             p.lead.text-light Something short and leading about the collection below—its contents
-        ul.nav.nav-tabs.mt-5#myTab(role="tablist")
+        ul.nav.nav-tabs.border-0.mt-5#myTab(role="tablist")
             li.nav-item.pe-1.pe-md-2(role="presentation")
-                a.nav-link.active.px-md-4#home-tab(href="#home" data-bs-toggle="tab" role="tab" aria-controls="home" aria-selected="true") VIN 
+                a.nav-link.search-main-link.border-0.active.px-md-4#home-tab(href="#home" data-bs-toggle="tab" role="tab" aria-controls="home" aria-selected="true") VIN 
             li.nav-item.pe-1.pe-md-2(role="presentation")
-                a.nav-link.px-md-4#home-tab(href="#profile" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="true") Car Model 
+                a.nav-link.search-main-link.border-0.px-md-4#home-tab(href="#profile" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="true") Car Model 
             li.nav-item.pe-1.pe-md-2(role="presentation")
-                a.nav-link.px-md-4#home-tab(href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="true") Part Number 
+                a.nav-link.search-main-link.border-0.px-md-4#home-tab(href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="true") Part Number 
         .tab-content#myTabContent
             .tab-pane.show.active#home(role="tabpanel" aria-labelledby="home-tab")
-                .card.px-3.py-3
+                .card.px-3.py-3.border-0.search-main-card
                     form(action="").d-flex
                         .input-group
                             input.form-control(type="text" placeholder="Enter VIN number MRHCP16308P303236" aria-label="Search").me-2
                         button.btn.btn-primary
                             i.bi.bi-search
             .tab-pane#profile(role="tabpanel" aria-labelledby="profile-tab")
-                .card.px-3.py-3
+                .card.px-3.py-3.border-0.search-main-card
                     .row
                         .col.col-6.col-md-3.mb-3.mb-md-0
                             p.mb-2 Make:
@@ -47,7 +47,7 @@ div.h-100.d-flex.align-items-center.home
                                 button.btn.btn-primary.w-100(disabled) Search
 
             .tab-pane#contact(role="tabpanel" aria-labelledby="contact-tab")
-                .card.px-3.py-3
+                .card.px-3.py-3.border-0.search-main-card
                     form(action="").d-flex
                         .input-group
                             input.form-control(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Search").me-2

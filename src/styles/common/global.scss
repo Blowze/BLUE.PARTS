@@ -1,57 +1,81 @@
 @import "../utils/variables";
 
 // Required
-@import "../../../node_modules/bootstrap/scss/bootstrap-utilities.scss";
-@import "../../../node_modules/bootstrap/scss/bootstrap-reboot.scss";
-@import "../../../node_modules/bootstrap/scss/bootstrap-grid.scss";
+
+@import "../../../node_modules/bootstrap/scss/bootstrap-utilities";
+
+@import "../../../node_modules/bootstrap/scss/bootstrap-reboot";
+
+@import "../../../node_modules/bootstrap/scss/bootstrap-grid";
+
 @import "../../../node_modules/bootstrap/scss/helpers";
 
 // Optional
+
 @import "../../../node_modules/bootstrap/scss/reboot";
+
 @import "../../../node_modules/bootstrap/scss/type";
+
 @import "../../../node_modules/bootstrap/scss/buttons";
+
 @import "../../../node_modules/bootstrap/scss/navbar";
+
 @import "../../../node_modules/bootstrap/scss/nav";
+
 @import "../../../node_modules/bootstrap/scss/containers";
+
 @import "../../../node_modules/bootstrap/scss/modal";
+
 @import "../../../node_modules/bootstrap/scss/transitions";
+
 @import "../../../node_modules/bootstrap/scss/close";
+
 @import "../../../node_modules/bootstrap/scss/forms";
+
 @import "../../../node_modules/bootstrap/scss/card";
+
 @import "../../../node_modules/bootstrap/scss/grid";
+
 @import "../../../node_modules/bootstrap/scss/dropdown";
+
 @import "../../../node_modules/bootstrap/scss/tooltip";
+
 @import "../../../node_modules/bootstrap/scss/badge";
+
 @import "../../../node_modules/bootstrap/scss/breadcrumb";
+
 @import "../../../node_modules/bootstrap/scss/pagination";
+
 @import "../../../node_modules/bootstrap/scss/list-group";
+
 @import "../../../node_modules/bootstrap/scss/tables";
 
-
 @import "../../../node_modules/bootstrap/scss/root";
-@import "../common/icons.scss";
 
+@import "../common/icons";
 
 //Custom
 
-.btn{
+.btn {
   z-index: 10;
 }
-.fs-7{
+
+.fs-7 {
   font-size: 12px;
 }
-hr{
+
+hr {
   opacity: 1;
   background: #ced4da;
 }
 
-.mt-visual{
-  transform: translateY(-15%)
+.mt-visual {
+  transform: translateY(-15%);
 }
-.sticky-top { top: 0.5em; }
 
-
-
+.sticky-top {
+  top: 0.5em;
+}
 
 //login
 .form-signin {
@@ -62,23 +86,18 @@ hr{
 }
 
 //home
-.home {
-  .nav-link {
-    border: none;
-    background: rgba(255, 255, 255, 0.5);
+.search-main-card {
+  border-top-left-radius: 0 !important;
+}
 
-    &.active {
-      background: var(--bs-light);
-    } 
-  }
-  .nav-tabs {
-    border: none;
-  }
-  .card {
-    border: none;
-    border-top-left-radius: 0 !important;
+.search-main-link {
+  background: rgba(255, 255, 255, 0.5);
+
+  &.active {
+    background: var(--bs-light);
   }
 }
+
 
 //header
 .search .form-select {
@@ -95,7 +114,7 @@ hr{
 .badge-basket {
   font-size: 10px;
   line-height: 18px;
-  top: 0px;
+  top: 0;
   left: calc(100% - 10px);
   padding: 0 4px;
   min-width: 18px;
@@ -114,7 +133,7 @@ hr{
 //table
 table.dataTable {
   border: 1px solid #dee2e6 !important;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
 
 .dataTables_length label,
@@ -136,14 +155,13 @@ table.dataTable {
   display: block;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-  padding: 0;
-  margin: 0;
+.dataTables_wrapper .paginate_button {
+  padding: 0 !important;
+  margin: 0 !important;
   border: none !important;
 }
 
-.table>:not(:last-child)>:last-child>* {
-  background-image: none;
+.table > :not(:last-child) > :last-child > * {
   font-weight: 500;
   background: #dee2e6;
   text-transform: capitalize;
@@ -151,7 +169,7 @@ table.dataTable {
 
 .dataTables_wrapper .dataTables_filter input,
 .dataTables_wrapper .dataTables_length select {
-  border: 1px solid #ced4da
+  border: 1px solid #ced4da;
 }
 
 table.dataTable tbody th,
@@ -165,16 +183,10 @@ table.dataTable thead td {
   border: none;
 }
 
-table.dataTable.dtr-inline.collapsed tbody td:first-child:before,
-table.dataTable.dtr-inline.collapsed tbody th:first-child:before {
-  top: 11px;
-  left: 10px;
-  transform: scale(.8);
-}
-
-table.dataTable.dtr-inline.collapsed tbody td:first-child,
-table.dataTable.dtr-inline.collapsed tbody th:first-child {
-  padding-left: 40px;
+.dtr-control::before {
+  top: 11px !important;
+  left: 10px !important;
+  transform: scale(0.8);
 }
 
 table.dataTable tr.child ul li span {
@@ -189,44 +201,35 @@ table.dataTable tr.child ul li span {
   opacity: 1;
 }
 
-#myTableSearch_wrapper .dataTables_filter {
-  display: none !important;
-}
-
 //modal
-.modal.modal-right {
+.modal-right {
   padding-right: 0 !important;
 }
 
-.modal.modal-right .modal-dialog {
+.modal-right .modal-dialog {
   margin: 0 0 0 auto;
-  transform: translate(100%);
+  transform: translate(100%) !important;
 }
 
-.modal.modal-left.show .modal-dialog,
-.modal.modal-right.show .modal-dialog {
-  transform: translate(0);
+.show {
+  .modal-dialog {
+    transform: translate(0) !important;
+  }
 }
 
-.modal.modal-left .modal-dialog,
-.modal.modal-right .modal-dialog {
-  max-width: calc(100vw - 52px);
+.modal-left .modal-dialog,
+.modal-right .modal-dialog {
+  max-width: calc(100% - 52px);
   min-height: 100vh;
 }
 
-.modal.modal-left .modal-content,
-.modal.modal-right .modal-content {
+.modal-left .modal-content,
+.modal-right .modal-content {
   overflow-x: hidden;
   overflow-y: auto;
   height: 100vh;
   border-radius: 0;
 }
-
-// .add-table{
-//   width: 25px;
-//   height: 25px;
-//   line-height: 25px;
-// }
 
 //garadge
 .main-val-card {

@@ -2,3 +2,4 @@ build
 gulpfiles.js
 
 /gulp
+/src/js/lib
