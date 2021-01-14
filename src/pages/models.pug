@@ -1,30 +1,30 @@
 extends components/common/layout
 
 block header
-    include components/common/header/header-inner
+  include components/common/header/header-inner
 block content
-    main.main.pt-3.pt-md-5
-      .container
-        h1 List of modifications for MAZDA MAZDA3 2014
-        include components/common/breadcrumb
-        p.lead.mb-5.d-none.d-md-block On this page you can select modification of your MAZDA MAZDA3   car. You can see engine name, chassis type, body, transmission, and region of origin of the vehicle. Select the required parameters and follow the link to see more detailed information about the model.
-        hr.mb-1.mt-1
-        table#modelsTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
-          thead
+  main.main.pt-3.pt-md-5
+    .container
+      h1 List of modifications for MAZDA MAZDA3 2014
+      include components/common/breadcrumb
+      p.lead.mb-5.d-none.d-md-block On this page you can select modification of your MAZDA MAZDA3   car. You can see engine name, chassis type, body, transmission, and region of origin of the vehicle. Select the required parameters and follow the link to see more detailed information about the model.
+      hr.mb-1.mt-1
+      table#modelsTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th code
+            th Years
+            th Engine Type
+            th Transmission
+            th body
+            th Region
+        tbody
+          -for (var x = 0; x < 30; x++)
             tr
-              th code
-              th Years
-              th Engine Type
-              th Transmission
-              th body
-              th Region
-          tbody
-            -for (var x = 0; x < 30; x++)
-              tr
-                td BADM 
-                td 2014
-                td 
-                  a(href="") 2000 GASOLINE
-                td AUTOMATIC TRANSMISSION 6-SPEED
-                td SEDAN 4-DOOR
-                td TH
+              td BADM 
+              td 2014
+              td 
+                a(href="") 2000 GASOLINE
+              td AUTOMATIC TRANSMISSION 6-SPEED
+              td SEDAN 4-DOOR
+              td TH

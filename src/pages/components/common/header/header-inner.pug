@@ -1,34 +1,34 @@
 header.w-100
   .navbar.navbar-expand-lg.bg-dark.py-1
     .container
-        ul.nav.ms-auto.fs-7
-          li.nav-item.dropdown
-            a(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false").nav-link.link-light.px-3.py-0.dropdown-toggle#navbarDarkDropdownMenuLink Language
-            ul.dropdown-menu(aria-labelledby="navbarDarkDropdownMenuLink")
-              li
-                a(href="").dropdown-item English
-              li
-                a(href="").dropdown-item ไทย
-          li.nav-item
-            a(href="#").nav-link.link-light.px-3.py-0  Company
-          li.nav-item
-            a(href="#").nav-link.link-light.px-3.py-0.pe-0 Help
+      ul.nav.ms-auto.fs-7
+        li.nav-item.dropdown
+          a(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false").nav-link.link-light.px-3.py-0.dropdown-toggle#navbarDarkDropdownMenuLink Language
+          ul.dropdown-menu(aria-labelledby="navbarDarkDropdownMenuLink")
+            li
+              a(href="").dropdown-item English
+            li
+              a(href="").dropdown-item ไทย
+        li.nav-item
+          a(href="#").nav-link.link-light.px-3.py-0  Company
+        li.nav-item
+          a(href="#").nav-link.link-light.px-3.py-0.pe-0 Help
   .py-0.py-md-2.bg-primary
     .navbar.navbar-expand-lg
       .container.d-block
-        .row.align-items-center 
+        .row.align-items-center
           .col-6.col-lg-3
             a.navbar-brand.me-auto(href="/")
-              em.h5.fw-bold.text-white BLUE.PARTS
+              em.h5.fw-bold.text-white(th:text="#{logo.text}") BLUE.PARTS
           .col-6.d-none.d-lg-block
             .d-flex.position-relative.search
               select.form-select(aria-label="Default select example" ).w-auto.pe-5.fs-7
-                option(selected) Part Number
-                option(value="1") Vin
+                option(selected th:text="#{main_page.car_model}") Part Number
+                option(value="1" th:text="#{main_page.vin}") VIN
               .input-group
-                input(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Amount (to the nearest dollar)").form-control.pe-5.fs-7.py-2
+                input(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Amount (to the nearest dollar)" th:placeholder="#{_.placeholder.search-form.vin}").form-control.pe-5.fs-7.py-2
               button.btn.btn-primary.btn-sm.position-absolute.top-50.translate-middle-y.end-0.me-1
-                i.bi.bi-search  
+                i.bi.bi-search
           .col-6.col-lg-3
             .d-flex.justify-content-end
               a(href="/").me-5.position-relative.d-none.d-md-block
@@ -49,21 +49,21 @@ header.w-100
                 ul.dropdown-menu.pt-0.me-2(aria-labelledby="dropdownMenu2")
                   li.py-1
                     a.dropdown-item
-                      span.d-block Алексей Крайнов
-                      span.fs-7.d-block.text-secondary krainovlife@gmail.com
+                      span.d-block(sec:authentication="principal.username") Алексей Крайнов
+                      span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
                   li.border-top
                     a.dropdown-item
-                      .d-flex.align-items-center 
+                      .d-flex.align-items-center
                         i.bi.bi-person.fs-5.me-2
                         span.d-block Client details
                   li
                     a.dropdown-item
-                      .d-flex.align-items-center 
+                      .d-flex.align-items-center
                         i.bi.bi-box-arrow-up-right.fs-5.me-2
                         span.d-block Generate invitation
                   li
                     a.dropdown-item
-                      .d-flex.align-items-center 
+                      .d-flex.align-items-center
                         div.d-flex.align-items-center.w-100
                           i.bi.bi-cart2.fs-5.me-2
                           span.d-block My cart
@@ -71,31 +71,30 @@ header.w-100
 
                   li
                     a.dropdown-item
-                      .d-flex.align-items-center 
+                      .d-flex.align-items-center
                         div.d-flex.align-items-center.w-100
                           i.bi.bi-shop.fs-5.me-2
                           span.d-block Garage
                         span.badge.bg-danger 1
-                  
+
                   li
                     a.dropdown-item
-                      .d-flex.align-items-center 
+                      .d-flex.align-items-center
                         i.bi.bi-box.fs-5.me-2
                         span.d-block Orders
-                  
+
                   li
                     a.dropdown-item
-                      .d-flex.align-items-center 
+                      .d-flex.align-items-center
                         i.bi.bi-gear.fs-5.me-2
                         span.d-block Settings
                   li
                     a.dropdown-item
-                      .d-flex.align-items-center 
+                      .d-flex.align-items-center
                         i.bi.bi-box-arrow-in-right.fs-5.me-2
                         span.d-block Logout
 
-                        
 
-  
 
-          
+
+

@@ -1,5 +1,5 @@
+/**/*.min.js
 build
 gulpfiles.js
-
 /gulp
 /src/js/lib
