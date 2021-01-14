@@ -1,107 +1,15 @@
-extends common/layout
+extends components/common/layout
 
 block header
-    include common/header-inner
+    include components/common/header/header-inner
 block content
     main.main.pt-3.pt-md-5
       .container
         h1 MAZDA MAZDA3 2014
-        nav.breadcrumb(aria-label="breadcrumb")
-          ol.breadcrumb.fs-7
-            li.breadcrumb-item
-              a(href="/") blue.parts
-            li.breadcrumb-item
-              a(href="/") MODELS MAZDA MAZDA3
-            li.breadcrumb-item.active(aria-current="page")  MAZDA MAZDA3 2014 
+        include components/common/breadcrumb
         .row
             .col.col-12.col-md-4.col-lg-3
-              .sticky-md-top
-                img.card-img(src="https://auto.vercity.ru/img/magazine/old/40817.jpg")
-                a.btn.btn-primary.d-block.mt-3(href="#") Add to garage
-                a.btn.btn-danger.d-block.mt-2(href="#") Remove to garage
-
-                hr.mt-3.mb-4
-                .list-group.mt-3.bg-white.mb-3
-                    a.list-group-item.list-group-item-action(href="#") Tool/Engine/Fuel
-                    a.list-group-item.list-group-item-action(href="#") Power Train/Chassis
-                    a.list-group-item.list-group-item-action(href="#") Body Parts
-                    a.list-group-item.list-group-item-action(href="#") Electrical
+              include components/garagemodel/sidebar
             .col.col-12.col-md-8.col-lg-9
-              .row.mb-4.mt-4.mt-md-0
-                .col.col-12.col-lg-4
-                  .d-flex.align-items-center.mb-3
-                    .d-block
-                      .fs-7.d-block.text-secondary VIN
-                      span.d-block.fw-bold 123123123
-                  hr
-                  .d-flex.align-items-center.mb-3
-                    .d-block
-                      .fs-7.d-block.text-secondary Doors Number
-                      span.d-block.fw-bold type
-                  hr
-                  .d-flex.align-items-center.mb-3
-                    .d-block
-                      .fs-7.d-block.text-secondary Frame Type:
-                      span.d-block.fw-bold ZWA10
-                  hr
-                  .d-flex.align-items-center
-                    .d-block
-                      .fs-7.d-block.text-secondary Fuel Type:
-                      span.d-block.fw-bold Petrol
-                
-                .col.col-12.col-lg-4
-                  .d-flex.align-items-center.mb-3
-                    .d-block
-                      .fs-7.d-block.text-secondary Tyres Size:
-                      span.d-block.fw-bold 195/65 R15 91V
-                  hr
-                  .d-flex.align-items-center.mb-3
-                    .d-block
-                      .fs-7.d-block.text-secondary Motor Oil: 
-                      span.d-block.fw-bold 10w40
-                  hr
-                  .d-flex.align-items-center.mb-3
-                    .d-block
-                      .fs-7.d-block.text-secondary Chassis Code
-                      span.d-block.fw-bold ZWA10L-AHXBBC
-                  hr
-                  .d-flex.align-items-center.mb-3
-                    .d-block
-                      .fs-7.d-block.text-secondary Engine Code
-                      span.d-block.fw-bold 5ZRFXE;1800CC 16-VALVE DOHC EFI
-                .col.col-12.col-lg-4
-                  .d-flex.align-items-center.mb-3
-                    .d-block
-                      .fs-7.d-block.text-secondary Engine №:
-                      span.d-block.fw-bold type
-                  hr
-                  .d-flex.align-items-center
-                    .d-block
-                      .fs-7.d-block.text-secondary Transmission Type:
-                      span.d-block.fw-bold CONTINUOUSLY VARIABLE TRANSMISSION
-              h2 Search by part name
-              p To search for the necessary part, enter several keywords or parts of words into the string, usually two is enough, for example: "spark plug", "brake disk". The search will be performed only among the parts applied to the vehicle of your choice. If no matching parts were found for your search, reduce the number of keywords - leave the most common ones, for example: "spark", "brake". If the result is too large, you can filter the list by entering an additional value (a word or part of it) in the search field above the list, or add the word to the original query.
-              .input-group.mt-4.mb-2
-                input.form-control(placeholder="Enter spare part name...")
-                button.btn.btn-primary
-                  i.bi.bi-search
-              table#myTableSearch.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
-                thead
-                  tr
-                  th code
-                  th Years
-                  th Engine Type
-                  th Transmission
-                  th body
-                  th Region
-                tbody
-                  - for (var x = 0; x < 30; x++)
-                    tr
-                      td BADM
-                      td 2014
-                      td=x 
-                        a(href="") 2000 GASOLINE
-                      td AUTOMATIC TRANSMISSION 6-SPEED
-                      td SEDAN 4-DOOR
-                      td TH
-                      
+              include components/garagemodel/description
+              include components/garagemodel/search

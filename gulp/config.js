@@ -7,17 +7,6 @@ module.exports = {
   root,
   src,
   buildPath: path.join(root, '/build'),
-  build: {
-    base: "../src/main/resources/static/",
-    html: "../src/main/webapp/WEB-INF/templates/",
-    fonts: "../src/main/resources/static/fonts/",
-    img: "../src/main/resources/static/img/",
-    js: "../src/main/resources/static/js/",
-    css: "../src/main/resources/static/css/",
-    temp: "../src/main/resources/static/temp/",
-    favicon: "../src/main/resources/static/favicon/",
-    messages: "../src/main/resources/i18n/messages.properties"
-  },
   pug2html: {
     beautifyHtml: false
   },

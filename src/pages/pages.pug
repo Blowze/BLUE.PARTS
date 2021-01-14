@@ -1,0 +1,24 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  main.main.h-100.bg-primary
+    .container.pt-3
+      .card
+        .card-header.py-3
+          .fs-7.d-block.text-secondary Cписок страниц
+        .card-body
+          .row
+            .col-lg-3
+              a.d-block.fw-bold.page-link.rounded(href="/index.html" target="_blank") Main
+            .col-lg-3
+              a.d-block.fw-bold.page-link.rounded(href="/login.html" target="_blank")  Login
+            .col-lg-3 
+              a.d-block.fw-bold.page-link.rounded(href="/Garagemodel.html" target="_blank")  Garagemodel
+            .col-lg-3
+              a.d-block.fw-bold.page-link.rounded(href="/models.html" target="_blank")  Models
+            .col-12
+              hr
+            .col-lg-3
+              a.d-block.fw-bold.page-link.rounded(href="/modelunits.html" target="_blank") Modelunits

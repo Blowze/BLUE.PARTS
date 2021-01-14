@@ -19,8 +19,9 @@ function setMode(isProduction = false) {
 
 const dev = gulp.parallel(pug2html, styles, script, fonts, imageMinify, svgSprite)
 
-module.exports.start = gulp.series(setMode(), dev, serve)
-module.exports.build = gulp.series(setMode(true), dev)
-module.exports.clean = clean
+const build = gulp.series(clean, dev)
+
+module.exports.start = gulp.series(setMode(), build, serve)
+module.exports.build = gulp.series(setMode(true), build)
 
 module.exports.lighthouse = gulp.series(lighthouse)
