@@ -9,7 +9,7 @@ block content
         span
           h2 Order #210114-0001
           span.text-secondary 14/1/2021 19:11:33
-        .badge.bg-success.fs-6 
+        .badge.bg-success.fs-6
           span.px-3 SHIPPING
       hr
       .card.bg-light.border-0.mb-4
@@ -40,8 +40,8 @@ block content
                   .mb-1.fs-7 Discount: 78580.80 THB
                   .mb-1.fs-7 Sub Total: 78580.80 THB
                   hr.mb-2
-                  .mb-1 
-                    span.fw-bold Total: 
+                  .mb-1
+                    span.fw-bold Total:
                     span 78580.80 THB
             .col-12
               hr
@@ -50,10 +50,10 @@ block content
               a.btn.btn-outline-danger.mt-2 Cancel
 
       hr
-      a(data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample") 
+      a(data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample")
         | Шаблон не оплаченно
       hr
-      .collapse#collapseExample
+      #collapseExample.collapse
         .card.bg-light.border-0.mb-4
           .card-body.py-4
             .row
@@ -96,7 +96,7 @@ block content
                 hr
               .col-12
                 a.btn.btn-outline-danger.mt-2 Cancel
-      h5.mb-4 Product list 
+      h5.mb-4 Product list
       table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
         thead
           tr
@@ -108,10 +108,9 @@ block content
         tbody
           -for (var x = 0; x < 30; x++)
             tr
-              td 3570533030 
+              td 3570533030
               td GEAR SUB-ASSY,  COUNTER DRIVEN
               td 3
               td 26193.60 THB
-              td 
+              td
                 .badge.bg-danger RETURNED_TO_CARMAN
-                
