@@ -5,70 +5,113 @@ block header
 block content
   main.main.pt-3.pt-md-5
     .container
-      h2 Active orders
+      .d-flex.justify-content-between.align-items-center
+        span
+          h2 Order #210114-0001
+          span.text-secondary 14/1/2021 19:11:33
+        .badge.bg-success.fs-6 
+          span.px-3 SHIPPING
       hr
-      .row.mt-3
-        
-        .col-12.col-md-9
+      .card.bg-light.border-0.mb-4
+        .card-body.py-4
           .row
-            .col-4.mb-4
-              .card
-                .card-header.d-flex.justify-content-between.align-items-center
-                  a.fw-bold(href="#") #210114-0001
-                  .badge.bg-danger.rounded-pill Walting
-                .card-body.d-flex.justify-content-between.align-items-center
-                  .card-text.text-secondary.fs-7 14/1/2021 19:11:33
-                  .card-text.fs-7.fw-bold 78580.80 THB
-            .col-4.mb-4
-              .card
-                .card-header.d-flex.justify-content-between.align-items-center
-                  a.fw-bold(href="#") #210114-0001
-                  .badge.bg-primary.rounded-pill Walting
-                .card-body.d-flex.justify-content-between.align-items-center
-                  .card-text.text-secondary.fs-7 14/1/2021 19:11:33
-                  .card-text.fs-7.fw-bold 78580.80 THB
-            .col-4.mb-4
-              .card
-                .card-header.d-flex.justify-content-between.align-items-center
-                  a.fw-bold(href="#") #210114-0001
-                  .badge.bg-secondary.rounded-pill Walting
-                .card-body.d-flex.justify-content-between.align-items-center
-                  .card-text.text-secondary.fs-7 14/1/2021 19:11:33
-                  .card-text.fs-7.fw-bold 78580.80 THB
-            .col-4.mb-4
-              .card
-                .card-header.d-flex.justify-content-between.align-items-center
-                  a.fw-bold(href="#") #210114-0001
-                  .badge.bg-success.rounded-pill Walting
-                .card-body.d-flex.justify-content-between.align-items-center
-                  .card-text.text-secondary.fs-7 14/1/2021 19:11:33
-                  .card-text.fs-7.fw-bold 78580.80 THB
-            .col-4.mb-4
-              .card
-                .card-header.d-flex.justify-content-between.align-items-center
-                  a.fw-bold(href="#") #210114-0001
-                  .badge.bg-warning.rounded-pill.text-dark Walting
-                .card-body.d-flex.justify-content-between.align-items-center
-                  .card-text.text-secondary.fs-7 14/1/2021 19:11:33
-                  .card-text.fs-7.fw-bold 78580.80 THB
-            .col-4.mb-4
-              .card
-                .card-header.d-flex.justify-content-between.align-items-center
-                  a.fw-bold(href="#") #210114-0001
-                  .badge.bg-info.rounded-pill.text-dark Walting
-                .card-body.d-flex.justify-content-between.align-items-center
-                  .card-text.text-secondary.fs-7 14/1/2021 19:11:33
-                  .card-text.fs-7.fw-bold 78580.80 THB
-            .col-4.mb-4
-              .card
-                .card-header.d-flex.justify-content-between.align-items-center
-                  a.fw-bold(href="#") #210114-0001
-                  .badge.bg-dark.rounded-pill Walting
-                .card-body.d-flex.justify-content-between.align-items-center
-                  .card-text.text-secondary.fs-7 14/1/2021 19:11:33
-                  .card-text.fs-7.fw-bold 78580.80 THB
-        .col.col-3.d-none.d-lg-block
-          .list-group.sticky-md-top.top-1
-            a.list-group-item.list-group-item-action.active(href="/order.html") Active orders
-            a.list-group-item.list-group-item-action(href="/order-history.html") Order history
-            a.list-group-item.list-group-item-action(href="#") Logout
+            .col-4
+              .d-flex
+                i.bi.bi-check2-circle.fs-3
+                .ms-3.mt-2
+                  .fw-bold.mb-1 Recipient
+                  .mb-1 Алексей Крайнов
+                  .mb-1 krainoff.alesha@yandex.ru
+                  .mb-1 79117654321
+            .col-4
+              .d-flex
+                i.bi.bi-check2-circle.fs-3
+                .ms-3.mt-2
+                  .fw-bold.mb-1 Delivery
+                  .mb-1 RAMA V, BANG KRASO, MUEANG NONTHABURI, NONTHABURI, 11000
+            .col-4
+              .d-flex
+                i.bi.bi-check2-circle.fs-3
+                .ms-3.mt-2
+                  .fw-bold.mb-1 Amount
+                  .mb-1.fs-7 Items: 78580.80 THB
+                  .mb-1.fs-7 Delivery fee: 78580.80 THB
+                  .mb-1.fs-7 Handling fee: 78580.80 THB
+                  .mb-1.fs-7 Discount: 78580.80 THB
+                  .mb-1.fs-7 Sub Total: 78580.80 THB
+                  hr.mb-2
+                  .mb-1 
+                    span.fw-bold Total: 
+                    span 78580.80 THB
+            .col-12
+              hr
+            .col-12
+              a.btn.btn-outline-primary.mt-2.me-3 Download invoice
+              a.btn.btn-outline-danger.mt-2 Cancel
+
+      hr
+      a(data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample") 
+        | Шаблон не оплаченно
+      hr
+      .collapse#collapseExample
+        .card.bg-light.border-0.mb-4
+          .card-body.py-4
+            .row
+              .col-4
+                .d-flex
+                  i.bi.bi-check2-circle.fs-3
+                  .ms-3.mt-2
+                    .fw-bold.mb-1 Recipient
+                    .mb-1 Алексей Крайнов
+                    .mb-1 krainoff.alesha@yandex.ru
+                    .mb-1 79117654321
+              .col-4
+                .d-flex
+                  i.bi.bi-check2-circle.fs-3
+                  .ms-3.mt-2
+                    .fw-bold.mb-1 Delivery
+                    .mb-1 RAMA V, BANG KRASO, MUEANG NONTHABURI, NONTHABURI, 11000
+              .col-4
+                .card
+                  .card-body
+                    .fw-bold.mb-3 Pay now by:
+                    .d-flex.gap-2
+                      .card.card-delivery.w-100
+                        .card-body.px-2.py-2
+                          .form-check.mb-0.user-dropdown.px-0
+                            i.bi.bi-credit-card-2-front.fs-2
+                            .fs-7 Delivery THB, +.0%
+                      .card.card-delivery.border-primary.w-100
+                        .card-body.px-2.py-2
+                          .form-check.mb-0.user-dropdown.px-0
+                            i.bi.bi-credit-card-fill.fs-2
+                            .fs-7 Paypal, +3.4%
+                      .card.card-delivery.w-100
+                        .card-body.px-2.py-2
+                          .form-check.mb-0.user-dropdown.px-0
+                            i.bi.bi-credit-card.fs-2
+                            .fs-7 Delivery THB, +.0%
+                    a.btn.btn-primary.btn-sm.mt-3(href="#") Place
+              .col-12
+                hr
+              .col-12
+                a.btn.btn-outline-danger.mt-2 Cancel
+      h5.mb-4 Product list 
+      table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th Part Number
+            th Description
+            th qty
+            th Price
+            th Status
+        tbody
+          -for (var x = 0; x < 30; x++)
+            tr
+              td 3570533030 
+              td GEAR SUB-ASSY,  COUNTER DRIVEN
+              td 3
+              td 26193.60 THB
+              td 
+                .badge.bg-danger RETURNED_TO_CARMAN
+                
