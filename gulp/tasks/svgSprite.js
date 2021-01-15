@@ -1,6 +1,7 @@
 const gulp = require('gulp')
 const svgstore = require('gulp-svgstore')
 const rename = require('gulp-rename')
+const config = require('../config')
 
 module.exports = function svgSprite() {
   return gulp.src('source/img/sprite/*.svg')
@@ -8,6 +9,6 @@ module.exports = function svgSprite() {
       inlineSvg: true
     }))
     .pipe(rename('sprite.svg'))
-    .pipe(gulp.dest('build/img'))
+    .pipe(gulp.dest(config.resolvePath('build/img')))
 }
 
