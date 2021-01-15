@@ -77,6 +77,10 @@ hr {
   top: 0.5em;
 }
 
+.top-1{
+  top: 10px;
+}
+
 //login
 .form-signin {
   width: 100%;
@@ -234,4 +238,8 @@ table.dataTable tr.child ul li span {
 //garadge
 .main-val-card {
   min-width: 122px;
+}
+
+.form-check-input:checked[type=radio]{
+  background: #0d6efd !important;
 }

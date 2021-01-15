@@ -48,11 +48,11 @@ header.w-100
                   i.bi.bi-person-circle.text-light.fs-3
                 ul.dropdown-menu.pt-0.me-2(aria-labelledby="dropdownMenu2")
                   li.py-1
-                    a.dropdown-item
+                    a.dropdown-item(href="/profile-me.html")
                       span.d-block(sec:authentication="principal.username") Алексей Крайнов
                       span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
                   li.border-top
-                    a.dropdown-item
+                    a.dropdown-item(href="/profile-client.html")
                       .d-flex.align-items-center
                         i.bi.bi-person.fs-5.me-2
                         span.d-block Client details
@@ -93,8 +93,3 @@ header.w-100
                       .d-flex.align-items-center
                         i.bi.bi-box-arrow-in-right.fs-5.me-2
                         span.d-block Logout
-
-
-
-
-

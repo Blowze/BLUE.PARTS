@@ -2,6 +2,7 @@ import $ from 'jquery'
 import {
   Tooltip
 } from '../../node_modules/bootstrap/dist/js/bootstrap.esm'
+import Inputmask from "inputmask"
 require(`@popperjs/core`)
 require(`bootstrap`)
 require(`datatables`)
@@ -33,5 +34,9 @@ $(document).ready(() => {
     responsive: true,
     searching: false
   })
-
+  Inputmask(`99-999-99`).mask(`.phone-mask`)
+  $(`.card-delivery .form-check`).click(function () {
+    $(`.card-delivery`).removeClass(`border-primary`)
+    $(this).parent().parent().addClass(`border-primary`)
+  });
 })
