@@ -10,10 +10,12 @@
         "htmlacademy/es6"
       ],
       "rules": {
+        "no-invalid-this": "off",
         "indent": [
           "error",
           2
         ],
+        
         "semi": [
           "error",
           "never"

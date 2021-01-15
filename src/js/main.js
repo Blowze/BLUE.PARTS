@@ -38,5 +38,5 @@ $(document).ready(() => {
   $(`.card-delivery .form-check`).click(function () {
     $(`.card-delivery`).removeClass(`border-primary`)
     $(this).parent().parent().addClass(`border-primary`)
-  });
+  })
 })
