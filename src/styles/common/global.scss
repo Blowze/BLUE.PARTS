@@ -243,3 +243,23 @@ table.dataTable tr.child ul li span {
 .form-check-input:checked {
   background: #0d6efd !important;
 }
+
+.basket--count{
+  opacity: 0;
+  transition: all .3s;
+  width: 100%;
+  max-width: 0;
+  &.show{
+    opacity: 1;
+    width: 100%;
+    max-width: 100%;
+  }
+  input{
+    border: none;
+    height: 28px;
+    max-width: 30px;
+    text-align: center;
+    margin-left: 10px;
+    border-radius: 3px;
+  }
+}

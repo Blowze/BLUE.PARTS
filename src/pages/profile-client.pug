@@ -57,11 +57,6 @@ block content
       h2 Client details
       hr
       .row.mt-3
-        .col.col-3.d-none.d-lg-block
-          .list-group.sticky-md-top.top-1
-            a.list-group-item.list-group-item-action(href="/profile-me.html") User details
-            a.list-group-item.list-group-item-action.active(href="/profile-client.html") Client details
-            a.list-group-item.list-group-item-action(href="#") Logout
         .col.col-12.col-md-6
           form#userMe.needs-validation(novalidate)
             .row
@@ -90,8 +85,28 @@ block content
                     option(selected) Select a language...
                     option(value="1") English
                     option(value="1") ไทย
-        .col-12.col-lg-9.offset-0.offset-lg-3
+        .col-12.col-lg-9.offset-0
           .row
+            .col-12
+              hr
+            .col-12
+              h5 Tax invoice address
+            .col-12.col-md-4
+              .card.card-delivery.mb-3.mb-md-0
+                .card-body
+                  .form-check.mb-0.user-dropdown
+                    input#flexRadioDefault0.form-check-input(type="radio" name="flexRadioDefault0")
+                    label.form-check-label.d-block.user-dropdown(for="flexRadioDefault0")
+                      .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                      hr
+                      .card-subtitle
+                        span.text-secondary.fs-7  Phone: 
+                        span.fs-7 123123123123
+                      hr
+                  a.card-link(href="#") Remove
+            .col-12.mt-3
+              button(data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit").btn.btn-primary.w-25.mt-2 Edit
             .col-12
               hr
             .col-12.col-md-4

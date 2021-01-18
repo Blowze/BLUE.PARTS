@@ -1,0 +1,77 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  main.main.pt-3.pt-md-5
+    .container
+      h2 User details
+      hr
+      .row.mt-3
+        .col.col-12.col-lg-3.mb-4.mb-lg-0
+          .sticky-lg-top.top-1
+            .card
+              .card-header
+                .fw-bold SEARCH FILTER
+              .card-body
+                .fs-7.d-block.text-secondary.mb-1.mt-2 CHOOSE TYPE OF PARTS
+                label.d-flex.align-items-center.mb-1
+                  input.form-check-input.mt-0(type="checkbox" value="" aria-label="Checkbox for following text input")
+                  span.mx-2 Genuine
+                label.d-flex.align-items-center
+                  input.form-check-input.mt-0(type="checkbox" value="" aria-label="Checkbox for following text input")
+                  span.mx-2 Replacement
+                hr
+                .fs-7.d-block.text-secondary CHOOSE BRAND
+                label.d-flex.align-items-center
+                  input.form-check-input.mt-0(type="checkbox" value="" aria-label="Checkbox for following text input")
+                  span.mx-2 TOYOTA
+                hr
+                .fs-7.d-block.text-secondary.mb-1.mt-2 SORT BY
+                label.d-flex.align-items-center.mb-1
+                  input.form-check-input.mt-0(type="radio" name="sort" value="" aria-label="Radio button for following text input")
+                  span.mx-2 Price: Low to High
+                label.d-flex.align-items-center.mb-1
+                  input.form-check-input.mt-0(type="radio" name="sort" value="" aria-label="Radio button for following text input")
+                  span.mx-2 Price: High to low
+                label.d-flex.align-items-center
+                  input.form-check-input.mt-0(type="radio" name="sort" value="" aria-label="Radio button for following text input")
+                  span.mx-2 Rating
+                hr
+                .d-grid.gap-2.align-items-center
+                  a.btn.btn-primary.w-100 Search
+                  a.btn.btn-outline-danger.w-100 Reset
+
+        .col.col-12.col-lg-9
+          h4.mt-2 GENUINE
+          hr
+          table#schemaTable.mb-3.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+            thead
+              tr
+                th Part Number
+                th Description
+                th Brand
+                th Stock
+                th Waiting
+                th Price
+                th Order
+            tbody
+              -for (var x = 0; x < 30; x++)
+                tr
+                  td 
+                    a(href="#") 3570533030
+                  td GEAR SUB-ASSY,  COUNTER DRIVEN
+                  td 35165 
+                  td TOYOTA
+                  td
+                    .d-flex.align-items-center >50
+                      .fs-7.ms-2.text-muted (plc)
+                  td 26193.6 THB
+                  td.text-end
+                    .d-flex.justify-content-end
+                      a.btn.btn-outline-primary.btn-sm.basket--add
+                        .bi.bi-cart-plus.fs-7
+                      .basket--count
+                        input(type="text" value="1")
+          h4.mt-2 Replacement
+          hr

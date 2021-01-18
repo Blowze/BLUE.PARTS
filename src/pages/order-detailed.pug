@@ -8,11 +8,30 @@ block content
       .d-flex.justify-content-between.align-items-center
         span
           h2 Order #210114-0001
-          span.text-secondary 14/1/2021 19:11:33
-        .badge.bg-success.fs-6 
-          span.px-3 SHIPPING
+          span.text-secondary.d-flex.align-items-center
+            span 14/1/2021 19:11:33
+            .badge.bg-success.mx-2 done
+        a.btn.btn-outline-danger.mt-2 Cancel
+
       hr
-      .card.bg-light.border-0.mb-4
+      table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th Part Number
+            th Description
+            th qty
+            th Price
+            th Status
+        tbody
+          -for (var x = 0; x < 5; x++)
+            tr
+              td 3570533030 
+              td GEAR SUB-ASSY,  COUNTER DRIVEN
+              td 3
+              td 26193.60 THB
+              td 
+                .badge.bg-success RETURNED_TO_CARMAN
+      .card.bg-light.border-0.mb-4.mt-2
         .card-body.py-4
           .row
             .col-12.col-md-4
@@ -47,7 +66,6 @@ block content
               hr
             .col-12
               a.btn.btn-outline-primary.mt-2.me-3 Download invoice
-              a.btn.btn-outline-danger.mt-2 Cancel
 
       hr
       a(data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample") 
@@ -64,13 +82,26 @@ block content
                     .fw-bold.mb-1 Recipient
                     .mb-1 Алексей Крайнов
                     .mb-1 krainoff.alesha@yandex.ru
-                    .mb-1 79117654321
-              .col-12.col-md-4
+                    .mb-2 79117654321
                 .d-flex
                   i.bi.bi-check2-circle.fs-3
                   .ms-3.mt-2
                     .fw-bold.mb-1 Delivery
                     .mb-1 RAMA V, BANG KRASO, MUEANG NONTHABURI, NONTHABURI, 11000
+              .col-12.col-md-4
+                .d-flex
+                  i.bi.bi-check2-circle.fs-3
+                  .ms-3.mt-2
+                    .fw-bold.mb-1 Amount
+                    .mb-1.fs-7 Items: 78580.80 THB
+                    .mb-1.fs-7 Delivery fee: 78580.80 THB
+                    .mb-1.fs-7 Handling fee: 78580.80 THB
+                    .mb-1.fs-7 Discount: 78580.80 THB
+                    .mb-1.fs-7 Sub Total: 78580.80 THB
+                    hr.mb-2
+                    .mb-1 
+                      span.fw-bold Total: 
+                      span 78580.80 THB
               .col-12.col-md-4
                 .card
                   .card-body
@@ -92,26 +123,3 @@ block content
                             i.bi.bi-credit-card.fs-2
                             .fs-7 Delivery THB, +.0%
                     a.btn.btn-primary.btn-sm.mt-3(href="#") Place
-              .col-12
-                hr
-              .col-12
-                a.btn.btn-outline-danger.mt-2 Cancel
-      h5.mb-4 Product list 
-      table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
-        thead
-          tr
-            th Part Number
-            th Description
-            th qty
-            th Price
-            th Status
-        tbody
-          -for (var x = 0; x < 30; x++)
-            tr
-              td 3570533030 
-              td GEAR SUB-ASSY,  COUNTER DRIVEN
-              td 3
-              td 26193.60 THB
-              td 
-                .badge.bg-danger RETURNED_TO_CARMAN
-                

@@ -8,7 +8,7 @@ block content
       h2 Active orders
       hr
       .row.mt-3
-        .col-12.col-lg-9
+        .col-12
           .row
             .col-12.col-md-6.col-lg-4.mb-4
               .card
@@ -66,8 +66,5 @@ block content
                 .card-body.d-flex.justify-content-between.align-items-center
                   .card-text.text-secondary.fs-7 14/1/2021 19:11:33
                   .card-text.fs-7.fw-bold 78580.80 THB
-        .col.col-3.d-none.d-lg-block
-          .list-group.sticky-md-top.top-1
-            a.list-group-item.list-group-item-action.active(href="/order.html") Active orders
-            a.list-group-item.list-group-item-action(href="/order-history.html") Order history
-            a.list-group-item.list-group-item-action(href="#") Logout
+            .col-12
+              a.btn.btn-primary(href="/order-history.html") Order History

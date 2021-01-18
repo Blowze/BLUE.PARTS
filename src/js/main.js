@@ -47,4 +47,8 @@ $(document).ready(() => {
     $(`.card-delivery`).removeClass(`border-primary`)
     $(this).parent().parent().addClass(`border-primary`)
   })
+  $(`.basket--add`).click(function () {
+    $(this).next().addClass(`show`)
+    $(this).addClass('btn-primary text-white')
+  })
 })
