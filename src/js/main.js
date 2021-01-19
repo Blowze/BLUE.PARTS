@@ -11,7 +11,6 @@ require(`datatables.net-buttons`)
 require(`datatables.net-responsive`)
 require(`./lib/dataTables.bootstrap5.min`)
 
-
 $(document).ready(() => {
   
   // $(`[data-toggle="tooltip"]`).tooltip();
