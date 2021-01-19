@@ -14,22 +14,14 @@ $(document).ready(() => {
   // $(`[data-toggle="tooltip"]`).tooltip();
   Array.from(document.querySelectorAll(`[data-bs-toggle="tooltip"]`)).forEach((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl))
 
-  const tableModels = $(`#modelsTable`).DataTable({
+  $(`#modelsTable`).DataTable({
     info: false,
     hideEmptyCols: true,
     dom: `lfBrtip`,
-    buttons: [],
     autoWidth: true,
     lengthChange: false,
-    responsive: true,
-    initComplete() {
-      $.fn.DataTable.RegionButtons(tableModels, 10)
-    }
+    responsive: true
   })
-  $.fn.dataTable.RegionButtons = function (table) {
-    console.error(table)
-  }
-  $.fn.DataTable.RegionButtons = $.fn.dataTable.RegionButtons
   $(`#garagemodelTable`).DataTable({
     info: false,
     autoWidth: true,

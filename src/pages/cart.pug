@@ -1,0 +1,205 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  #modalAddAddress.modal.fade(tabindex="-1" aria-labelledby="modalAddAddressLabel" aria-hidden="true")
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          h5.modal-title Select address
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          .row
+            .col-12.col-md-4.mb-3
+              label.card.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio1")
+                .card-body
+                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                  hr
+                  .card-subtitle
+                    span.text-secondary.fs-7  Phone: 
+                    span.fs-7 123123123123
+                  hr
+                  .d-flex.justify-content-between
+                    .d-flex.align-items-center
+                      input#inlineRadio1.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+                      span.fs-7.mx-2 default
+            .col-12.col-md-4
+              label.card.border-primary.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio2")
+                .card-body
+                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                  hr
+                  .card-subtitle
+                    span.text-secondary.fs-7  Phone: 
+                    span.fs-7 123123123123
+                  hr
+                  .d-flex.justify-content-between
+                    .d-flex.align-items-center
+                      input#inlineRadio2.form-check-input.mt-0(type="radio" name="inlineRadioOptions" checked) 
+                      span.fs-7.mx-2 default
+                  
+            .col-12.col-md-4
+              label.card.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio3")
+                .card-body
+                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                  hr
+                  .card-subtitle
+                    span.text-secondary.fs-7  Phone: 
+                    span.fs-7 123123123123
+                  hr
+                  .d-flex.justify-content-between
+                    .d-flex.align-items-center
+                      input#inlineRadio3.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+                      span.fs-7.mx-2 default
+          .d-flex.justify-content-end.gap-2
+            a.btn.btn-primary(href="#") Save changes
+            button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center close
+
+  main.main.pt-3.pt-md-5
+    .container
+      h2 My Shopping Cart
+      hr
+      .row.mt-3
+        .col.col-12.col-lg-9
+          .card.mb-4
+            label.card-header
+              .d-flex
+                input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+                .mx-3 ABC Company
+            .card-body
+              -for (var x = 0; x < 2; x++)
+                .row.mb-3
+                  .col.col-12.col-md-6
+                    label.d-flex.mb-3.mb-md-0
+                      input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+                      span.mx-3
+                        .fw-bold GEAR SUB-ASSY, COUNTER DRIVEN
+                        .text-secondary.fs-7 TOYOTA 3570533030 
+                  .col.col-11.col-md-3.offset-1.offset-md-0.mb-3.mb-md-0
+                    span 26193.60 THB
+                    .fw-bold 26193.60 THB
+                  .col.col-5.col-md-2.offset-1.offset-md-0
+                    .input-group.input-group-sm 
+                      button.btn.btn-outline-secondary(type="button")
+                        .bi.bi-dash
+                      input.form-control
+                      button.btn.btn-outline-secondary(type="button")
+                        .bi.bi-plus
+                  .col.col-1.col-md-1
+                    a.btn.btn-outline-danger.btn-sm
+                      .bi.bi-trash
+                hr
+              .row
+                .col.col-12.col-md-6
+                  label.d-flex.mb-3.mb-md-0
+                    input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+                    span.mx-3
+                      .fw-bold GEAR SUB-ASSY, COUNTER DRIVEN
+                      .text-secondary.fs-7 TOYOTA 3570533030 
+                .col.col-11.col-md-3.offset-1.offset-md-0.mb-3.mb-md-0
+                  span 26193.60 THB
+                  .fw-bold 26193.60 THB
+                .col.col-5.col-md-2.offset-1.offset-md-0
+                  .input-group.input-group-sm 
+                    button.btn.btn-outline-secondary(type="button")
+                      .bi.bi-dash
+                    input.form-control
+                    button.btn.btn-outline-secondary(type="button")
+                      .bi.bi-plus
+                .col.col-1.col-md-1
+                  a.btn.btn-outline-danger.btn-sm
+                    .bi.bi-trash
+            .card-footer
+              .row.align-items-center
+                .col-12.col-md-9.mb-2.mb-md-0
+                  span Total:
+                  span.fw-bold  52387.20 THB
+                .col-12.col-md-3
+                  a.btn.btn-primary.w-100.btn-sm(href="") Buy all from this seller
+          .card.mb-4
+            label.card-header
+              .d-flex
+                input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+                .mx-3 ABC Company
+            .card-body
+              -for (var x = 0; x < 2; x++)
+                .row.mb-3
+                  .col.col-12.col-md-6
+                    label.d-flex.mb-3.mb-md-0
+                      input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+                      span.mx-3
+                        .fw-bold GEAR SUB-ASSY, COUNTER DRIVEN
+                        .text-secondary.fs-7 TOYOTA 3570533030 
+                  .col.col-11.col-md-3.offset-1.offset-md-0.mb-3.mb-md-0
+                    span 26193.60 THB
+                    .fw-bold 26193.60 THB
+                  .col.col-5.col-md-2.offset-1.offset-md-0
+                    .input-group.input-group-sm 
+                      button.btn.btn-outline-secondary(type="button")
+                        .bi.bi-dash
+                      input.form-control
+                      button.btn.btn-outline-secondary(type="button")
+                        .bi.bi-plus
+                  .col.col-1.col-md-1
+                    a.btn.btn-outline-danger.btn-sm
+                      .bi.bi-trash
+                hr
+              .row
+                .col.col-12.col-md-6
+                  label.d-flex.mb-3.mb-md-0
+                    input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+                    span.mx-3
+                      .fw-bold GEAR SUB-ASSY, COUNTER DRIVEN
+                      .text-secondary.fs-7 TOYOTA 3570533030 
+                .col.col-11.col-md-3.offset-1.offset-md-0.mb-3.mb-md-0
+                  span 26193.60 THB
+                  .fw-bold 26193.60 THB
+                .col.col-5.col-md-2.offset-1.offset-md-0
+                  .input-group.input-group-sm 
+                    button.btn.btn-outline-secondary(type="button")
+                      .bi.bi-dash
+                    input.form-control
+                    button.btn.btn-outline-secondary(type="button")
+                      .bi.bi-plus
+                .col.col-1.col-md-1
+                  a.btn.btn-outline-danger.btn-sm
+                    .bi.bi-trash
+            .card-footer
+              .row.align-items-center
+                .col-12.col-md-9.mb-2.mb-md-0
+                  span Total:
+                  span.fw-bold  52387.20 THB
+                .col-12.col-md-3
+                  a.btn.btn-primary.w-100.btn-sm(href="") Buy all from this seller
+        .col.col-12.col-lg-3.mb-4.mb-lg-0
+          .sticky-lg-top.top-1
+            .card 
+              .card-header Order summary
+              .card-body
+                .d-flex.justify-content-between.align-items-center.mb-2.fs-7
+                  span.fw-bold Subtotal
+                  span 0.00 THB
+                .d-flex.justify-content-between.align-items-center.fs-7
+                  span.fw-bold Subtotal
+                  span 0.00 THB
+                hr
+                .d-flex.justify-content-between.align-items-center.mb-2
+                  span.fw-bold Total
+                  span 0.00 THB
+                a.btn.btn-primary.w-100(href="#") buy
+          .mt-3.mb-2 Shipping address:
+          label.card.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio2")
+            .card-body
+              .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+              .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+              hr
+              .card-subtitle
+                span.text-secondary.fs-7  Phone: 
+                span.fs-7 123123123123
+              hr
+              .d-flex.gap-2.justify-content-end
+                button.btn.btn-icon.btn-outline-primary.btn-sm.w-100(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                  span.ms-1 Change address
