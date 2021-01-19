@@ -11,6 +11,7 @@
       ],
       "rules": {
         "no-invalid-this": "off",
+        "no-console": "off",
         "indent": [
           "error",
           2

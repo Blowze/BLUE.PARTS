@@ -5,20 +5,31 @@ import {
 import Inputmask from "inputmask"
 require(`@popperjs/core`)
 require(`bootstrap`)
-require(`datatables`)
-require(`datatables.net-responsive`)
+require(`datatables.net-dt`)
 require(`./lib/dataTables.bootstrap5.min`)
 
 
 $(document).ready(() => {
+
   // $(`[data-toggle="tooltip"]`).tooltip();
   Array.from(document.querySelectorAll(`[data-bs-toggle="tooltip"]`)).forEach((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl))
-  $(`#modelsTable`).DataTable({
+
+  const tableModels = $(`#modelsTable`).DataTable({
     info: false,
+    hideEmptyCols: true,
+    dom: `lfBrtip`,
+    buttons: [],
     autoWidth: true,
     lengthChange: false,
-    responsive: true
+    responsive: true,
+    initComplete() {
+      $.fn.DataTable.RegionButtons(tableModels, 10)
+    }
   })
+  $.fn.dataTable.RegionButtons = function (table) {
+    console.error(table)
+  }
+  $.fn.DataTable.RegionButtons = $.fn.dataTable.RegionButtons
   $(`#garagemodelTable`).DataTable({
     info: false,
     autoWidth: true,
@@ -64,7 +75,6 @@ $(document).ready(() => {
         }
       ]
     },
-    responsive: true,
     columnDefs: [
       {
         responsivePriority: 1,
@@ -94,7 +104,6 @@ $(document).ready(() => {
         responsivePriority: 1,
         targets: 6
       },
-     
     ],
     processing: true,
     paging: false,
