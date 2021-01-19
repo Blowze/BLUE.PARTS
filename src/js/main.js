@@ -5,23 +5,41 @@ import {
 import Inputmask from "inputmask"
 require(`@popperjs/core`)
 require(`bootstrap`)
-require(`datatables.net-dt`)
+require(`datatables.net`)
+require(`../../node_modules/datatables.net-buttons/js/buttons.print`)
+require(`datatables.net-buttons`)
+require(`datatables.net-responsive`)
 require(`./lib/dataTables.bootstrap5.min`)
 
 
 $(document).ready(() => {
-
+  
   // $(`[data-toggle="tooltip"]`).tooltip();
   Array.from(document.querySelectorAll(`[data-bs-toggle="tooltip"]`)).forEach((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl))
 
   $(`#modelsTable`).DataTable({
     info: false,
     hideEmptyCols: true,
-    dom: `lfBrtip`,
+		dom: `lfBrtip`,
     autoWidth: true,
     lengthChange: false,
+    buttons: [
+      {
+        text: `ALL`,
+        className:'btn btn-outline-primary btn-sm mt-2 mb-3 mb-md-0' 
+      },
+      {
+        text: `NZ`,
+        className:'btn btn-outline-primary btn-sm mt-2 mb-3 mb-md-0'
+      },
+      {
+        text: `MY`,
+        className:'btn btn-outline-primary btn-sm mt-2 mb-3 mb-md-0'
+      }
+    ],
     responsive: true
   })
+  
   $(`#garagemodelTable`).DataTable({
     info: false,
     autoWidth: true,

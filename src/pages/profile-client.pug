@@ -109,7 +109,7 @@ block content
                 h5.mb-0 Delivery address
               hr
             .col-12.col-md-4.mb-3
-              label.card.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio1")
+              label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio1")
                 .card-body
                   .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
                   .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
@@ -129,7 +129,7 @@ block content
                       button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
                         span.bi.bi-x
             .col-12.col-md-4
-              label.card.border-primary.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio2")
+              label.card.border-primary.card-delivery.mb-3.mb-md-0(for="inlineRadio2")
                 .card-body
                   .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
                   .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
@@ -149,7 +149,7 @@ block content
                       button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
                         span.bi.bi-x
             .col-12.col-md-4
-              label.card.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio3")
+              label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio3")
                 .card-body
                   .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
                   .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
@@ -170,23 +170,26 @@ block content
                         span.bi.bi-x
             .col-12.col-md-4
               button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") add new address
-        .col-12
-          h5.mt-5 User list
-          table#schemaTable.mb-3.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
-            thead
-              tr
-                th №
-                th Name
-                th Provider
-                th Role
-                th.text-end action
-            tbody
-              -for (var x = 0; x < 5; x++)
-                tr
-                  td 0
-                  td GEAR SUB-ASSY,  COUNTER DRIVEN
-                  td google 
-                  td ROLE_MASTER_CLIENT
-                  td.text-end 
-                    a.btn.btn-danger.ms-auto.btn-sm.disabled delete
-                  
+            .col-12
+              .d-flex.align-items-center.justify-content-between.mt-4
+                h5.mb-0 User list
+              hr
+            .col-12
+              table#schemaTable.table.table-striped.responsive.nowrap.dataTable-load.mb-3
+                thead
+                  tr
+                    th №
+                    th Name
+                    th Provider
+                    th Role
+                    th.text-end action
+                tbody
+                  -for (var x = 0; x < 5; x++)
+                    tr
+                      td 0
+                      td GEAR SUB-ASSY,  COUNTER DRIVEN
+                      td google 
+                      td ROLE_MASTER_CLIENT
+                      td.text-end 
+                        a.btn.btn-danger.ms-auto.btn-sm delete
+                      
