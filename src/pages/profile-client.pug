@@ -54,105 +54,139 @@ block content
               a.btn.btn-primary.btn-sm(href="#") Save address
   main.main.pt-3.pt-md-5
     .container
-      h2 Client details
-      hr
-      .row.mt-3
-        .col.col-12.col-md-6
+      .row
+        .col.col-12.col-lg-4
+          h5.mb-4 Client details
+          hr
           form#userMe.needs-validation(novalidate)
-            .row
-              .col-12.col-md-12.col-lg-7
-                .mb-3
-                  .form-group.mb-2
-                    label.mb-2 Email
-                    input.form-control(type="email" required)
-                .mb-3
-                  .form-group.mb-2
-                    label.mb-2 Tel
-                    input.form-control.phone-mask(type="phone")
-                .mb-3
-                  .form-group.mb-2
-                    label.mb-2 Company Name
-                    input.form-control(type="text" required)
-              .col-12.col-md-12
-                .form-group
-                  button.btn.btn-primary.w-25(href="#" type="submit") Save
-              .col-12
-                hr
-              .col-12.col-lg-6.mb-2
-                .form-group.mb-0
-                  h5 My settings
-                  select.form-select(aria-label="Default select example")
-                    option(selected) Select a language...
-                    option(value="1") English
-                    option(value="1") ไทย
-        .col-12.col-lg-9.offset-0
+            .mb-3
+              .form-group.mb-2
+                label.mb-2 Email
+                input.form-control(type="email" required)
+            .mb-3
+              .form-group.mb-2
+                label.mb-2 Tel
+                input.form-control.phone-mask(type="phone")
+            .mb-3
+              .form-group.mb-2
+                label.mb-2 Company Name
+                input.form-control(type="text" required)
+            .form-group.d-flex.gap-2
+              button.btn.btn-primary.w-100(href="#" type="submit") Save
+              button.btn.btn-outline-danger.w-100(href="#" type="submit") Cancel
+            hr
+            .mb-2
+              .form-group.mb-0
+                h5 My settings
+                select.form-select.mb-3(aria-label="Default select example")
+                  option(selected) Select a language...
+                  option(value="1") English
+                  option(value="1") ไทย
+                .mb-2 Notification language:
+                select.form-select(aria-label="Default select example")
+                  option(selected) Select a language...
+                  option(value="1") English
+                  option(value="1") ไทย
+        .col-12.col-lg-8
           .row
             .col-12
-              hr
-            .col-12
-              h5 Tax invoice address
-            .col-12.col-md-4
-              .card.card-delivery.mb-3.mb-md-0
-                .card-body
-                  .form-check.mb-0.user-dropdown
-                    input#flexRadioDefault0.form-check-input(type="radio" name="flexRadioDefault0")
-                    label.form-check-label.d-block.user-dropdown(for="flexRadioDefault0")
-                      .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
-                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
-                      hr
-                      .card-subtitle
-                        span.text-secondary.fs-7  Phone: 
-                        span.fs-7 123123123123
-                      hr
-                  a.card-link(href="#") Remove
-            .col-12.mt-3
-              button(data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit").btn.btn-primary.w-25.mt-2 Edit
-            .col-12
+              .d-flex.align-items-center.justify-content-between.mt-3.mt-lg-0
+                h5.mb-0 Tax invoice address
+                button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                  span.bi.bi-pencil-square
               hr
             .col-12.col-md-4
               .card.card-delivery.mb-3.mb-md-0
                 .card-body
-                  .form-check.mb-0.user-dropdown
-                    input#flexRadioDefault1.form-check-input(type="radio" name="flexRadioDefault")
-                    label.form-check-label.d-block.user-dropdown(for="flexRadioDefault1")
-                      .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
-                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
-                      hr
-                      .card-subtitle
-                        span.text-secondary.fs-7  Phone: 
-                        span.fs-7 123123123123
-                      hr
-                  a.card-link.ms-4(href="#" data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") Edit
-                  a.card-link(href="#") Remove
-            .col-12.col-md-4
-              .card.border-primary.card-delivery.mb-3.mb-md-0
+                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                  hr
+                  .card-subtitle
+                    span.text-secondary.fs-7  Phone: 
+                    span.fs-7 123123123123
+            .col-12
+              .d-flex.align-items-center.justify-content-between.mt-4
+                h5.mb-0 Delivery address
+              hr
+            .col-12.col-md-4.mb-3
+              label.card.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio1")
                 .card-body
-                  .form-check.mb-0.user-dropdown
-                    input#flexRadioDefault2.form-check-input(type="radio" name="flexRadioDefault" checked)
-                    label.form-check-label.d-block.user-dropdown(for="flexRadioDefault2")
-                      .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
-                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
-                      hr
-                      .card-subtitle
-                        span.text-secondary.fs-7  Phone: 
-                        span.fs-7 123123123123
-                      hr
-                  a.card-link.ms-4(href="#" data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") Edit
-                  a.card-link(href="#") Remove
+                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                  hr
+                  .card-subtitle
+                    span.text-secondary.fs-7  Phone: 
+                    span.fs-7 123123123123
+                  hr
+                  .d-flex.justify-content-between
+                    .d-flex.align-items-center
+                      input#inlineRadio1.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+                      span.fs-7.mx-2 default
+                    .d-flex.gap-2.justify-content-end
+                      button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                        span.bi.bi-pencil-square
+                        span.ms-1 Edit
+                      button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                        span.bi.bi-x
             .col-12.col-md-4
-              .card.card-delivery.mb-3.mb-md-0
+              label.card.border-primary.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio2")
                 .card-body
-                  .form-check.mb-0.user-dropdown
-                    input#flexRadioDefault3.form-check-input(type="radio" name="flexRadioDefault")
-                    label.form-check-label.d-block.user-dropdown(for="flexRadioDefault3")
-                      .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
-                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
-                      hr
-                      .card-subtitle
-                        span.text-secondary.fs-7  Phone: 
-                        span.fs-7 123123123123
-                      hr
-                  a.card-link.ms-4(href="#" data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") Edit
-                  a.card-link(href="#") Remove
+                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                  hr
+                  .card-subtitle
+                    span.text-secondary.fs-7  Phone: 
+                    span.fs-7 123123123123
+                  hr
+                  .d-flex.justify-content-between
+                    .d-flex.align-items-center
+                      input#inlineRadio2.form-check-input.mt-0(type="radio" name="inlineRadioOptions" checked) 
+                      span.fs-7.mx-2 default
+                    .d-flex.gap-2.justify-content-end
+                      button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                        span.bi.bi-pencil-square
+                        span.ms-1 Edit
+                      button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                        span.bi.bi-x
             .col-12.col-md-4
-              button.btn.btn-primary.w-75.mt-3(data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") add new address
+              label.card.card-delivery.user-dropdown.mb-3.mb-md-0(for="inlineRadio3")
+                .card-body
+                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                  hr
+                  .card-subtitle
+                    span.text-secondary.fs-7  Phone: 
+                    span.fs-7 123123123123
+                  hr
+                  .d-flex.justify-content-between
+                    .d-flex.align-items-center
+                      input#inlineRadio3.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+                      span.fs-7.mx-2 default
+                    .d-flex.gap-2.justify-content-end
+                      button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                        span.bi.bi-pencil-square
+                        span.ms-1 Edit
+                      button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                        span.bi.bi-x
+            .col-12.col-md-4
+              button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") add new address
+        .col-12
+          h5.mt-5 User list
+          table#schemaTable.mb-3.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+            thead
+              tr
+                th №
+                th Name
+                th Provider
+                th Role
+                th.text-end action
+            tbody
+              -for (var x = 0; x < 5; x++)
+                tr
+                  td 0
+                  td GEAR SUB-ASSY,  COUNTER DRIVEN
+                  td google 
+                  td ROLE_MASTER_CLIENT
+                  td.text-end 
+                    a.btn.btn-danger.ms-auto.btn-sm.disabled delete
+                  

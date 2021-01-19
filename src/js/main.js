@@ -43,12 +43,8 @@ $(document).ready(() => {
     searching: false
   })
   Inputmask(`99-999-99`).mask(`.phone-mask`)
-  $(`.card-delivery .form-check`).click(function () {
+  $(`.card-delivery`).click(function () {
     $(`.card-delivery`).removeClass(`border-primary`)
-    $(this).parent().parent().addClass(`border-primary`)
-  })
-  $(`.basket--add`).click(function () {
-    $(this).next().addClass(`show`)
-    $(this).addClass('btn-primary text-white')
+    $(this).addClass(`border-primary`)
   })
 })
