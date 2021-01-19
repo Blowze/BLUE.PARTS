@@ -165,7 +165,7 @@ table.dataTable {
   border: none !important;
 }
 
-.table> :not(:last-child)> :last-child>* {
+.table> :not(:last-child) > :last-child > * {
   font-weight: 500;
   background: #dee2e6;
   text-transform: capitalize;
@@ -238,4 +238,7 @@ table.dataTable tr.child ul li span {
 //garadge
 .main-val-card {
   min-width: 122px;
+}
+.add-to-cart{
+  max-width: 250px;
 }

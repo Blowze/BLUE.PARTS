@@ -38,14 +38,15 @@ block content
                   input.form-check-input.mt-0(type="radio" name="sort" value="" aria-label="Radio button for following text input")
                   span.mx-2 Rating
                 hr
-                .d-grid.gap-2.align-items-center
+                .d-flex.gap-2.align-items-center
                   a.btn.btn-primary.w-100 Search
-                  a.btn.btn-outline-danger.w-100 Reset
+                  a.btn.btn-outline-danger.w-25
+                    .bi.bi-x
 
         .col.col-12.col-lg-9
           h4.mt-2 GENUINE
           hr
-          table#schemaTable.mb-3.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+          table#partpriceTable.mb-3.table.table-striped.nowrap.dataTable-load
             thead
               tr
                 th Part Number
@@ -61,15 +62,39 @@ block content
                   td 
                     a(href="#") 3570533030
                   td GEAR SUB-ASSY,  COUNTER DRIVEN
-                  td 35165 
-                  td TOYOTA
+                  td TOYOTA 
                   td
                     .d-flex.align-items-center >50
                       .fs-7.ms-2.text-muted (plc)
+                  td 3
                   td 26193.6 THB
                   td.text-end
                     .d-flex.justify-content-end
-                      a.btn.btn-outline-primary.btn-sm
+                      a.btn.btn-outline-primary.btn-sm(type="button" data-bs-toggle="dropdown" aria-expanded="false")
                         .bi.bi-cart-plus.fs-7
+                      .dropdown-menu.add-to-cart.p-0.border-0.fs-7
+                        .card
+                          .card-header.px-2.py-2.fw-bold 3570533030
+                          .card-body.px-2.py-2
+                            .mb-1.text-truncate GEAR SUB-ASSY,  COUNTER DRIVEN
+                            .text-secondary Mfg: TOYOTA
+                            hr.mb-2.mt-2
+                            .d-flex.gap-2
+                              .item.w-100 
+                                .fw-bold.mb-1 Quantity
+                                .input-group.input-group-sm 
+                                  button.btn.btn-outline-secondary(type="button")
+                                    .bi.bi-dash
+                                  input.form-control
+                                  button.btn.btn-outline-secondary(type="button")
+                                    .bi.bi-plus
+                              .item.w-100 
+                                .fw-bold.mb-1 Amount
+                                .d-block 52387.2 THB
+                                .text-secondary(style="font-size: 7px") 1  Pcs = 26193.6 THB
+                            .d-flex.gap-2.mt-3
+                              a.btn.btn-sm.btn-success.w-100(href="#") Add
+                              a.btn.btn-sm.btn-outline-danger.w-25(href="#")
+                                .bi.bi-x
           h4.mt-2 Replacement
           hr
