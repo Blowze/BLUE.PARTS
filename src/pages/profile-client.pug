@@ -73,7 +73,6 @@ block content
                 input.form-control(type="text" required)
             .form-group.d-flex.gap-2
               button.btn.btn-primary.w-100(href="#" type="submit") Save
-              button.btn.btn-outline-danger.w-100(href="#" type="submit") Cancel
             hr
             .mb-2
               .form-group.mb-0
@@ -95,12 +94,11 @@ block content
                 button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
                   span.bi.bi-pencil-square
               hr
-            .col-12.col-md-4
+            .col-12.col-md-6
               .card.card-delivery.mb-3.mb-md-0
                 .card-body
-                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
                   .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
-                  hr
                   .card-subtitle
                     span.text-secondary.fs-7  Phone: 
                     span.fs-7 123123123123
@@ -108,68 +106,59 @@ block content
               .d-flex.align-items-center.justify-content-between.mt-4
                 h5.mb-0 Delivery address
               hr
-            .col-12.col-md-4.mb-3
+            .col-12.col-md-6.mb-4
               label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio1")
                 .card-body
-                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
-                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
-                  hr
-                  .card-subtitle
-                    span.text-secondary.fs-7  Phone: 
-                    span.fs-7 123123123123
-                  hr
-                  .d-flex.justify-content-between
-                    .d-flex.align-items-center
+                  .d-flex
+                    .me-3
+                      .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
+                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                      .card-subtitle
+                        span.text-secondary.fs-7  Phone: 
+                        span.fs-7 123123123123
+                    .gap-2.text-center
                       input#inlineRadio1.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
-                      span.fs-7.mx-2 default
-                    .d-flex.gap-2.justify-content-end
-                      button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
-                        span.bi.bi-pencil-square
-                        span.ms-1 Edit
-                      button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
-                        span.bi.bi-x
-            .col-12.col-md-4
-              label.card.border-primary.card-delivery.mb-3.mb-md-0(for="inlineRadio2")
+                      .d-grid.gap-2.justify-content-end
+                        button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                          span.bi.bi-pencil-square
+                        button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                          span.bi.bi-x
+            .col-12.col-md-6
+              label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio2")
                 .card-body
-                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
-                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
-                  hr
-                  .card-subtitle
-                    span.text-secondary.fs-7  Phone: 
-                    span.fs-7 123123123123
-                  hr
-                  .d-flex.justify-content-between
-                    .d-flex.align-items-center
-                      input#inlineRadio2.form-check-input.mt-0(type="radio" name="inlineRadioOptions" checked) 
-                      span.fs-7.mx-2 default
-                    .d-flex.gap-2.justify-content-end
-                      button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
-                        span.bi.bi-pencil-square
-                        span.ms-1 Edit
-                      button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
-                        span.bi.bi-x
-            .col-12.col-md-4
+                  .d-flex
+                    .me-3
+                      .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
+                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                      .card-subtitle
+                        span.text-secondary.fs-7  Phone: 
+                        span.fs-7 123123123123
+                    .gap-2.text-center
+                      input#inlineRadio2.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+                      .d-grid.gap-2.justify-content-end
+                        button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                          span.bi.bi-pencil-square
+                        button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                          span.bi.bi-x
+            .col-12.col-md-6
               label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio3")
                 .card-body
-                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
-                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
-                  hr
-                  .card-subtitle
-                    span.text-secondary.fs-7  Phone: 
-                    span.fs-7 123123123123
-                  hr
-                  .d-flex.justify-content-between
-                    .d-flex.align-items-center
+                  .d-flex
+                    .me-3
+                      .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
+                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                      .card-subtitle
+                        span.text-secondary.fs-7  Phone: 
+                        span.fs-7 123123123123
+                    .gap-2.text-center
                       input#inlineRadio3.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
-                      span.fs-7.mx-2 default
-                    .d-flex.gap-2.justify-content-end
-                      button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
-                        span.bi.bi-pencil-square
-                        span.ms-1 Edit
-                      button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
-                        span.bi.bi-x
-            .col-12.col-md-4
-              button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") add new address
+                      .d-grid.gap-2.justify-content-end
+                        button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                          span.bi.bi-pencil-square
+                        button.btn.btn-icon.btn-outline-danger.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                          span.bi.bi-x
+            .col-12.col-md-12.mt-3
+              button.btn.btn-primary.ms-auto.d-block(data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") add new address
             .col-12
               .d-flex.align-items-center.justify-content-between.mt-4
                 h5.mb-0 User list
