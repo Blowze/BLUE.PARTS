@@ -6,6 +6,7 @@ const sourcemaps = require('gulp-sourcemaps')
 const autoprefixer = require('gulp-autoprefixer')
 const gulpStylelint = require('gulp-stylelint')
 const rename = require("gulp-rename")
+const config = require('../config')
 
 module.exports = function styles() {
   return gulp.src('src/styles/*.scss')
@@ -32,6 +33,6 @@ module.exports = function styles() {
     }))
     .pipe(sourcemaps.write())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('build/css'))
+    .pipe(gulp.dest(config.resolvePath('build/css')))
 }
 
