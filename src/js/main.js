@@ -125,4 +125,8 @@ $(document).ready(() => {
     $(`.card-delivery`).removeClass(`border-primary`)
     $(this).addClass(`border-primary`)
   })
+  $(`.card-total__price`).click(function () {
+    $(this).toggleClass(`card-total_open`)
+  })
+ 
 })
