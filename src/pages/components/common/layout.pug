@@ -1,5 +1,5 @@
 doctype html
-html(lang="ru" th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="http://www.thymeleaf.org").h-100
+html.h-100(lang="ru" th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="http://www.thymeleaf.org")
   block head
     head
       meta(charset="utf-8")
@@ -35,13 +35,13 @@ html(lang="ru" th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="ht
                   span.d-block Generate invitation
               li.w-100.py-2
                 .d-flex.align-items-center
-                  div.d-flex.align-items-center.w-100
+                  .d-flex.align-items-center.w-100
                     i.bi.bi-cart2.fs-5.me-2
                     span.d-block My cart
                   span.badge.bg-danger 1
               li.w-100.py-2
                 .d-flex.align-items-center
-                  div.d-flex.align-items-center.w-100
+                  .d-flex.align-items-center.w-100
                     i.bi.bi-shop.fs-5.me-2
                     span.d-block Garage
                   span.badge.bg-danger 1
@@ -59,4 +59,3 @@ html(lang="ru" th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="ht
                 .d-flex.align-items-center
                   i.bi.bi-box-arrow-in-right.fs-5.me-2
                   span.d-block Logout
-

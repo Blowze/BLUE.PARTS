@@ -165,7 +165,7 @@ table.dataTable {
   border: none !important;
 }
 
-.table > :not(:last-child) > :last-child > * {
+.table> :not(:last-child) > :last-child > * {
   font-weight: 500;
   background: #dee2e6;
   text-transform: capitalize;
@@ -206,6 +206,14 @@ table.dataTable tr.child ul li span {
 }
 
 //modal
+.modal-bottom{
+  padding-bottom: 0;
+}
+.modal-bottom .modal-dialog {
+  margin: 0 0 0 auto;
+  transform: translateY(100%) !important;
+}
+
 .modal-right {
   padding-right: 0 !important;
 }
@@ -220,14 +228,22 @@ table.dataTable tr.child ul li span {
     transform: translate(0) !important;
   }
 }
-
-.modal-left .modal-dialog,
+.modal-bottom .modal-dialog {
+  height: auto;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.modal-bottom::after {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  content: "";
+}
 .modal-right .modal-dialog {
   max-width: calc(100% - 52px);
   min-height: 100vh;
 }
 
-.modal-left .modal-content,
 .modal-right .modal-content {
   overflow-x: hidden;
   overflow-y: auto;
@@ -239,7 +255,31 @@ table.dataTable tr.child ul li span {
 .main-val-card {
   min-width: 122px;
 }
+.add-to-cart{
+  max-width: 250px;
+}
 
-.form-check-input:checked {
-  background: #0d6efd !important;
+.cart .input-group{
+  max-width: 160px;
+}
+.modal-total{
+  padding-bottom: 64px;
+}
+
+.card-total{
+  position: fixed;
+  z-index: 2000;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+  &__main{
+    border-radius: 0;
+    border: none;
+    background: #fff;
+    padding: 15px;
+    border-top: 1px solid #ccc;
+    position: relative;
+    height: 64px;
+  }
 }

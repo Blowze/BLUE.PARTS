@@ -1,0 +1,198 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  #modalAddAddress.modal.fade(tabindex="-1" aria-labelledby="modalAddAddressLabel" aria-hidden="true")
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          h5.modal-title Select address
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          .row
+            .col-12.col-md-6.mb-4 
+              label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio1")
+                .card-body
+                  .d-flex
+                    .me-3
+                      .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
+                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                      .card-subtitle
+                        span.text-secondary.fs-7  Phone: 
+                        span.fs-7 123123123123
+                    .gap-2.text-center
+                      input#inlineRadio1.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+            .col-12.col-md-6
+              label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio2")
+                .card-body
+                  .d-flex
+                    .me-3
+                      .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
+                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                      .card-subtitle
+                        span.text-secondary.fs-7  Phone: 
+                        span.fs-7 123123123123
+                    .gap-2.text-center
+                      input#inlineRadio2.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+            .col-12.col-md-6
+              label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio3")
+                .card-body
+                  .d-flex
+                    .me-3
+                      .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
+                      .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                      .card-subtitle
+                        span.text-secondary.fs-7  Phone: 
+                        span.fs-7 123123123123
+                    .gap-2.text-center
+                      input#inlineRadio3.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+          .d-flex.justify-content-end.gap-2
+            a.btn.btn-primary(href="#") Save changes
+  #modalAddDev.modal.fade(tabindex="-1" aria-labelledby="modalAddDevLabel" aria-hidden="true")
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          h5.modal-title Select shipping service
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          .row.mb-2
+            .col-6.text-left.col-md-7
+              small Service type
+            .col-3.text-left
+              small Estimated delivery time
+            .col-3.col-md-2.text-center
+              small Cost
+          .row
+            label.col-6.text-left.col-md-7.d-flex.align-items-center(for="inlineRadio10")
+              input#inlineRadio10.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+              span.mx-2 Free BKK shipping
+            .col-3.text-left 1
+            .col-3.col-md-2.text-center  0.00 THB
+          hr
+          a.btn.btn-primary(href="#") Save changes
+  #modalTotal.modal-total.modal.modal-bottom.fade(tabindex='-1' aria-labelledby='modalTotalLabel' aria-hidden='true')
+    .modal-dialog.modal-fullscreen
+      .modal-content
+          .d-flex.align-items-center.justify-content-between.py-3.px-3.fw-bold Summary
+            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+          hr.my-0.mx-0
+          .d-flex.justify-content-between.px-3.py-3.align-items-center
+            span Subtotal
+            .fw-bold 599999
+          hr.my-0.mx-0
+          .d-flex.justify-content-between.px-3.py-3.align-items-center
+            span Subtotal
+            .fw-bold 599999
+  main.main.pt-3.pt-md-5
+    .container
+      h2 My Shopping Cart
+      hr
+      label.px-3.d-none.d-md-flex
+        input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+        .mx-2 Select All
+      .row.mt-3.cart
+        .col.col-12.col-lg-9
+          .card.mb-4
+            label.card-header
+              .d-flex
+                input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+                .mx-3 ABC Company
+            .card-body
+              -for (var x = 0; x < 2; x++)
+                .row.mb-3
+                  .col-md-1.order-md-1.order-1.col-12.mt-2
+                    input.form-check-input.d-md-block(type="checkbox" value="" aria-label="Checkbox for following text input")
+                    a.btn.btn-outline-danger.btn-sm.mt-md-3.ms-3.ms-md-0 
+                      .bi.bi-trash
+                  .order-md-2.order-2.col-md-11.col-12.mt-3.col-md-2
+                    .row
+                      .col-md-6.order-md-1.order-1.col-12.col-xl-5.mb-2.mb-md-0 GEAR SUB-ASSY, COUNTER DRIVEN
+                      .order-2.col-md-4.col-6.order-md-4.order-xl-5.col-xl-3 3570533030
+                      .col-6.order-3.order-xl-6.col-xl-3.order-md-5.col-md-4.mb-3.mb-md-0 TOYOTA
+                      .order-4.col-7.col-xl-3.order-xl-2.col-md-3.order-md-2.offset-md-0.mb-3.mb-md-0
+                        .input-group.input-group-sm
+                          button.btn.btn-outline-secondary(type="button")
+                            .bi.bi-dash
+                          input.form-control
+                          button.btn.btn-outline-secondary(type="button")
+                            .bi.bi-plus
+                      .col-6.order-4.col-md-3.order-md-3.text-md-end.order-xl-3.col-xl-2 26193.60 THB
+                      .col-6.order-4.order-md-5.text-md-end.order-xl-4.col-xl-2.col-md-4.fw-bold 26193.60 THB
+                  .col-12.text-end.order-3.mt-3
+                    a(href="#" data-bs-toggle="modal" data-bs-target="#modalAddDev") [>] Free BKK shipping, ETD 1 day
+                    div Will be shipped within 3 days
+                hr
+              .row.card_disabled.bg-light.text-secondary
+                .col-md-1.order-md-1.order-1.col-12.mt-2
+                  input.form-check-input.d-md-block(type="checkbox" value="" aria-label="Checkbox for following text input" disabled)
+                  a.btn.btn-outline-danger.btn-sm.mt-md-3.ms-3.ms-md-0 
+                    .bi.bi-trash
+                .order-md-2.order-2.col-md-11.col-12.mt-3.col-md-2
+                  .row
+                    .col-md-6.order-md-1.order-1.col-12.col-xl-5.mb-2.mb-md-0 GEAR SUB-ASSY, COUNTER DRIVEN
+                    .order-2.col-md-4.col-6.order-md-4.order-xl-5.col-xl-3 3570533030
+                    .col-6.order-3.order-xl-6.col-xl-3.order-md-5.col-md-4.mb-3.mb-md-0 TOYOTA
+                    .col-6.order-3.order-xl-6.col-xl-7.order-md-5.col-md-12.mb-3.mt-md-2
+                      .badge.bg-danger error error error error
+                    .order-4.col-7.col-xl-3.order-xl-2.col-md-3.order-md-2.offset-md-0.mb-3.mb-md-0
+                      .input-group.input-group-sm
+                        button.btn.btn-outline-secondary(type="button" disabled)
+                          .bi.bi-dash
+                        input.form-control(disabled)
+                        button.btn.btn-outline-secondary(type="button" disabled)
+                          .bi.bi-plus
+                    .col-6.order-4.col-md-3.order-md-3.text-md-end.order-xl-3.col-xl-2 26193.60 THB
+                    .col-6.order-4.order-md-5.text-md-end.order-xl-4.col-xl-2.col-md-4.fw-bold 26193.60 THB
+            .card-footer
+              .row.align-items-center
+                .col-12.col-md-7.mb-2.mb-md-0
+                  span.fw-bold.d-block All items in one package
+                  span Total:
+                  span.fw-bold  52387.20 THB
+                .col-12.col-md-5.text-end
+                  a(href="#" data-bs-toggle="modal" data-bs-target="#modalAddDev") [>] Free BKK shipping, ETD 1 day
+                  .mb-2 Will be shipped within 3 days 
+                  a.btn.btn-primary.w-10(href="") Buy all from this seller
+                   
+        .col.col-12.col-lg-3.mb-4.mb-lg-0.d-flex.d-md-block.flex-column-reverse
+          .sticky-lg-top.top-1
+            .card.d-md-none
+              .card-header Order summary
+              .card-body
+                .d-flex.justify-content-between.align-items-center.mb-2.fs-7
+                  span.fw-bold Subtotal
+                  span 0.00 THB
+                .d-flex.justify-content-between.align-items-center.fs-7
+                  span.fw-bold Subtotal
+                  span 0.00 THB
+                hr
+                .d-flex.justify-content-between.align-items-center.mb-2
+                  span.fw-bold Total
+                  span 0.00 THB
+                a.btn.btn-primary.w-100(href="#") buy
+            div
+              .mt-3.mb-2 Shipping address:
+              label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio2")
+                .card-body
+                  .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
+                  .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
+                  .card-subtitle
+                    span.text-secondary.fs-7  Phone: 
+                    span.fs-7 123123123123
+                  hr
+                  .d-flex.gap-2.justify-content-end
+                    button.btn.btn-icon.btn-outline-primary.btn-sm.w-100(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
+                      span.ms-1 Change address
+      .card-total.d-md-none
+        .row.align-items-center.card-total__main
+          label.col-3
+            input.form-check-input(type="checkbox" value="" aria-label="Checkbox for following text input")
+            span.ms-2 All
+          .col-9
+            .d-flex.align-items-center.justify-content-end
+              .fw-bold.px-3.card-total__price.w-100.text-end(data-bs-toggle="modal" data-bs-target="#modalTotal")
+                |26193.60 THB
+                i.bi.bi-chevron-down.ms-3.card-total__icon
+              .btn.btn-primary.btn-sm BUY
+            
