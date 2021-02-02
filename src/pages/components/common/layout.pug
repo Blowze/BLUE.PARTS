@@ -22,7 +22,7 @@ html.h-100(lang="ru" th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:
         .modal-content
           .modal-body
             ul.nav
-              li.border-bottom.nav-item.py-3.w-100.pb-4
+              li.border-bottom.nav-item.py-3.w-100.pb-4(sec:authorize="isAuthenticated()")
                 span.d-block(sec:authentication="principal.username") Алексей Крайнов
                 span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
               li.w-100.py-2

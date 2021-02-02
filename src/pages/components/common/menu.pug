@@ -4,7 +4,7 @@
     ul.dropdown-menu.pt-0.me-2(aria-labelledby="dropdownMenu2")
         div(sec:authorize="isAuthenticated()")
             li.py-1
-                a.dropdown-item(href="/profile/me.html" th:href="${lang_prefix} + @{/profile/me}")
+                a.dropdown-item(href="/profile/me.html" th:href="${lang_prefix} + @{/profile/user}")
                     span.d-block(sec:authentication="principal.username") Алексей Крайнов
                     span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
             li
