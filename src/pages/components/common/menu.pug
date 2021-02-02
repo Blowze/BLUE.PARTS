@@ -1,0 +1,47 @@
+.dropdown.dropstart.user-dropdown.d-none.d-md-block
+    div(data-bs-toggle="dropdown" aria-expanded="false").d-block.dropdown-toggle#dropdownMenu2
+        i.bi.bi-person-circle.text-light.fs-3
+    ul.dropdown-menu.pt-0.me-2(aria-labelledby="dropdownMenu2")
+        li.py-1
+            a.dropdown-item(href="/profile-me.html")
+                span.d-block(sec:authentication="principal.username") Алексей Крайнов
+                span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
+        li.border-top
+            a.dropdown-item(href="/profile-client.html")
+                .d-flex.align-items-center
+                    i.bi.bi-person.fs-5.me-2
+                    span.d-block Client details
+        li
+            a.dropdown-item
+                .d-flex.align-items-center
+                    i.bi.bi-box-arrow-up-right.fs-5.me-2
+                    span.d-block Generate invitation
+        li
+            a.dropdown-item
+                .d-flex.align-items-center
+                    div.d-flex.align-items-center.w-100
+                        i.bi.bi-cart2.fs-5.me-2
+                        span.d-block My cart
+                    span.badge.bg-danger 1
+        li
+            a.dropdown-item
+                .d-flex.align-items-center
+                    div.d-flex.align-items-center.w-100
+                        i.bi.bi-shop.fs-5.me-2
+                        span.d-block Garage
+                    span.badge.bg-danger 1
+        li
+            a.dropdown-item
+                .d-flex.align-items-center
+                    i.bi.bi-box.fs-5.me-2
+                    span.d-block Orders
+        li
+            a.dropdown-item
+                .d-flex.align-items-center
+                    i.bi.bi-gear.fs-5.me-2
+                    span.d-block Settings
+        li
+            a.dropdown-item
+                .d-flex.align-items-center
+                    i.bi.bi-box-arrow-in-right.fs-5.me-2
+                    span.d-block Logout

@@ -2,7 +2,7 @@ import $ from 'jquery'
 import {
   Tooltip
 } from '../../node_modules/bootstrap/dist/js/bootstrap.esm'
-import Inputmask from "inputmask"
+import Inputmask from 'inputmask'
 require(`@popperjs/core`)
 require(`bootstrap`)
 require(`datatables.net`)
@@ -13,8 +13,8 @@ require(`./lib/dataTables.bootstrap5.min`)
 
 $(document).ready(() => {
 
-  // $(`[data-toggle="tooltip"]`).tooltip();
-  Array.from(document.querySelectorAll(`[data-bs-toggle="tooltip"]`)).forEach((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl))
+  // $(`[data-toggle=`tooltip`]`).tooltip();
+  Array.from(document.querySelectorAll(`[data-bs-toggle='tooltip']`)).forEach((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl))
 
   $(`#modelsTable`).DataTable({
     info: false,
@@ -46,9 +46,18 @@ $(document).ready(() => {
     responsive: true,
     searching: false
   })
-  $(`#schemaTable`).DataTable({
+
+  $.fn.dataTable.Api.register(`page.jumpToData()`, function (data, column) {
+    const pos = this.column(column, { order: `current` }).data().indexOf(data)
+    if (pos >= 0) {
+      const page = Math.floor(pos / this.page.info().length)
+      this.page(page).draw(false)
+    }
+    return this
+  })
+
+  const tableSchema = $(`#schemaTable`).DataTable({
     info: false,
-    autoWidth: true,
     pagination: false,
     lengthChange: false,
     responsive: true,
@@ -128,5 +137,97 @@ $(document).ready(() => {
   $(`.card-total__price`).click(function () {
     $(this).toggleClass(`card-total_open`)
   })
- 
+  function getElementPosition(elem) {
+    const box = elem.getBoundingClientRect()
+    const body = document.body
+    const docElem = document.documentElement
+    const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop
+    const scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft
+    const clientTop = docElem.clientTop || body.clientTop || 0
+    const clientLeft = docElem.clientLeft || body.clientLeft || 0
+    const top = box.top + scrollTop - clientTop
+    const left = box.left + scrollLeft - clientLeft
+    return {
+      top: Math.round(top), left: Math.round(left)
+    }
+  }
+  function coordsToObject(coords) {
+    const rawCoords = coords.replace(/ *, */g, `,`).replace(/ +/g, `,`).split(`,`)
+    return {
+      minX: parseInt(rawCoords[0]),
+      minY: parseInt(rawCoords[1]),
+      maxX: parseInt(rawCoords[2]),
+      maxY: parseInt(rawCoords[3])
+    }
+  }
+  function scaleCoordsObject(coordsObj) {
+    const xScaleFactor = image.offsetWidth / image.naturalWidth
+    const yScaleFactor = image.offsetHeight / image.naturalHeight
+    return {
+      minX: coordsObj.minX * xScaleFactor,
+      minY: coordsObj.minY * yScaleFactor,
+      maxX: coordsObj.maxX * xScaleFactor,
+      maxY: coordsObj.maxY * yScaleFactor
+    }
+  }
+  const PADDING = 5
+  const image = document.querySelector(`.unit-schema-picture > img`)
+  const areas = $(`#partList`).find(`> div`).toArray()
+  const coords = []
+  areas.forEach(function (value, i) {
+    coords[i] = coordsToObject(value.getAttribute(`data-coords`))
+  })
+  function updateImageMap() {
+    const imagePos = getElementPosition(image)
+    areas.forEach(function (value, i) {
+      const scaledCoords = scaleCoordsObject(coords[i])
+      value.style.top = imagePos.top + scaledCoords.minY - PADDING / 2 + `px`
+      value.style.left = imagePos.left + scaledCoords.minX - PADDING / 2 + `px`
+      value.style.width = scaledCoords.maxX - scaledCoords.minX + PADDING + `px`
+      value.style.height = scaledCoords.maxY - scaledCoords.minY + PADDING + `px`
+    })
+  }
+  function initializeMap() {
+    $(window).on(`resize scroll`, updateImageMap)
+    setInterval(updateImageMap, 600)
+    updateImageMap()
+  }
+  if (document.readyState === `complete`) {
+    initializeMap()
+  } else {
+    $(window).on(`load`, function () {
+      initializeMap()
+    })
+  }
+  const defaultTarget = false
+  function select(element) {
+    // $('.tooltipstered').tooltipster('destroy')
+    const target = $(element).data(`target`).toString()
+    $(`[data-target="` + target + `"]`).addClass(`hover`)
+    tableSchema.page.jumpToData(target, 1)
+    const row = tableSchema.row(function (i, data) {
+      return data[1] === target
+    })
+    $(row.node()).addClass(`selected__12`)
+    $(element).find(`.dropdown-menu`).addClass(`show`)
+  }
+  $(`.unit-schema-part`).on(`mouseenter tap`, function () {
+    select(this)
+  }).on(`mouseleave`, function () {
+    if (this === defaultTarget) {
+      return
+    }
+    $(`[data-target="` + $(this).data(`target`) + `"]`).removeClass(`hover`)
+    $(tableSchema.rows().nodes()).removeClass(`selected__12`);
+    $(this).find(`.dropdown-menu`).removeClass(`show`)
+  })
+  const tableElement = $(`#schemaTable`)
+  tableElement.find(`tbody`)
+    .on(`mouseenter`, `tr`, function () {
+      $(`[data-target="` + tableSchema.row(this).data()[1] + `"]`).addClass(`hover`)
+    })
+    .on(`mouseleave`, `tr`, function () {
+      $(`[data-target="` + tableSchema.row(this).data()[1] + `"]`).removeClass(`hover`)
+      $(tableSchema.rows().nodes()).removeClass(`selected__12`);
+    })
 })

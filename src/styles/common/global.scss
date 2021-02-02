@@ -283,3 +283,32 @@ table.dataTable tr.child ul li span {
     height: 64px;
   }
 }
+
+header{
+  z-index: 9999;
+  position: relative;
+}
+.unit-schema-part{
+  position: absolute;
+  cursor: pointer;
+  border: 1px solid #D11020;
+}
+.unit-schema-part-link{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.unit-schema-part.hover .unit-schema-part-link {
+  background: #d1102080
+}
+.unit-schema-part:hover .dropdown-menu {
+  display: block;
+  margin-top: 0; 
+}
+.unit-schema-table tr:hover{
+  background-color: #0e6efd4a;
+}
+.unit-schema-table .selected__12 , .unit-schema-table .selected__12 td  {
+  font-weight: 600;
+  background-color: #0e6efd4a !important;
+}
