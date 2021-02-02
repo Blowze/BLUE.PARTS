@@ -1,47 +1,43 @@
 .dropdown.dropstart.user-dropdown.d-none.d-md-block
-    div(data-bs-toggle="dropdown" aria-expanded="false").d-block.dropdown-toggle#dropdownMenu2
+    d-block#dropdownMenu2.dropdown-toggle(data-bs-toggle="dropdown" aria-expanded="false")
         i.bi.bi-person-circle.text-light.fs-3
     ul.dropdown-menu.pt-0.me-2(aria-labelledby="dropdownMenu2")
-        li.py-1
-            a.dropdown-item(href="/profile-me.html")
-                span.d-block(sec:authentication="principal.username") Алексей Крайнов
-                span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
-        li.border-top
-            a.dropdown-item(href="/profile-client.html")
-                .d-flex.align-items-center
-                    i.bi.bi-person.fs-5.me-2
-                    span.d-block Client details
-        li
-            a.dropdown-item
-                .d-flex.align-items-center
-                    i.bi.bi-box-arrow-up-right.fs-5.me-2
-                    span.d-block Generate invitation
-        li
-            a.dropdown-item
-                .d-flex.align-items-center
-                    div.d-flex.align-items-center.w-100
-                        i.bi.bi-cart2.fs-5.me-2
-                        span.d-block My cart
-                    span.badge.bg-danger 1
-        li
-            a.dropdown-item
-                .d-flex.align-items-center
-                    div.d-flex.align-items-center.w-100
-                        i.bi.bi-shop.fs-5.me-2
-                        span.d-block Garage
-                    span.badge.bg-danger 1
-        li
-            a.dropdown-item
-                .d-flex.align-items-center
-                    i.bi.bi-box.fs-5.me-2
-                    span.d-block Orders
-        li
-            a.dropdown-item
-                .d-flex.align-items-center
-                    i.bi.bi-gear.fs-5.me-2
-                    span.d-block Settings
-        li
-            a.dropdown-item
-                .d-flex.align-items-center
-                    i.bi.bi-box-arrow-in-right.fs-5.me-2
-                    span.d-block Logout
+        div(sec:authorize="isAuthenticated()")
+            li.py-1
+                a.dropdown-item(href="/profile/me.html" th:href="${lang_prefix} + @{/profile/me}")
+                    span.d-block(sec:authentication="principal.username") Алексей Крайнов
+                    span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
+            li
+                a.dropdown-item(th:href="@{/logout(lang=${lang})}")
+                    .d-flex.align-items-center
+                        i.bi.bi-box-arrow-up-right.fs-5.me-2
+                        span.d-block(th:text="#{_.logout}") Logout
+        div(sec:authorize="hasAnyRole('ROLE_MASTER_CLIENT', 'ROLE_SLAVE_CLIENT')")
+            li.border-top
+                a.dropdown-item(href="/profile/client.html" th:href="${lang_prefix} + @{/profile/client}")
+                    .d-flex.align-items-center
+                        i.bi.bi-person.fs-5.me-2
+                        span.d-block(th:text="#{_.clientDetails}") Client details
+            li
+                a.dropdown-item(href="/profile/orders.html" th:href="${lang_prefix} + @{/profile/orders}")
+                    .d-flex.align-items-center
+                        i.bi.bi-person.fs-5.me-2
+                        span.d-block(th:text="#{_.orderlist}") Orders
+            //li.border-top
+            //  a.dropdown-item(href="/profile/backorders.html" th:href="${lang_prefix} + @{/profile/backorders}")
+            //    .d-flex.align-items-center
+            //      i.bi.bi-person.fs-5.me-2
+            //      span.d-block(th:text="#{_.backorderlist}") Backorders
+            li
+                a.dropdown-item(href="/profile/garage.html" th:href="${lang_prefix} + @{/profile/garage}")
+                    .d-flex.align-items-center
+                        .d-flex.align-items-center.w-100
+                            i.bi.bi-shop.fs-5.me-2
+                            span.d-block(th:text="#{_.garage}") My cars
+                        span.badge.bg-danger(th:classappend="${vehicle_count == 0 ? 'hidden': ''}" th:text="${vehicle_count}") 1
+        div(sec:authorize="isAuthenticated() && !hasAnyRole('ROLE_VISITOR', 'ROLE_STOCK_MANAGER', 'ROLE_SLAVE_CLIENT')")
+            li.border-top
+                a.dropdown-item(href="/profile/invite.html" th:href="${lang_prefix} + @{/invite}")
+                    .d-flex.align-items-center
+                        i.bi.bi-person.fs-5.me-2
+                        span.d-block(th:text="#{_.generateInvitation}") Generate invitation

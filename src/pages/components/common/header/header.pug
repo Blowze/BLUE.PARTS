@@ -3,25 +3,19 @@ header.position-absolute.w-100.fixed-top
     .container
       ul.nav.ms-auto.fs-7
         li.nav-item.dropdown
-          a(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false").nav-link.link-light.px-3.py-0.dropdown-toggle#navbarDarkDropdownMenuLink Language
+          a#navbarDarkDropdownMenuLink.nav-link.link-light.px-3.py-0.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") Language
           ul.dropdown-menu(aria-labelledby="navbarDarkDropdownMenuLink")
             li
-              a(href="").dropdown-item English
+              a.dropdown-item(href="") English
             li
-              a(href="").dropdown-item ไทย
+              a.dropdown-item(href="") ไทย
         li.nav-item
-          a(href="#").nav-link.link-light.px-3.py-0  Help
+          a.nav-link.link-light.px-3.py-0(href="#") Help
         li.nav-item
-          a(th:href="@{/login}" th:text="#{label.login}").nav-link.link-light.px-3.py-0.pe-0 Login
-
-
+          a.nav-link.link-light.px-3.py-0.pe-0(th:href="@{/login}" th:text="#{label.login}") Login
   .py-2
     .navbar.navbar-expand-lg
       .container
         .d-flex.align-items-center.w-100
           a.navbar-brand.me-auto(th:href="${lang_prefix} + @{/}")
             em.h5.fw-bold.text-white(th:text="#{logo.text}") BLUE.PARTS
-
-
-
-

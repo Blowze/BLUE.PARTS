@@ -3,28 +3,28 @@ div.h-100.d-flex.align-items-center.home
     h1.text-light(th:utext="#{main.search-slogan.vin.heading}") FIND AUTOPARTS
     .col-12.col-lg-6.d-none.d-sm-block
       p.lead.text-light Something short and leading about the collection below—its contents
-    ul.nav.nav-tabs.border-0.mt-5#myTab(role="tablist")
+    ul#myTab.nav.nav-tabs.border-0.mt-5(role="tablist")
       li.nav-item.pe-1.pe-md-2(role="presentation")
-        a.nav-link.search-main-link.border-0.active.px-md-4#home-tab(href="#home" data-bs-toggle="tab" role="tab" aria-controls="home" aria-selected="true" th:text="#{main_page.vin}") VIN 
+        a#home-tab.nav-link.search-main-link.border-0.active.px-md-4(href="#home" data-bs-toggle="tab" role="tab" aria-controls="home" aria-selected="true" th:text="#{main_page.vin}") VIN
       li.nav-item.pe-1.pe-md-2(role="presentation")
-        a.nav-link.search-main-link.border-0.px-md-4#home-tab(href="#profile" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="true" th:text="#{main_page.car_model}") Car Model 
+        a#home-tab.nav-link.search-main-link.border-0.px-md-4(href="#profile" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="true" th:text="#{main_page.car_model}") Car Model
       li.nav-item.pe-1.pe-md-2(role="presentation")
-        a.nav-link.search-main-link.border-0.px-md-4#home-tab(href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="true" th:text="#{main_page.car_model}") Part Number 
+        a#home-tab.nav-link.search-main-link.border-0.px-md-4(href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="true" th:text="#{main_page.part_number}") Part Number
     .tab-content#myTabContent
-      .tab-pane.show.active#home(role="tabpanel" aria-labelledby="home-tab")
+      .tab-pane#home.show.active(role="tabpanel" aria-labelledby="home-tab")
         .card.px-3.py-3.border-0.search-main-card
-          form(action="#" method="get" th:action="${lang_prefix} + @{/garagevin}").d-flex
+          form.d-flex(action="#" method="get" th:action="${lang_prefix} + @{/garagevin}")
             .input-group
-              input.form-control(type="text" placeholder="Enter VIN number MRHCP16308P303236" aria-label="Search" th:placeholder="#{_.placeholder.search-form.vin}").me-2
+              input.form-control.me-2(type="text" placeholder="Enter VIN number MRHCP16308P303236" aria-label="Search" th:placeholder="#{_.placeholder.search-form.vin}")
             button.btn.btn-primary
               i.bi.bi-search
       .tab-pane#profile(role="tabpanel" aria-labelledby="profile-tab")
         .card.px-3.py-3.border-0.search-main-card
           .row
-            form(action="#" method="get" th:action="${lang_prefix} + @{/models}").d-flex
+            form.d-flex(action="#" method="get" th:action="${lang_prefix} + @{/models}")
               .col.col-6.col-md-3.mb-3.mb-md-0
                 p.mb-2 Make:
-                select.form-select(aria-label="Default select example" )
+                select.form-select(aria-label="Default select example")
                   option(selected) Select a make...
                   option(value="1") One
                   option(value="1") Two
@@ -49,9 +49,8 @@ div.h-100.d-flex.align-items-center.home
 
       .tab-pane#contact(role="tabpanel" aria-labelledby="contact-tab")
         .card.px-3.py-3.border-0.search-main-card
-          form(action="#" method="get" th:action="${lang_prefix} + @{/partprice}").d-flex
+          form.d-flex(action="#" method="get" th:action="${lang_prefix} + @{/partprice}")
             .input-group
-              input.form-control(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Search" th:placeholder="#{_.placeholder.search-form.partnum}").me-2
+              input.form-control.me-2(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Search" th:placeholder="#{_.placeholder.search-form.partnum}")
             button.btn.btn-primary
               i.bi.bi-search
-

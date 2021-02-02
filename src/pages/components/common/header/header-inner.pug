@@ -3,16 +3,16 @@ header.w-100
     .container
       ul.nav.ms-auto.fs-7
         li.nav-item.dropdown
-          a(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false").nav-link.link-light.px-3.py-0.dropdown-toggle#navbarDarkDropdownMenuLink Language
+          a#navbarDarkDropdownMenuLink.nav-link.link-light.px-3.py-0.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") Language
           ul.dropdown-menu(aria-labelledby="navbarDarkDropdownMenuLink")
             li
-              a(href="").dropdown-item English
+              a.dropdown-item(href="") English
             li
-              a(href="").dropdown-item ไทย
+              a.dropdown-item(href="") ไทย
         li.nav-item
-          a(href="#").nav-link.link-light.px-3.py-0  Company
+          a.nav-link.link-light.px-3.py-0(href="#")  Company
         li.nav-item
-          a(href="#").nav-link.link-light.px-3.py-0.pe-0 Help
+          a.nav-link.link-light.px-3.py-0.pe-0(href="#") Help
   .py-0.py-md-2.bg-primary
     .navbar.navbar-expand-lg
       .container.d-block
@@ -22,25 +22,25 @@ header.w-100
               em.h5.fw-bold.text-white(th:text="#{logo.text}") BLUE.PARTS
           .col-6.d-none.d-lg-block
             .d-flex.position-relative.search
-              select.form-select(aria-label="Default select example" ).w-auto.pe-5.fs-7
+              select.form-select.w-auto.pe-5.fs-7(aria-label="Default select example")
                 option(selected th:text="#{main_page.car_model}") Part Number
                 option(value="1" th:text="#{main_page.vin}") VIN
               .input-group
-                input(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Amount (to the nearest dollar)" th:placeholder="#{_.placeholder.search-form.vin}").form-control.pe-5.fs-7.py-2
+                input.form-control.pe-5.fs-7.py-2(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Amount (to the nearest dollar)" th:placeholder="#{_.placeholder.search-form.vin}")
               button.btn.btn-primary.btn-sm.position-absolute.top-50.translate-middle-y.end-0.me-1
                 i.bi.bi-search
           .col-6.col-lg-3
             .d-flex.justify-content-end
-              a(href="/").me-5.position-relative.d-none.d-md-block
+              a.me-5.position-relative.d-none.d-md-block(href="/")
                 i.bi.bi-shop.text-light.fs-3
                 span.badge.bg-danger.position-absolute.end-0.badge-basket 1
-              a(href="/").me-5.position-relative.d-none.d-md-block
+              a.me-5.position-relative.d-none.d-md-block(href="/")
                 i.bi.bi-cart2.text-light.fs-3
                 span.badge.bg-danger.position-absolute.end-0.badge-basket 3
               .d-flex.d-md-none
-                a(href="").d-block.position-relative.me-3
+                a.d-block.position-relative.me-3(href="")
                   i.bi.bi-cart2.fs-2.text-light
                   span.badge.bg-danger.position-absolute.end-0.badge-basket 3
-                a(href="" data-bs-toggle="modal" data-bs-target="#modalMenu").d-block
+                a.d-block(href="" data-bs-toggle="modal" data-bs-target="#modalMenu")
                   i.bi.bi-justify.fs-1.text-light
               include ../menu
