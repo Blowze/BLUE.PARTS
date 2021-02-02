@@ -137,6 +137,10 @@ $(document).ready(() => {
   $(`.card-total__price`).click(function () {
     $(this).toggleClass(`card-total_open`)
   })
+  const PADDING = 5
+  const image = document.querySelector(`.unit-schema-picture > img`)
+  const areas = $(`#partList`).find(`> div`).toArray()
+  const coords = []
   function getElementPosition(elem) {
     const box = elem.getBoundingClientRect()
     const body = document.body
@@ -151,8 +155,8 @@ $(document).ready(() => {
       top: Math.round(top), left: Math.round(left)
     }
   }
-  function coordsToObject(coords) {
-    const rawCoords = coords.replace(/ *, */g, `,`).replace(/ +/g, `,`).split(`,`)
+  function coordsToObject(coordsObj) {
+    const rawCoords = coordsObj.replace(/ *, */g, `,`).replace(/ +/g, `,`).split(`,`)
     return {
       minX: parseInt(rawCoords[0]),
       minY: parseInt(rawCoords[1]),
@@ -170,13 +174,6 @@ $(document).ready(() => {
       maxY: coordsObj.maxY * yScaleFactor
     }
   }
-  const PADDING = 5
-  const image = document.querySelector(`.unit-schema-picture > img`)
-  const areas = $(`#partList`).find(`> div`).toArray()
-  const coords = []
-  areas.forEach(function (value, i) {
-    coords[i] = coordsToObject(value.getAttribute(`data-coords`))
-  })
   function updateImageMap() {
     const imagePos = getElementPosition(image)
     areas.forEach(function (value, i) {
@@ -192,14 +189,6 @@ $(document).ready(() => {
     setInterval(updateImageMap, 600)
     updateImageMap()
   }
-  if (document.readyState === `complete`) {
-    initializeMap()
-  } else {
-    $(window).on(`load`, function () {
-      initializeMap()
-    })
-  }
-  const defaultTarget = false
   function select(element) {
     // $('.tooltipstered').tooltipster('destroy')
     const target = $(element).data(`target`).toString()
@@ -211,23 +200,38 @@ $(document).ready(() => {
     $(row.node()).addClass(`selected__12`)
     $(element).find(`.dropdown-menu`).addClass(`show`)
   }
-  $(`.unit-schema-part`).on(`mouseenter tap`, function () {
-    select(this)
-  }).on(`mouseleave`, function () {
-    if (this === defaultTarget) {
-      return
+  if ($(`#schemaTable`).length > 0) {
+    areas.forEach(function (value, i) {
+      coords[i] = coordsToObject(value.getAttribute(`data-coords`))
+    })
+    if (document.readyState === `complete`) {
+      initializeMap()
+    } else {
+      $(window).on(`load`, function () {
+        initializeMap()
+      })
     }
-    $(`[data-target="` + $(this).data(`target`) + `"]`).removeClass(`hover`)
-    $(tableSchema.rows().nodes()).removeClass(`selected__12`);
-    $(this).find(`.dropdown-menu`).removeClass(`show`)
-  })
-  const tableElement = $(`#schemaTable`)
-  tableElement.find(`tbody`)
-    .on(`mouseenter`, `tr`, function () {
-      $(`[data-target="` + tableSchema.row(this).data()[1] + `"]`).addClass(`hover`)
+    const defaultTarget = false
+    $(`.unit-schema-part`).on(`mouseenter tap`, function () {
+      select(this)
+    }).on(`mouseleave`, function () {
+      if (this === defaultTarget) {
+        return
+      }
+      $(`[data-target="` + $(this).data(`target`) + `"]`).removeClass(`hover`)
+      $(tableSchema.rows().nodes()).removeClass(`selected__12`)
+      $(this).find(`.dropdown-menu`).removeClass(`show`)
     })
-    .on(`mouseleave`, `tr`, function () {
-      $(`[data-target="` + tableSchema.row(this).data()[1] + `"]`).removeClass(`hover`)
-      $(tableSchema.rows().nodes()).removeClass(`selected__12`);
-    })
+    const tableElement = $(`#schemaTable`)
+    tableElement.find(`tbody`)
+      .on(`mouseenter`, `tr`, function () {
+        $(`[data-target="` + tableSchema.row(this).data()[1] + `"]`).addClass(`hover`)
+      })
+      .on(`mouseleave`, `tr`, function () {
+        $(`[data-target="` + tableSchema.row(this).data()[1] + `"]`).removeClass(`hover`)
+        $(tableSchema.rows().nodes()).removeClass(`selected__12`)
+      })
+  }
+
 })
+
