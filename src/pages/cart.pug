@@ -72,8 +72,8 @@ block content
           hr
           a.btn.btn-primary(href="#") Save changes
   #modalTotal.modal-total.modal.modal-bottom.fade(tabindex='-1' aria-labelledby='modalTotalLabel' aria-hidden='true')
-    .modal-dialog.modal-fullscreen
-      .modal-content
+    .modal-dialog.h-100.d-flex.align-items-end
+      .modal-content.b-none.rounded-0.border-0
           .d-flex.align-items-center.justify-content-between.py-3.px-3.fw-bold Summary
             button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
           hr.my-0.mx-0
@@ -157,7 +157,7 @@ block content
                    
         .col.col-12.col-lg-3.mb-4.mb-lg-0.d-flex.d-md-block.flex-column-reverse
           .sticky-lg-top.top-1
-            .card.d-md-none
+            .card.d-none.d-md-block
               .card-header Order summary
               .card-body
                 .d-flex.justify-content-between.align-items-center.mb-2.fs-7
