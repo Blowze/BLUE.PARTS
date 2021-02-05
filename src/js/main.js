@@ -10,6 +10,7 @@ require(`../../node_modules/datatables.net-buttons/js/buttons.print`)
 require(`datatables.net-buttons`)
 require(`datatables.net-responsive`)
 require(`./lib/dataTables.bootstrap5.min`)
+require(`./model-search-form`)
 
 $(document).ready(() => {
 
