@@ -72,6 +72,7 @@
     "inputmask": "^5.0.5",
     "jquery": "^3.5.0",
     "popper.js": "^1.14.3",
+    "selectize": "^0.12.6",
     "tooltipster": "^4.2.8"
   },
   "editorconfig-cli": [
