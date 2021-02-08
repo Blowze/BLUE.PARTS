@@ -16,8 +16,8 @@
           <ul class="nav ms-auto fs-7">
             <li class="nav-item dropdown"><a class="nav-link link-light px-3 py-0 dropdown-toggle" id="navbarDarkDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Language</a>
               <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="">English</a></li>
-                <li><a class="dropdown-item" href="">ไทย</a></li>
+                <li><a class="dropdown-item" href="/en/">English</a></li>
+                <li><a class="dropdown-item" href="/th">ไทย</a></li>
               </ul>
             </li>
             <li class="nav-item"><a class="nav-link link-light px-3 py-0" href="#"> Company</a></li>
@@ -44,12 +44,12 @@
               </div>
               <div class="col-6 col-lg-3">
                 <div class="d-flex justify-content-end"><a class="me-5 position-relative d-none d-md-block" href="/"><i class="bi bi-shop text-light fs-3"></i><span class="badge bg-danger position-absolute end-0 badge-basket">1</span></a><a class="me-5 position-relative d-none d-md-block" href="/"><i class="bi bi-cart2 text-light fs-3"></i><span class="badge bg-danger position-absolute end-0 badge-basket">3</span></a>
-                  <div class="d-flex d-md-none"><a class="d-block position-relative me-3" href=""><i class="bi bi-cart2 fs-2 text-light"><span class="badge bg-danger position-absolute end-0 badge-basket">3</span></i><a class="d-block" href="" data-bs-toggle="modal" data-bs-target="#modalMenu"><i class="bi bi-justify fs-1 text-light"></i></a></a></div>
+                  <div class="d-flex d-md-none"><a class="d-block position-relative me-3" href=""><i class="bi bi-cart2 fs-2 text-light"></i><span class="badge bg-danger position-absolute end-0 badge-basket">3</span></a><a class="d-block" href="" data-bs-toggle="modal" data-bs-target="#modalMenu"><i class="bi bi-justify fs-1 text-light"></i></a></div>
                   <div class="dropdown dropstart user-dropdown d-none d-md-block">
-                    <d-block class="dropdown-toggle" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle text-light fs-3"></i></d-block>
+                    <div class="d-block dropdown-toggle" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle text-light fs-3"></i></div>
                     <ul class="dropdown-menu pt-0 me-2" aria-labelledby="dropdownMenu2">
                       <div sec:authorize="isAuthenticated()">
-                        <li class="py-1"><a class="dropdown-item" href="/profile/me.html" th:href="${lang_prefix} + @{/profile/me}"><span class="d-block" sec:authentication="principal.username">Алексей Крайнов</span><span class="fs-7 d-block text-secondary" sec:authentication="principal.email">krainovlife@gmail.com</span></a></li>
+                        <li class="py-1"><a class="dropdown-item" href="/profile/me.html" th:href="${lang_prefix} + @{/profile/user}"><span class="d-block" sec:authentication="principal.username">Алексей Крайнов</span><span class="fs-7 d-block text-secondary" sec:authentication="principal.email">krainovlife@gmail.com</span></a></li>
                         <li><a class="dropdown-item" th:href="@{/logout(lang=${lang})}">
                             <div class="d-flex align-items-center"><i class="bi bi-box-arrow-up-right fs-5 me-2"></i><span class="d-block" th:text="#{_.logout}">Logout</span></div></a></li>
                       </div>
@@ -362,13 +362,14 @@
         </div>
       </div>
     </footer>
+    <script th:inline="javascript">window["$global"] = /*[[${global_js_obj.getVars(#ctx)}]]*/{};</script>
     <script src="js/main.min.js"></script>
     <div class="modal modal-right fade" id="modalMenu" tabindex="-1" aria-labelledby="modalMenuLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
             <ul class="nav">
-              <li class="border-bottom nav-item py-3 w-100 pb-4"><span class="d-block" sec:authentication="principal.username">Алексей Крайнов</span><span class="fs-7 d-block text-secondary" sec:authentication="principal.email">krainovlife@gmail.com</span></li>
+              <li class="border-bottom nav-item py-3 w-100 pb-4" sec:authorize="isAuthenticated()"><span class="d-block" sec:authentication="principal.username">Алексей Крайнов</span><span class="fs-7 d-block text-secondary" sec:authentication="principal.email">krainovlife@gmail.com</span></li>
               <li class="w-100 py-2">
                 <div class="d-flex align-items-center"><i class="bi bi-person fs-5 me-2"></i><span class="d-block">Client details</span></div>
               </li>

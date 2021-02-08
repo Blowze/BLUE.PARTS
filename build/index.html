@@ -16,8 +16,8 @@
           <ul class="nav ms-auto fs-7">
             <li class="nav-item dropdown"><a class="nav-link link-light px-3 py-0 dropdown-toggle" id="navbarDarkDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Language</a>
               <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="">English</a></li>
-                <li><a class="dropdown-item" href="">ไทย</a></li>
+                <li><a class="dropdown-item" href="/en/">English</a></li>
+                <li><a class="dropdown-item" href="/th">ไทย</a></li>
               </ul>
             </li>
             <li class="nav-item"><a class="nav-link link-light px-3 py-0" href="#">Help</a></li>
@@ -50,9 +50,9 @@
               <div class="card px-3 py-3 border-0 search-main-card">
                 <form class="d-flex" action="#" method="get" th:action="${lang_prefix} + @{/garagevin}">
                   <div class="input-group">
-                    <input class="form-control me-2" type="text" placeholder="Enter VIN number MRHCP16308P303236" aria-label="Search" th:placeholder="#{_.placeholder.search-form.vin}">
+                    <input class="form-control me-2" type="text" name="vin" required placeholder="Enter VIN number MRHCP16308P303236" aria-label="Search" th:placeholder="#{_.placeholder.search-form.vin}">
                   </div>
-                  <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+                  <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
                 </form>
               </div>
             </div>
@@ -62,34 +62,26 @@
                   <form class="d-flex" action="#" method="get" th:action="${lang_prefix} + @{/models}">
                     <div class="col col-6 col-md-3 mb-3 mb-md-0">
                       <p class="mb-2">Make:</p>
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>Select a make...</option>
-                        <option value="1">One</option>
-                        <option value="1">Two</option>
-                        <option value="1">one</option>
+                      <select class="form-select" id="model-search-manufacturer" aria-label="Default select example">
+                        <option selected></option>
+                        <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.title}" th:text="${manufacturer.title}"></option>
                       </select>
                     </div>
                     <div class="col col-6 col-md-3 mb-3 mb-md-0">
                       <p class="mb-2">Year:</p>
-                      <select class="form-select" aria-label="Default select example" disabled>
-                        <option selected>Select year...</option>
-                        <option value="1">One</option>
-                        <option value="1">Two</option>
-                        <option value="1">one</option>
+                      <select class="form-select" id="model-search-years" aria-label="Default select example" name="year" disabled>
+                        <option selected></option>
                       </select>
                     </div>
                     <div class="col col-6 col-md-3">
                       <p class="mb-2">Model:</p>
-                      <select class="form-select" aria-label="Default select example" disabled>
-                        <option selected>Select a model...</option>
-                        <option value="1">One</option>
-                        <option value="1">Two</option>
-                        <option value="1">one</option>
+                      <select class="form-select" id="model-search-models" aria-label="Default select example" name="model" disabled>
+                        <option selected></option>
                       </select>
                     </div>
                     <div class="col col-6 col-md-3">
                       <div class="d-flex h-100 align-items-end">
-                        <button class="btn btn-primary w-100" disabled>Search</button>
+                        <button class="btn btn-primary w-100" id="search-model" disabled type="submit">Search</button>
                       </div>
                     </div>
                   </form>
@@ -100,9 +92,9 @@
               <div class="card px-3 py-3 border-0 search-main-card">
                 <form class="d-flex" action="#" method="get" th:action="${lang_prefix} + @{/partprice}">
                   <div class="input-group">
-                    <input class="form-control me-2" type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Search" th:placeholder="#{_.placeholder.search-form.partnum}">
+                    <input class="form-control me-2" type="text" name="partnum" required placeholder="Enter part number 90915-YZZF2" aria-label="Search" th:placeholder="#{_.placeholder.search-form.partnum}">
                   </div>
-                  <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+                  <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
                 </form>
               </div>
             </div>
@@ -124,13 +116,14 @@
         </div>
       </div>
     </footer>
+    <script th:inline="javascript">window["$global"] = /*[[${global_js_obj.getVars(#ctx)}]]*/{};</script>
     <script src="js/main.min.js"></script>
     <div class="modal modal-right fade" id="modalMenu" tabindex="-1" aria-labelledby="modalMenuLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
             <ul class="nav">
-              <li class="border-bottom nav-item py-3 w-100 pb-4"><span class="d-block" sec:authentication="principal.username">Алексей Крайнов</span><span class="fs-7 d-block text-secondary" sec:authentication="principal.email">krainovlife@gmail.com</span></li>
+              <li class="border-bottom nav-item py-3 w-100 pb-4" sec:authorize="isAuthenticated()"><span class="d-block" sec:authentication="principal.username">Алексей Крайнов</span><span class="fs-7 d-block text-secondary" sec:authentication="principal.email">krainovlife@gmail.com</span></li>
               <li class="w-100 py-2">
                 <div class="d-flex align-items-center"><i class="bi bi-person fs-5 me-2"></i><span class="d-block">Client details</span></div>
               </li>

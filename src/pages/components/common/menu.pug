@@ -1,16 +1,16 @@
 .d-flex.d-md-none
   a.d-block.position-relative.me-3(href="")
     i.bi.bi-cart2.fs-2.text-light
-      span.badge.bg-danger.position-absolute.end-0.badge-basket 3
-    a.d-block(href="" data-bs-toggle="modal" data-bs-target="#modalMenu")
-      i.bi.bi-justify.fs-1.text-light
+    span.badge.bg-danger.position-absolute.end-0.badge-basket 3
+  a.d-block(href="" data-bs-toggle="modal" data-bs-target="#modalMenu")
+    i.bi.bi-justify.fs-1.text-light
 .dropdown.dropstart.user-dropdown.d-none.d-md-block
-  d-block#dropdownMenu2.dropdown-toggle(data-bs-toggle="dropdown" aria-expanded="false")
+  .d-block#dropdownMenu2.dropdown-toggle(data-bs-toggle="dropdown" aria-expanded="false")
     i.bi.bi-person-circle.text-light.fs-3
   ul.dropdown-menu.pt-0.me-2(aria-labelledby="dropdownMenu2")
     div(sec:authorize="isAuthenticated()")
       li.py-1
-        a.dropdown-item(href="/profile/me.html" th:href="${lang_prefix} + @{/profile/me}")
+        a.dropdown-item(href="/profile/me.html" th:href="${lang_prefix} + @{/profile/user}")
           span.d-block(sec:authentication="principal.username") Алексей Крайнов
           span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
       li
