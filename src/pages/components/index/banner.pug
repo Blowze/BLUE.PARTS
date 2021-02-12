@@ -10,36 +10,35 @@
         a#home-tab.nav-link.search-main-link.border-0.px-md-4(href="#profile" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="true" th:text="#{main_page.car_model}") Car Model
       li.nav-item.pe-1.pe-md-2(role="presentation")
         a#home-tab.nav-link.search-main-link.border-0.px-md-4(href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="true" th:text="#{main_page.part_number}") Part Number
-    .tab-content#myTabContent
-      .tab-pane#home.show.active(role="tabpanel" aria-labelledby="home-tab")
+    #myTabContent.tab-content
+      #home.tab-pane.show.active(role="tabpanel" aria-labelledby="home-tab")
         .card.px-3.py-3.border-0.search-main-card
           form.d-flex(action="#" method="get" th:action="${lang_prefix} + @{/garagevin}")
             .input-group
               input.form-control.me-2(type="text" name="vin" required=true placeholder="Enter VIN number MRHCP16308P303236" aria-label="Search" th:placeholder="#{_.placeholder.search-form.vin}")
             button.btn.btn-primary(type="submit")
               i.bi.bi-search
-      .tab-pane#profile(role="tabpanel" aria-labelledby="profile-tab")
+      #profile.tab-pane(role="tabpanel" aria-labelledby="profile-tab")
         .card.px-3.py-3.border-0.search-main-card
-          .row
-            form.d-flex(action="#" method="get" th:action="${lang_prefix} + @{/models}")
-              .col.col-6.col-md-3.mb-3.mb-md-0
-                p.mb-2 Make:
-                select.form-select#model-search-manufacturer(aria-label="Default select example")
-                  option(selected)
-                  option(th:each='manufacturer : ${manufacturers}' th:value='${manufacturer.title}' th:text='${manufacturer.title}')
-              .col.col-6.col-md-3.mb-3.mb-md-0
-                p.mb-2 Year:
-                select.form-select#model-search-years(aria-label="Default select example" name="year" disabled)
-                  option(selected)
-              .col.col-6.col-md-3
-                p.mb-2 Model:
-                select.form-select#model-search-models(aria-label="Default select example" name="model" disabled)
-                  option(selected)
-              .col.col-6.col-md-3
-                .d-flex.h-100.align-items-end
-                  button#search-model.btn.btn-primary.w-100(disabled type="submit") Search
+          form.row(action="#" method="get" th:action="${lang_prefix} + @{/models}")
+            .col.col-6.col-md-3.mb-3.mb-md-0
+              p.mb-2 Make:
+              select#model-search-manufacturer.w-100(aria-label="Default select example")
+                option(selected)
+                option(th:each='manufacturer : ${manufacturers}' th:value='${manufacturer.title}' th:text='${manufacturer.title}')
+            .col.col-6.col-md-3.mb-3.mb-md-0
+              p.mb-2 Year:
+              select#model-search-years(aria-label="Default select example" name="year" disabled)
+                option(selected)
+            .col.col-6.col-md-3
+              p.mb-2 Model:
+              select#model-search-models(aria-label="Default select example" name="model" disabled)
+                option(selected)
+            .col.col-6.col-md-3
+              .d-flex.h-100.align-items-end
+                button#search-model.btn.btn-primary.w-100(disabled type="submit") Search
 
-      .tab-pane#contact(role="tabpanel" aria-labelledby="contact-tab")
+      #contact.tab-pane(role="tabpanel" aria-labelledby="contact-tab")
         .card.px-3.py-3.border-0.search-main-card
           form.d-flex(action="#" method="get" th:action="${lang_prefix} + @{/partprice}")
             .input-group

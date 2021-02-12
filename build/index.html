@@ -58,34 +58,32 @@
             </div>
             <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <div class="card px-3 py-3 border-0 search-main-card">
-                <div class="row">
-                  <form class="d-flex" action="#" method="get" th:action="${lang_prefix} + @{/models}">
-                    <div class="col col-6 col-md-3 mb-3 mb-md-0">
-                      <p class="mb-2">Make:</p>
-                      <select class="form-select" id="model-search-manufacturer" aria-label="Default select example">
-                        <option selected></option>
-                        <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.title}" th:text="${manufacturer.title}"></option>
-                      </select>
+                <form class="row" action="#" method="get" th:action="${lang_prefix} + @{/models}">
+                  <div class="col col-6 col-md-3 mb-3 mb-md-0">
+                    <p class="mb-2">Make:</p>
+                    <select class="w-100" id="model-search-manufacturer" aria-label="Default select example">
+                      <option selected></option>
+                      <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.title}" th:text="${manufacturer.title}"></option>
+                    </select>
+                  </div>
+                  <div class="col col-6 col-md-3 mb-3 mb-md-0">
+                    <p class="mb-2">Year:</p>
+                    <select id="model-search-years" aria-label="Default select example" name="year" disabled>
+                      <option selected></option>
+                    </select>
+                  </div>
+                  <div class="col col-6 col-md-3">
+                    <p class="mb-2">Model:</p>
+                    <select id="model-search-models" aria-label="Default select example" name="model" disabled>
+                      <option selected></option>
+                    </select>
+                  </div>
+                  <div class="col col-6 col-md-3">
+                    <div class="d-flex h-100 align-items-end">
+                      <button class="btn btn-primary w-100" id="search-model" disabled type="submit">Search</button>
                     </div>
-                    <div class="col col-6 col-md-3 mb-3 mb-md-0">
-                      <p class="mb-2">Year:</p>
-                      <select class="form-select" id="model-search-years" aria-label="Default select example" name="year" disabled>
-                        <option selected></option>
-                      </select>
-                    </div>
-                    <div class="col col-6 col-md-3">
-                      <p class="mb-2">Model:</p>
-                      <select class="form-select" id="model-search-models" aria-label="Default select example" name="model" disabled>
-                        <option selected></option>
-                      </select>
-                    </div>
-                    <div class="col col-6 col-md-3">
-                      <div class="d-flex h-100 align-items-end">
-                        <button class="btn btn-primary w-100" id="search-model" disabled type="submit">Search</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </div>
             </div>
             <div class="tab-pane" id="contact" role="tabpanel" aria-labelledby="contact-tab">

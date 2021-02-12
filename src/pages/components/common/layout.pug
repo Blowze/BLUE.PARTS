@@ -18,8 +18,8 @@ html.h-100(lang="ru" th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:
     block scripts
       script(th:inline="javascript").
         window["$global"] = /*[[${global_js_obj.getVars(#ctx)}]]*/{};
-      script(src='js/main.min.js')
-    #modalMenu.modal.modal-right.fade(tabindex='-1' aria-labelledby='modalMenuLabel' aria-hidden='true')
+      script(src="js/main.min.js")
+    #modalMenu.modal.modal-right.fade(tabindex="-1" aria-labelledby="modalMenuLabel" aria-hidden="true")
       .modal-dialog
         .modal-content
           .modal-body

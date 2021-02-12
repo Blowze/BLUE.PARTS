@@ -54,6 +54,9 @@
 
 @import "../common/icons";
 
+@import "../../../node_modules/selectize/dist/css/selectize.bootstrap3";
+
+
 //Custom
 
 .btn {
@@ -311,4 +314,8 @@ header{
 .unit-schema-table .selected__12 , .unit-schema-table .selected__12 td  {
   font-weight: 600;
   background-color: #0e6efd4a !important;
+}
+.selectize-input input{
+  display: block;
+  width: 100%;
 }
