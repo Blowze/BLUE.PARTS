@@ -23,16 +23,16 @@
           form.row(action="#" method="get" th:action="${lang_prefix} + @{/models}")
             .col.col-6.col-md-3.mb-3.mb-md-0
               p.mb-2 Make:
-              select#model-search-manufacturer.w-100(aria-label="Default select example")
+              select#model-search-manufacturer.w-100(name="manufacturer")
                 option(selected)
                 option(th:each='manufacturer : ${manufacturers}' th:value='${manufacturer.title}' th:text='${manufacturer.title}')
             .col.col-6.col-md-3.mb-3.mb-md-0
               p.mb-2 Year:
-              select#model-search-years(aria-label="Default select example" name="year" disabled)
+              select#model-search-years(name="year" disabled)
                 option(selected)
             .col.col-6.col-md-3
               p.mb-2 Model:
-              select#model-search-models(aria-label="Default select example" name="model" disabled)
+              select#model-search-models(name="model" disabled)
                 option(selected)
             .col.col-6.col-md-3
               .d-flex.h-100.align-items-end
