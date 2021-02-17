@@ -23,7 +23,7 @@
           form.row(action="#" method="get" th:action="${lang_prefix} + @{/models}")
             .col.col-6.col-md-3.mb-3.mb-md-0
               p.mb-2 Make:
-              select#model-search-manufacturer.w-100(aria-label="Default select example")
+              select#model-search-manufacturer.w-100(aria-label="Default select example" name="make")
                 option(selected)
                 option(th:each='manufacturer : ${manufacturers}' th:value='${manufacturer.title}' th:text='${manufacturer.title}')
             .col.col-6.col-md-3.mb-3.mb-md-0
