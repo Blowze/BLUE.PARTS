@@ -5,4 +5,4 @@
   hr.mt-3.mb-4
   h5(th:text="#{garage.catalog-spare-parts}") SPARE PARTS CATALOG
   .list-group.mt-3.bg-white.mb-3(th:each="group : ${unitGroups}")
-    a.list-group-item.list-group-item-action(th:text="${group.title}" th:href="${lang_prefix} + @{/modelunits(manufacturer=${vehicle.manufacturer},modelId=${vehicle.id},groupId=${group.id})}" th:title="#{_.schema } + '&nbsp;' + ${group.title} + '&nbsp;' + #{_.forCar } + '&nbsp;' + |${vehicle.manufacturer} ${vehicle.title} ${vehicle.grade} ${vehicle.issueYear}|" th:hreflang="${lang}") Tool/Engine/Fuel
+    a.list-group-item.list-group-item-action(th:text="${group.title}" th:href="${lang_prefix} + @{/modelunits(make=${vehicle.manufacturer},modelId=${vehicle.id},groupId=${group.id})}" th:title="#{_.schema } + '&nbsp;' + ${group.title} + '&nbsp;' + #{_.forCar } + '&nbsp;' + |${vehicle.manufacturer} ${vehicle.title} ${vehicle.grade} ${vehicle.issueYear}|" th:hreflang="${lang}") Tool/Engine/Fuel
