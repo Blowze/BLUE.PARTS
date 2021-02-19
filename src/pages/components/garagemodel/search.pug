@@ -1,6 +1,6 @@
 h2 Search by part name
 .input-group.mt-4.mb-2
-  input.form-control(placeholder="Enter spare part name...")
+  input.form-control(ID="item__search-name" minlength="3" name="partName" placeholder="Enter spare part name...")
   button.btn.btn-primary
     i.bi.bi-search
 table#garagemodelTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
@@ -17,7 +17,7 @@ table#garagemodelTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.n
     tr
       td BADM
       td 2014
-      td=x  
+      td=x
         a(href="") 2000 GASOLINE
       td AUTOMATIC TRANSMISSION 6-SPEED
       td SEDAN 4-DOOR
