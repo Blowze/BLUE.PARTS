@@ -27,10 +27,10 @@ block content
           tr(th:each="model : ${models}")
             td(th:text="${model.modelCode}") code
             td
-              a(th:text="${model.frameNo}" th:href="${lang_prefix} + @{/garagemodel(manufacturer=${model.manufacturer},modelId=${model.id})}" th:hreflang="${lang}") frameNo
+              a(th:text="${model.frameNo}" th:href="${lang_prefix} + @{/garagemodel(make=${model.manufacturer},modelId=${model.id})}" th:hreflang="${lang}") frameNo
             td(th:text="${model.issueYear}") years
             td
-              a(th:text="${model.engineType}" th:href="${lang_prefix} + @{/garagemodel(manufacturer=${model.manufacturer},modelId=${model.id})}" th:hreflang="${lang}") engine type
+              a(th:text="${model.engineType}" th:href="${lang_prefix} + @{/garagemodel(make=${model.manufacturer},modelId=${model.id})}" th:hreflang="${lang}") engine type
             td(th:text="${model.engineNumRange}") engine No
             td(th:text="${model.transmissionType}") transmission
             td(th:text="${model.bodyType}") body
