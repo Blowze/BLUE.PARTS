@@ -5,23 +5,24 @@ block header
 block content
   main.main.pt-3.pt-md-5
     .container
-      h2 History orders
+      h2(th:text="#{_.orderHistory}") History orders
       hr
       .row.mt-3
         .col-12
           table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
             thead
               tr
-                th Date
-                th Order
-                th Item
-                th Amout
-                th Rate
-                th Track Number
-                th Status
+                th(th:text="#{_.date}") Date
+                th(th:text="#{_.order}") Order
+                th(th:text="#{_.items}") Items
+                th(th:text="#{_.amount}") Amount
+                th(th:text="#{_.rate}") Expired Date
+                th(th:text="#{_.trackNumber}") Track number
+                th(th:text="#{_.status}") Status
             tbody
               -for (var x = 0; x < 30; x++)
                 tr
+                  td 1
                   td 3570533030
                   td GEAR SUB-ASSY,  COUNTER DRIVEN
                   td 3
