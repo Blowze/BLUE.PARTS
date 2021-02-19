@@ -5,26 +5,36 @@ block header
 block content
   main.main.pt-3.pt-md-5
     .container
-      h1 List of modifications for MAZDA MAZDA3 2014
+      h1(th:text="#{models.heading(${manufacturer}, ${model}, ${year})}") List of modifications for MAZDA MAZDA3 2014
       include components/common/breadcrumb
-      p.lead.mb-5.d-none.d-md-block On this page you can select modification of your MAZDA MAZDA3   car. You can see engine name, chassis type, body, transmission, and region of origin of the vehicle. Select the required parameters and follow the link to see more detailed information about the model.
+      p.lead.mb-5.d-none.d-md-block(th:utext="#{models.description__helper(${manufacturer}, ${model})}") On this page you can select modification of your MAZDA MAZDA3   car. You can see engine name, chassis type, body, transmission, and region of origin of the vehicle. Select the required parameters and follow the link to see more detailed information about the model.
       hr.mb-1.mt-1
       table#modelsTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
         thead
           tr
-            th code
-            th Years
-            th Engine Type
-            th Transmission
-            th body
-            th Region
+            th(th:text="#{_.code}") code
+            th(th:text="#{_.frame}") frameNo
+            th(th:text="#{_.years}") years
+            th(th:text="#{_.engineType}") engine type
+            th(th:text="#{_.engine}") engine No
+            th(th:text="#{_.transmission}") transmission
+            th(th:text="#{_.body}") body
+            th(th:text="#{_.doors}") doors
+            th(th:text="#{_.generation}") generation
+            th(th:text="#{_.grade}") grade
+            th(th:text="#{_.region}") region
         tbody
-          -for (var x = 0; x < 30; x++)
-            tr
-              td BADM 
-              td 2014
-              td 
-                a(href="") 2000 GASOLINE
-              td AUTOMATIC TRANSMISSION 6-SPEED
-              td SEDAN 4-DOOR
-              td TH
+          tr(th:each="model : ${models}")
+            td(th:text="${model.modelCode}") code
+            td
+              a(th:text="${model.frameNo}" th:href="${lang_prefix} + @{/garagemodel(manufacturer=${model.manufacturer},modelId=${model.id})}" th:hreflang="${lang}") frameNo
+            td(th:text="${model.issueYear}") years
+            td
+              a(th:text="${model.engineType}" th:href="${lang_prefix} + @{/garagemodel(manufacturer=${model.manufacturer},modelId=${model.id})}" th:hreflang="${lang}") engine type
+            td(th:text="${model.engineNumRange}") engine No
+            td(th:text="${model.transmissionType}") transmission
+            td(th:text="${model.bodyType}") body
+            td(th:text="${model.doorsNumber}") doors
+            td(th:text="${model.generation}") generation
+            td(th:text="${model.grade}") grade
+            td(th:text="${model.country}") region
