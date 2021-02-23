@@ -5,7 +5,11 @@ block header
 block content
   main.main.pt-3.pt-md-5
     .container
-      h2 User details
+      th:block(th:if='${genuineBrand != null || replacementBrand != null}' th:with='brand=${isGenuinePartnum ? genuineBrand : replacementBrand}')
+        h1.page-heading__title(th:text='\#{result-parts.heading(${partnumCustom}, ${brand})}') Result Search
+        p(th:if='${isGenuinePartnum}' th:text='\#{result-parts.heading.description-genuine(${partnum}, ${genuineDescription}, ${brand})}') test
+        p(th:if='${!isGenuinePartnum}' th:text='\#{result-parts.heading.description-replacement(${partnumCustom}, ${replacementDescription}, ${brand})}') test
+      h1.page-heading__title(th:unless='${genuineBrand != null || replacementBrand != null}' th:text='\#{result-parts.heading.notfound}') Result Search
       hr
       .row.mt-3
         .col.col-12.col-lg-3.mb-4.mb-lg-0
