@@ -21,13 +21,13 @@ header.w-100
             a.navbar-brand.me-auto(href="/")
               em.h5.fw-bold.text-white(th:text="#{logo.text}") BLUE.PARTS
           .col-6.d-none.d-lg-block
-            .d-flex.position-relative.search
-              select.form-select.w-auto.pe-5.fs-7(aria-label="Default select example")
-                option(selected th:text="#{main_page.car_model}") Part Number
-                option(value="1" th:text="#{main_page.vin}") VIN
+            form.d-flex.position-relative.search(th:action="${lang_prefix} + @{/partprice}" method="get")
+              select.form-select.w-auto.pe-5.fs-7#select-type-of-search
+                option(value="1" selected th:text="#{main_page.car_model}") Part Number
+                option(value="2" th:text="#{main_page.vin}") VIN
               .input-group
-                input.form-control.pe-5.fs-7.py-2(type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Amount (to the nearest dollar)" th:placeholder="#{_.placeholder.search-form.vin}")
-              button.btn.btn-primary.btn-sm.position-absolute.top-50.translate-middle-y.end-0.me-1
+                input.form-control.pe-5.fs-7.py-2#search-form-input(type="text", th:placeholder="\#{_.placeholder.search-form.partnum}", name="partnum", required=true)
+              button.btn.btn-primary.btn-sm.position-absolute.top-50.translate-middle-y.end-0.me-1(type='submit')
                 i.bi.bi-search
           .col-6.col-lg-3
             .d-flex.justify-content-end

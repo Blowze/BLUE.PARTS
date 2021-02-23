@@ -12,6 +12,7 @@ require(`datatables.net-responsive`)
 require(`./lib/dataTables.bootstrap5.min`)
 require(`./model-search-form`)
 require(`./content--result-parts`)
+require(`./inner-search`)
 
 $(document).ready(() => {
 
