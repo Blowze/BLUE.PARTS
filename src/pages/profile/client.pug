@@ -58,39 +58,41 @@ block content
         .col.col-12.col-lg-4
           h5.mb-4 Client details
           hr
-          form#userMe.needs-validation(novalidate)
+          form#userMe.needs-validation(novalidate metod="post")
             .mb-3
               .form-group.mb-2
-                label.mb-2 Email
-                input.form-control(type="email" required)
+                input(name="id" th:value="${client.id}" type="hidden")
+                label.mb-2(th:text="#{_.titleOrName}") Company name/Person name
+                input#title.form-control(name="title" type="text" th:value="${client.title}" required)
             .mb-3
               .form-group.mb-2
-                label.mb-2 Tel
-                input.form-control.phone-mask(type="phone")
+                label.mb-2(th:text="#{_.email}") Email
+                input#email.form-control(name="email" type="email" th:value="${client.email}" required )
             .mb-3
               .form-group.mb-2
-                label.mb-2 Company Name
-                input.form-control(type="text" required)
+                label.mb-2(th:text="#{_.phone}") Tel
+                input.form-control.phone-mask(type="phone" name="phone" th:value="${client.phone}" required)
             .form-group.d-flex.gap-2
-              button.btn.btn-primary.w-100(href="#" type="submit") Save
+              button.btn.btn-primary.w-100(href="#" type="submit" th:text="#{_.save}") Save
             hr
             .mb-2
               .form-group.mb-0
-                h5 My settings
-                select.form-select.mb-3(aria-label="Default select example")
-                  option(selected) Select a language...
-                  option(value="1") English
-                  option(value="1") ไทย
-                .mb-2 Notification language:
-                select.form-select(aria-label="Default select example")
-                  option(selected) Select a language...
-                  option(value="1") English
-                  option(value="1") ไทย
+                h5(th:text="#{_.mySettings}") My settings
+                //select.form-select.mb-3(aria-label="Default select example")
+                //  option(selected) Select a language...
+                //  option(value="1") English
+                //  option(value="1") ไทย
+                .mb-2(th:text="#{_.notificationLanguage}") Notification language:
+                select#notificationLocale.form-select(aria-label="Default select example")
+                  option(th:each="locale : ${locales}"
+                  th:selected="${client.getLocale().equals(locale)}"
+                  th:text="${locale.getDisplayName(locale)}"
+                  th:value="${locale.getLanguage()}")
         .col-12.col-lg-8
           .row
             .col-12
               .d-flex.align-items-center.justify-content-between.mt-3.mt-lg-0
-                h5.mb-0 Tax invoice address
+                h5.mb-0(th:text="#{_.taxInvoiceAddress}") Tax invoice address
                 button.btn.btn-icon.btn-outline-primary.btn-sm.align-items-center(data-bs-toggle="modal" data-bs-target="#modalAddAddress")
                   span.bi.bi-pencil-square
               hr
@@ -104,7 +106,7 @@ block content
                     span.fs-7 123123123123
             .col-12
               .d-flex.align-items-center.justify-content-between.mt-4
-                h5.mb-0 Delivery address
+                h5.mb-0(th:text="#{me.address.deleviry}") Delivery address
               hr
             .col-12.col-md-6.mb-4
               label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio1")
@@ -161,23 +163,31 @@ block content
               button.btn.btn-primary.ms-auto.d-block(data-bs-toggle="modal" data-bs-target="#modalAddAddress" type="submit") add new address
             .col-12
               .d-flex.align-items-center.justify-content-between.mt-4
-                h5.mb-0 User list
+                h5.mb-0(th:text="#{_.users}") User list
               hr
             .col-12
-              table#schemaTable.table.table-striped.responsive.nowrap.dataTable-load.mb-3
+              table#table.table.table-striped.responsive.nowrap.dataTable-load.mb-3(class="table")
                 thead
                   tr
-                    th №
-                    th Name
-                    th Provider
-                    th Role
-                    th.text-end action
+                    th(th:text="#{_.№}") №
+                    th(th:text="#{_.name}") Name
+                    th(th:text="#{_.oauth}") Oauth
+                    th(th:text="#{_.role}") Role
+                    th(sec:authorize="hasRole('ROLE_MASTER_CLIENT')" th:text="#{_.action}") Action
                 tbody
-                  -for (var x = 0; x < 5; x++)
-                    tr
-                      td 0
-                      td GEAR SUB-ASSY,  COUNTER DRIVEN
-                      td google
-                      td ROLE_MASTER_CLIENT
-                      td.text-end
-                        a.btn.btn-danger.ms-auto.btn-sm delete
+                    tr(th:each="u,iter : ${users}")
+                      td(th:text="${iter.index}") 1
+                      td(th:text="${u.title}")
+                      td(th:text="${u.oauthClient}") 13
+                      td
+                        span(sec:authorize="!hasRole('ROLE_MASTER_CLIENT')" th:text="${u.role.name}")
+                        form(method="post" sec:authorize="hasRole('ROLE_MASTER_CLIENT')" th:action="@{/profile/me/user/update}")
+                          input(name="id" th:value="${u.id}" type="hidden")
+                          select(name="master" onchange="this.form.submit()" sec:authorize="hasRole('ROLE_MASTER_CLIENT')" th:data-id="${u.id}" th:unless="${u.id.equals(user.id)}")
+                            option(th:selected="${u.role.name.equals('ROLE_MASTER_CLIENT')}" value="true") ROLE_MASTER_CLIENT
+                            option(th:selected="${u.role.name.equals('ROLE_SLAVE_CLIENT')}" value="false") ROLE_SLAVE_CLIENT
+                        span(th:if="${u.id.equals(user.id)}" th:text="${u.role.name}")
+                      td(sec:authorize="hasRole('ROLE_MASTER_CLIENT')")
+                        form(method="post" th:action="@{/profile/me/user/delete}")
+                          input(name="id" th:value="${u.id}" type="hidden")
+                          a.btn.btn-danger.ms-auto.btn-sm(th:disabled="${u.id.equals(user.id)}" th:text="#{_.delete}")
