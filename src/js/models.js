@@ -12,6 +12,7 @@ $(function () {
   }
 
   var table = $(`#table-models`).DataTable({
+    lengthChange: false,
     hideEmptyCols: true,
     dom: `lfBrtip`,
     buttons: [],
