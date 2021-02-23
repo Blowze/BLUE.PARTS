@@ -5,12 +5,12 @@ $.fn.dataTable.RegionButtons = function (table, regionColumn) {
 
 	table.button().add(null, {
 		text: 'ALL',
-		className: 'dt-region-button dt-region-button--modify dt-region-all-button toggled btn btn-outline-primary btn-sm mt-2 mb-3 mb-md-0',
+		className: 'dt-region-button dt-region-button--modify dt-region-all-button active btn btn-outline-primary btn-sm mt-2 mb-3 mb-md-0',
 		action: function (e, dt, btn) {
-			if (!btn.hasClass('toggled')) {
+			if (!btn.hasClass('active')) {
 				applySearch(dt, regionColumn, '');
-				jq.find('.dt-region-button').removeClass('toggled');
-				btn.addClass('toggled');
+				jq.find('.dt-region-button').removeClass('active');
+				btn.addClass('active');
 			}
 		}
 	});
@@ -29,12 +29,12 @@ $.fn.dataTable.RegionButtons = function (table, regionColumn) {
 			text: region.toUpperCase(),
 			className: 'dt-region-button dt-region-button--modify btn btn-outline-primary btn-sm mt-2 mb-3 mb-md-0',
 			action: function (e, dt, btn) {
-				if (btn.hasClass('toggled')) {
+				if (btn.hasClass('active')) {
 					dt.buttons('.dt-region-all-button').trigger();
 				} else {
 					applySearch(dt, regionColumn, region);
-					jq.find('.dt-region-button').removeClass('toggled');
-					btn.addClass('toggled');
+					jq.find('.dt-region-button').removeClass('active');
+					btn.addClass('active');
 				}
 			}
 		});
