@@ -9,7 +9,7 @@ block content
       include components/common/breadcrumb
       p.lead.mb-5.d-none.d-md-block(th:utext="#{models.description__helper(${manufacturer}, ${model})}") On this page you can select modification of your MAZDA MAZDA3   car. You can see engine name, chassis type, body, transmission, and region of origin of the vehicle. Select the required parameters and follow the link to see more detailed information about the model.
       hr.mb-1.mt-1
-      table#modelsTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+      table#table-models.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
         thead
           tr
             th(th:text="#{_.code}") code
