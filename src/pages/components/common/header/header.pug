@@ -3,12 +3,10 @@ header.position-absolute.w-100.fixed-top
     .container
       ul.nav.ms-auto.fs-7
         li.nav-item.dropdown
-          a#navbarDarkDropdownMenuLink.nav-link.link-light.px-3.py-0.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") Language
+          a#navbarDarkDropdownMenuLink.nav-link.link-light.px-3.py-0.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${#locale.getDisplayName(#locale)}") Language
           ul.dropdown-menu(aria-labelledby="navbarDarkDropdownMenuLink")
-            li
-              a.dropdown-item(href="/en/") English
-            li
-              a.dropdown-item(href="/th") ไทย
+            li(th:each="alternative_entry : ${alternative_urls}")
+              a.dropdown-item(th:href="${alternative_entry.getValue()}" th:text="${alternative_entry.getKey().getDisplayName(alternative_entry.getKey())}") English
         li.nav-item
           a.nav-link.link-light.px-3.py-0(href="#") Help
         li.nav-item(sec:authorize="!isAuthenticated()")
