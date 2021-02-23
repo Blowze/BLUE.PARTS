@@ -20,7 +20,7 @@ $(function () {
       url: $global.lang_prefix + `/getmodels`,
       dataSrc: ``,
       data: {
-        manufacturer: $global.manufacturer,
+        make: $global.manufacturer,
         year: $global.year,
         model: $global.model
       }
