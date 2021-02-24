@@ -57,6 +57,10 @@
 @import "../../../node_modules/selectize/dist/css/selectize.bootstrap3";
 
 
+body{
+  min-height: 500px;
+}
+
 //Custom
 
 .btn {
@@ -318,4 +322,9 @@ header{
 .selectize-input input{
   display: block;
   width: 100%;
+}
+@media only screen and (max-width: 767px) {
+  .card-checkout{
+    font-size: 12px;
+  }
 }

@@ -27,7 +27,7 @@
       li
         a.dropdown-item(href="/profile/orders.html" th:href="${lang_prefix} + @{/profile/orders}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-box.fs-5.me-2
             span.d-block(th:text="#{_.orderlist}") Orders
       //li
       //  a.dropdown-item(href="/profile/garage.html" th:href="${lang_prefix} + @{/profile/garage}")
@@ -40,27 +40,27 @@
       li.border-top
         a.dropdown-item(href="/supplier/orders.html" th:href="${lang_prefix} + @{/supplier/orders}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-box.fs-5.me-2
             span.d-block(th:text="#{_.orderlist}") Orders
       li
         a.dropdown-item(href="/supplier/price.html" th:href="${lang_prefix} + @{/supplier/price}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-app.fs-5.me-2
             span.d-block(th:text="#{_.pricelists}") Price lists
       li
         a.dropdown-item(href="/supplier/discount.html" th:href="${lang_prefix} + @{/supplier/discount}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-app.fs-5.me-2
             span.d-block(th:text="#{_.amountDiscount}") Amount Discount
       li.border-top
         a.dropdown-item(href="/supplier/pricing.html" th:href="${lang_prefix} + @{/supplier/pricing}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-app.fs-5.me-2
             span.d-block(th:text="#{menu.pricing}") Pricing
       li
         a.dropdown-item(href="/supplier/glossary.html" th:href="${lang_prefix} + @{/supplier/glossary}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-info.fs-5.me-2
             span.d-block(th:text="#{menu.glossary}") Glossary
       li.border-top
         a.dropdown-item(href="/supplier/profile/details.html" th:href="${lang_prefix} + @{/supplier/profile/details}")
@@ -71,5 +71,5 @@
       li.border-top
         a.dropdown-item(href="/profile/invite.html" th:href="${lang_prefix} + @{/invite}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-box-arrow-up-right.fs-5.me-2
             span.d-block(th:text="#{_.generateInvitation}") Generate invitation

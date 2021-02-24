@@ -7,21 +7,21 @@
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.4/css/dataTables.responsive.css">
-    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
   </head>
   <body class="h-100">
     <header class="w-100">
       <div class="navbar navbar-expand-lg bg-dark py-1">
         <div class="container">
           <ul class="nav ms-auto fs-7">
-            <li class="nav-item dropdown"><a class="nav-link link-light px-3 py-0 dropdown-toggle" id="navbarDarkDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Language</a>
+            <li class="nav-item dropdown"><a class="nav-link link-light px-3 py-0 dropdown-toggle" id="navbarDarkDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${#locale.getDisplayName(#locale)}">Language</a>
               <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="/en/">English</a></li>
-                <li><a class="dropdown-item" href="/th">ไทย</a></li>
+                <li th:each="alternative_entry : ${alternative_urls}"><a class="dropdown-item" th:href="${alternative_entry.getValue()}" th:text="${alternative_entry.getKey().getDisplayName(alternative_entry.getKey())}">English</a></li>
               </ul>
             </li>
             <li class="nav-item"><a class="nav-link link-light px-3 py-0" href="#"> Company</a></li>
             <li class="nav-item"><a class="nav-link link-light px-3 py-0 pe-0" href="#">Help</a></li>
+            <li class="nav-item" sec:authorize="!isAuthenticated()"><a class="nav-link link-light px-3 py-0 pe-0" th:href="@{/login}" th:text="#{label.login}">Login</a></li>
           </ul>
         </div>
       </div>
@@ -31,24 +31,27 @@
             <div class="row align-items-center">
               <div class="col-6 col-lg-3"><a class="navbar-brand me-auto" href="/"><em class="h5 fw-bold text-white" th:text="#{logo.text}">BLUE.PARTS</em></a></div>
               <div class="col-6 d-none d-lg-block">
-                <div class="d-flex position-relative search">
-                  <select class="form-select w-auto pe-5 fs-7" aria-label="Default select example">
-                    <option selected th:text="#{main_page.car_model}">Part Number</option>
-                    <option value="1" th:text="#{main_page.vin}">VIN</option>
+                <form class="d-flex position-relative search" th:action="${lang_prefix} + @{/partprice}" method="get">
+                  <select class="form-select w-auto pe-5 fs-7" id="select-type-of-search">
+                    <option value="1" selected th:text="#{main_page.car_model}">Part Number</option>
+                    <option value="2" th:text="#{main_page.vin}">VIN</option>
                   </select>
                   <div class="input-group">
-                    <input class="form-control pe-5 fs-7 py-2" type="text" placeholder="Enter part number 90915-YZZF2" aria-label="Amount (to the nearest dollar)" th:placeholder="#{_.placeholder.search-form.vin}">
+                    <input class="form-control pe-5 fs-7 py-2" id="search-form-input" type="text" th:placeholder="#{_.placeholder.search-form.partnum}" name="partnum" required>
                   </div>
-                  <button class="btn btn-primary btn-sm position-absolute top-50 translate-middle-y end-0 me-1"><i class="bi bi-search"></i></button>
-                </div>
+                  <button class="btn btn-primary btn-sm position-absolute top-50 translate-middle-y end-0 me-1" type="submit"><i class="bi bi-search"></i></button>
+                </form>
               </div>
               <div class="col-6 col-lg-3">
-                <div class="d-flex justify-content-end"><a class="me-5 position-relative d-none d-md-block" href="/"><i class="bi bi-shop text-light fs-3"></i><span class="badge bg-danger position-absolute end-0 badge-basket">1</span></a><a class="me-5 position-relative d-none d-md-block" href="/"><i class="bi bi-cart2 text-light fs-3"></i><span class="badge bg-danger position-absolute end-0 badge-basket">3</span></a>
+                <div class="d-flex justify-content-end">
+                  <!--a.me-5.position-relative.d-none.d-md-block(href="/")-->
+                  <!--  i.bi.bi-shop.text-light.fs-3-->
+                  <!--  span.badge.bg-danger.position-absolute.end-0.badge-basket 1--><a class="me-5 position-relative d-none d-md-block" href="/cart" th:href="${lang_prefix} + @{/cart}"><i class="bi bi-cart2 text-light fs-3"></i><span class="badge bg-danger position-absolute end-0 badge-basket">3</span></a>
                   <div class="d-flex d-md-none"><a class="d-block position-relative me-3" href=""><i class="bi bi-cart2 fs-2 text-light"></i><span class="badge bg-danger position-absolute end-0 badge-basket">3</span></a><a class="d-block" href="" data-bs-toggle="modal" data-bs-target="#modalMenu"><i class="bi bi-justify fs-1 text-light"></i></a></div>
-                  <div class="dropdown dropstart user-dropdown d-none d-md-block">
+                  <div class="dropdown dropstart user-dropdown d-none d-md-block" sec:authorize="isAuthenticated()">
                     <div class="d-block dropdown-toggle" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle text-light fs-3"></i></div>
                     <ul class="dropdown-menu pt-0 me-2" aria-labelledby="dropdownMenu2">
-                      <div sec:authorize="isAuthenticated()">
+                      <div>
                         <li class="py-1"><a class="dropdown-item" href="/profile/me.html" th:href="${lang_prefix} + @{/profile/user}"><span class="d-block" sec:authentication="principal.username">Алексей Крайнов</span><span class="fs-7 d-block text-secondary" sec:authentication="principal.email">krainovlife@gmail.com</span></a></li>
                         <li><a class="dropdown-item" th:href="@{/logout(lang=${lang})}">
                             <div class="d-flex align-items-center"><i class="bi bi-box-arrow-up-right fs-5 me-2"></i><span class="d-block" th:text="#{_.logout}">Logout</span></div></a></li>
@@ -57,20 +60,32 @@
                         <li class="border-top"><a class="dropdown-item" href="/profile/client.html" th:href="${lang_prefix} + @{/profile/client}">
                             <div class="d-flex align-items-center"><i class="bi bi-person fs-5 me-2"></i><span class="d-block" th:text="#{_.clientDetails}">Client details</span></div></a></li>
                         <li><a class="dropdown-item" href="/profile/orders.html" th:href="${lang_prefix} + @{/profile/orders}">
-                            <div class="d-flex align-items-center"><i class="bi bi-person fs-5 me-2"></i><span class="d-block" th:text="#{_.orderlist}">Orders</span></div></a></li>
-                        <!--li.border-top-->
-                        <!--  a.dropdown-item(href="/profile/backorders.html" th:href="${lang_prefix} + @{/profile/backorders}")-->
+                            <div class="d-flex align-items-center"><i class="bi bi-box fs-5 me-2"></i><span class="d-block" th:text="#{_.orderlist}">Orders</span></div></a></li>
+                        <!--li-->
+                        <!--  a.dropdown-item(href="/profile/garage.html" th:href="${lang_prefix} + @{/profile/garage}")-->
                         <!--    .d-flex.align-items-center-->
-                        <!--      i.bi.bi-person.fs-5.me-2-->
-                        <!--      span.d-block(th:text="#{_.backorderlist}") Backorders-->
-                        <li><a class="dropdown-item" href="/profile/garage.html" th:href="${lang_prefix} + @{/profile/garage}">
-                            <div class="d-flex align-items-center">
-                              <div class="d-flex align-items-center w-100"><i class="bi bi-shop fs-5 me-2"></i><span class="d-block" th:text="#{_.garage}">My cars</span></div><span class="badge bg-danger" th:classappend="${vehicle_count == 0 ? 'hidden': ''}" th:text="${vehicle_count}">1</span>
-                            </div></a></li>
+                        <!--      .d-flex.align-items-center.w-100-->
+                        <!--        i.bi.bi-shop.fs-5.me-2-->
+                        <!--        span.d-block(th:text="#{_.garage}") My cars-->
+                        <!--      span.badge.bg-danger(th:classappend="${vehicle_count == 0 ? 'hidden': ''}" th:text="${vehicle_count}") 1-->
+                      </div>
+                      <div sec:authorize="hasAnyRole('ROLE_SALES_MANAGER', 'ROLE_STOCK_MANAGER')">
+                        <li class="border-top"><a class="dropdown-item" href="/supplier/orders.html" th:href="${lang_prefix} + @{/supplier/orders}">
+                            <div class="d-flex align-items-center"><i class="bi bi-box fs-5 me-2"></i><span class="d-block" th:text="#{_.orderlist}">Orders</span></div></a></li>
+                        <li><a class="dropdown-item" href="/supplier/price.html" th:href="${lang_prefix} + @{/supplier/price}">
+                            <div class="d-flex align-items-center"><i class="bi bi-app fs-5 me-2"></i><span class="d-block" th:text="#{_.pricelists}">Price lists</span></div></a></li>
+                        <li><a class="dropdown-item" href="/supplier/discount.html" th:href="${lang_prefix} + @{/supplier/discount}">
+                            <div class="d-flex align-items-center"><i class="bi bi-app fs-5 me-2"></i><span class="d-block" th:text="#{_.amountDiscount}">Amount Discount</span></div></a></li>
+                        <li class="border-top"><a class="dropdown-item" href="/supplier/pricing.html" th:href="${lang_prefix} + @{/supplier/pricing}">
+                            <div class="d-flex align-items-center"><i class="bi bi-app fs-5 me-2"></i><span class="d-block" th:text="#{menu.pricing}">Pricing</span></div></a></li>
+                        <li><a class="dropdown-item" href="/supplier/glossary.html" th:href="${lang_prefix} + @{/supplier/glossary}">
+                            <div class="d-flex align-items-center"><i class="bi bi-info fs-5 me-2"></i><span class="d-block" th:text="#{menu.glossary}">Glossary</span></div></a></li>
+                        <li class="border-top"><a class="dropdown-item" href="/supplier/profile/details.html" th:href="${lang_prefix} + @{/supplier/profile/details}">
+                            <div class="d-flex align-items-center"><i class="bi bi-person fs-5 me-2"></i><span class="d-block" th:text="#{_.supplierDetails}">Supplier details</span></div></a></li>
                       </div>
                       <div sec:authorize="isAuthenticated() &amp;&amp; !hasAnyRole('ROLE_VISITOR', 'ROLE_STOCK_MANAGER', 'ROLE_SLAVE_CLIENT')">
                         <li class="border-top"><a class="dropdown-item" href="/profile/invite.html" th:href="${lang_prefix} + @{/invite}">
-                            <div class="d-flex align-items-center"><i class="bi bi-person fs-5 me-2"></i><span class="d-block" th:text="#{_.generateInvitation}">Generate invitation</span></div></a></li>
+                            <div class="d-flex align-items-center"><i class="bi bi-box-arrow-up-right fs-5 me-2"></i><span class="d-block" th:text="#{_.generateInvitation}">Generate invitation</span></div></a></li>
                       </div>
                     </ul>
                   </div>
@@ -83,7 +98,12 @@
     </header>
     <main class="main pt-3 pt-md-5">
       <div class="container">
-        <h2>User details</h2>
+        <th:block th:if="${genuineBrand != null || replacementBrand != null}" th:with="brand=${isGenuinePartnum ? genuineBrand : replacementBrand}">
+          <h1 class="page-heading__title" th:text="#{result-parts.heading(${partnumCustom}, ${brand})}">Result Search</h1>
+          <p th:if="${isGenuinePartnum}" th:text="#{result-parts.heading.description-genuine(${partnum}, ${genuineDescription}, ${brand})}">test</p>
+          <p th:if="${!isGenuinePartnum}" th:text="#{result-parts.heading.description-replacement(${partnumCustom}, ${replacementDescription}, ${brand})}">test</p>
+        </th:block>
+        <h1 class="page-heading__title" th:unless="${genuineBrand != null || replacementBrand != null}" th:text="#{result-parts.heading.notfound}">Result Search</h1>
         <hr>
         <div class="row mt-3">
           <div class="col col-12 col-lg-3 mb-4 mb-lg-0">
@@ -92,1497 +112,56 @@
                 <div class="card-header">
                   <div class="fw-bold">SEARCH FILTER</div>
                 </div>
-                <div class="card-body">
+                <form class="card-body filter-form">
                   <div class="fs-7 d-block text-secondary mb-1 mt-2">CHOOSE TYPE OF PARTS</div>
                   <label class="d-flex align-items-center mb-1">
-                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input"><span class="mx-2">Genuine</span>
+                    <input class="form-check-input mt-0" type="checkbox" name="type-of-parts" value="#GENUINE" th:checked="${!#lists.isEmpty(resultTables[0].rows)}"><span class="mx-2">Genuine</span>
                   </label>
                   <label class="d-flex align-items-center">
-                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input"><span class="mx-2">Replacement</span>
+                    <input class="form-check-input mt-0" type="checkbox" name="type-of-parts" value="#REPLACEMENT" th:checked="${!#lists.isEmpty(resultTables[1].rows)}"><span class="mx-2">Replacement</span>
                   </label>
                   <hr>
-                  <div class="fs-7 d-block text-secondary">CHOOSE BRAND</div>
-                  <label class="d-flex align-items-center">
-                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input"><span class="mx-2">TOYOTA</span>
-                  </label>
+                  <div th:if="!${#sets.isEmpty(brands)}">
+                    <div class="fs-7 d-block text-secondary">CHOOSE BRAND</div>
+                    <label class="d-flex align-items-center" th:each="brand : ${brands}">
+                      <input class="form-check-input mt-0" type="checkbox" th:attr="id=${brand},value=${brand}" aria-label="Checkbox for following text input"><span class="mx-2" th:text="${brand}" th:attr="for=${brand}">TOYOTA</span>
+                    </label>
+                  </div>
                   <hr>
                   <div class="fs-7 d-block text-secondary mb-1 mt-2">SORT BY</div>
                   <label class="d-flex align-items-center mb-1">
-                    <input class="form-check-input mt-0" type="radio" name="sort" value="" aria-label="Radio button for following text input"><span class="mx-2">Price: Low to High</span>
+                    <input class="form-check-input mt-0" type="radio" name="sort-by" data-column="6" data-type="asc" aria-label="Radio button for following text input"><span class="mx-2">Price: Low to High</span>
                   </label>
                   <label class="d-flex align-items-center mb-1">
-                    <input class="form-check-input mt-0" type="radio" name="sort" value="" aria-label="Radio button for following text input"><span class="mx-2">Price: High to low</span>
+                    <input class="form-check-input mt-0" type="radio" name="sort-by" data-column="6" data-type="desc" aria-label="Radio button for following text input"><span class="mx-2">Price: High to low</span>
                   </label>
                   <label class="d-flex align-items-center">
-                    <input class="form-check-input mt-0" type="radio" name="sort" value="" aria-label="Radio button for following text input"><span class="mx-2">Rating</span>
+                    <input class="form-check-input mt-0" type="radio" name="sort-by" value="sort-by-rating" data-column="3" data-type="desc" aria-label="Radio button for following text input"><span class="mx-2">Rating</span>
                   </label>
                   <hr>
-                  <div class="d-flex gap-2 align-items-center"><a class="btn btn-primary w-100">Search</a><a class="btn btn-outline-danger w-25">
+                  <div class="d-flex gap-2 align-items-center"><a class="btn btn-primary w-100">Search</a><a class="btn btn-outline-danger w-25" id="reset-filters">
                       <div class="bi bi-x"></div></a></div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
-          <div class="col col-12 col-lg-9">
-            <h4 class="mt-2">GENUINE</h4>
+          <div class="col col-12 col-lg-9" th:each="table : ${resultTables}" th:attr="data-name=${table.id}">
+            <h4 class="mt-2th" th:text="${table.id}"></h4>
             <hr>
-            <table class="mb-3 table table-striped nowrap dataTable-load" id="partpriceTable">
+            <table class="mb-3 table table-striped nowrap dataTable-load data-table" th:attr="id=${table.id}">
               <thead>
                 <tr>
-                  <th>Part Number</th>
-                  <th>Description</th>
-                  <th>Brand</th>
-                  <th>Stock</th>
-                  <th>Waiting</th>
-                  <th>Price</th>
-                  <th>Order</th>
+                  <th th:utext="#{result-parts.table.partnum}"></th>
+                  <th th:utext="#{result-parts.table.description}"></th>
+                  <th th:utext="#{result-parts.table.brand}"></th>
+                  <th th:utext="#{result-parts.table.store}"></th>
+                  <th th:utext="#{result-parts.table.stock}"></th>
+                  <th th:utext="#{result-parts.table.waiting}"></th>
+                  <th th:utext="#{result-parts.table.price}"></th>
+                  <th th:text="#{result-parts.table.order}"></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td> <a href="#">3570533030</a></td>
-                  <td>GEAR SUB-ASSY,  COUNTER DRIVEN</td>
-                  <td>TOYOTA </td>
-                  <td>
-                    <div class="d-flex align-items-center">>50
-                      <div class="fs-7 ms-2 text-muted">(plc)</div>
-                    </div>
-                  </td>
-                  <td>3</td>
-                  <td>26193.6 THB</td>
-                  <td class="text-end">
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="bi bi-cart-plus fs-7"></div></a>
-                      <div class="dropdown-menu add-to-cart p-0 border-0 fs-7">
-                        <div class="card">
-                          <div class="card-header px-2 py-2 fw-bold">3570533030</div>
-                          <div class="card-body px-2 py-2">
-                            <div class="mb-1 text-truncate">GEAR SUB-ASSY,  COUNTER DRIVEN</div>
-                            <div class="text-secondary">Mfg: TOYOTA</div>
-                            <hr class="mb-2 mt-2">
-                            <div class="d-flex gap-2">
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Quantity</div>
-                                <div class="input-group input-group-sm"> 
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-dash"></div>
-                                  </button>
-                                  <input class="form-control">
-                                  <button class="btn btn-outline-secondary" type="button">
-                                    <div class="bi bi-plus"></div>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="item w-100"> 
-                                <div class="fw-bold mb-1">Amount</div>
-                                <div class="d-block">52387.2 THB</div>
-                                <div class="text-secondary" style="font-size: 7px">1  Pcs = 26193.6 THB</div>
-                              </div>
-                            </div>
-                            <div class="d-flex gap-2 mt-3"><a class="btn btn-sm btn-success w-100" href="#">Add</a><a class="btn btn-sm btn-outline-danger w-25" href="#">
-                                <div class="bi bi-x"></div></a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
             </table>
-            <h4 class="mt-2">Replacement</h4>
-            <hr>
           </div>
         </div>
       </div>
@@ -1601,7 +180,15 @@
         </div>
       </div>
     </footer>
-    <script th:inline="javascript">window["$global"] = /*[[${global_js_obj.getVars(#ctx)}]]*/{};</script>
+    <script th:inline="javascript">
+      window["$global"] = /*[[${global_js_obj.getVars(#ctx)}]]*/{};
+      $global.strings = {}
+      $global.strings.partnum_description = /*[[#{partprice.table.partnum-description}]]*/ ''
+      $global.searchMessages = {
+        /*[+"1": {"action": [[${lang_prefix} + @{/partprice}]], "placeholder": [[#{_.placeholder.search-form.partnum}]], "name": "partnum"},
+          "2": {"action": [[${lang_prefix} + @{/garagevin}]], "placeholder": [[#{_.placeholder.search-form.vin}]], "name": "vin"} +]*/
+      };
+    </script>
     <script src="js/main.min.js"></script>
     <div class="modal modal-right fade" id="modalMenu" tabindex="-1" aria-labelledby="modalMenuLabel" aria-hidden="true">
       <div class="modal-dialog">
