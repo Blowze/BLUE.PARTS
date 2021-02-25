@@ -56,7 +56,7 @@ block content
           h5.modal-title(th:text="#{cart.shipping.selectSvc}") Select shipping service
           button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
         .modal-body
-          .div(th:if="${shippings == null}" class="alert alert-warning" role="alert" th:text="#{cart.shipping.cannotDelivery}") We can not deliver this item.
+          .div.alert.alert-warning(th:if="${shippings == null}" role="alert" th:text="#{cart.shipping.cannotDelivery}") We can not deliver this item.
           .div(th:unless="${shippings == null}")
             .row.mb-2
               .col-6.text-left.col-md-7
@@ -67,7 +67,7 @@ block content
                 small(th:text="#{cart.shipping.cost}") Cost
             .row(th:each="shipping,iter : ${shippings}")
               label.col-6.text-left.col-md-7.d-flex.align-items-center(th:for="${'formCustomCheckbox' + iter.index}")
-                input.form-check-input.mt-0(th:id="${'formCustomCheckbox' + iter.index}" name="shipping" type="radio" class="custom-control-input" th:value="${shipping}" required)
+                input.form-check-input.mt-0(th:id="${'formCustomCheckbox' + iter.index}" name="shipping" type="radio" th:value="${shipping}" required)
                 span.mx-2(th:for="${'formCustomCheckbox' + iter.index}" th:text="${shipping.serviceName}") Free BKK shipping
               .col-3.text-left(th:text="${shipping.deliveryTime}") 1
               .col-3.col-md-2.text-center(th:text="${shipping.price}")  0.00 THB

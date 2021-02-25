@@ -25,7 +25,7 @@ block content
                 td(th:text="${order.id}")
                 td(th:text="${#temporals.format(order.createDate, #messages.msg('format.datetime'))}")
                 td
-                  a(class="order-number__link" th:href="${lang_prefix} + @{/profile/orders/order(id=${order.id})}") [[${order.code}]]
+                  a(th:href="${lang_prefix} + @{/profile/orders/order(id=${order.id})}") [[${order.code}]]
                 td(th:text="${#lists.size(order.items)}")
                 td [[${order.getTotalPrice()}]]
                 td
