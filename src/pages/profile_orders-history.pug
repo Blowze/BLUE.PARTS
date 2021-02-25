@@ -5,13 +5,14 @@ block header
 block content
   main.main.pt-3.pt-md-5
     .container
-      h2(th:text="#{_.orderHistory}") History orders
+      h2(th:text="#{_.orderHistory}") Order history
       hr
       .row.mt-3
         .col-12
           table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
             thead
               tr
+                th(th:text="#{_.id}") id
                 th(th:text="#{_.date}") Date
                 th(th:text="#{_.order}") Order
                 th(th:text="#{_.items}") Items
@@ -20,14 +21,14 @@ block content
                 th(th:text="#{_.trackNumber}") Track number
                 th(th:text="#{_.status}") Status
             tbody
-              -for (var x = 0; x < 30; x++)
-                tr
-                  td 1
-                  td 3570533030
-                  td GEAR SUB-ASSY,  COUNTER DRIVEN
-                  td 3
-                  td 26193.60 THB
-                  td 26193.60 THB
-                  td -1
-                  td
-                    .badge.bg-danger RETURNED_TO_CARMAN
+              tr(th:each="order : ${orders}" th:with="status=${#strings.capitalize(order.status.toString().toLowerCase())}")
+                td(th:text="${order.id}")
+                td(th:text="${#temporals.format(order.createDate, #messages.msg('format.datetime'))}")
+                td
+                  a(class="order-number__link" th:href="${lang_prefix} + @{/profile/orders/order(id=${order.id})}") [[${order.code}]]
+                td(th:text="${#lists.size(order.items)}")
+                td [[${order.getTotalPrice()}]]
+                td
+                td -1
+                td(th:with="status=${order.status.toString().toLowerCase()}")
+                  .badge.bg-danger(th:classappend="${'order-status__icon--' + status}" th:text="${status}")
