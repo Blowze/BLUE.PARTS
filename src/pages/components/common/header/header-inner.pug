@@ -18,7 +18,7 @@ header.w-100
       .container.d-block
         .row.align-items-center
           .col-6.col-lg-3
-            a.navbar-brand.me-auto(href="/")
+            a.navbar-brand.me-auto(href="/" th:href="${lang_prefix} + @{/}")
               em.h5.fw-bold.text-white(th:text="#{logo.text}") BLUE.PARTS
           .col-6.d-none.d-lg-block
             form.d-flex.position-relative.search(th:action="${lang_prefix} + @{/partprice}" method="get")
