@@ -20,10 +20,10 @@ block content
               form.card-body.filter-form
                 .fs-7.d-block.text-secondary.mb-1.mt-2 CHOOSE TYPE OF PARTS
                 label.d-flex.align-items-center.mb-1
-                  input.form-check-input.mt-0(type="checkbox" name="type-of-parts" value="#GENUINE" th:checked="${!#lists.isEmpty(resultTables[0].rows)}")
+                  input.form-check-input.mt-0(type="checkbox" name="type-of-parts" value="#GENUINE_container" th:checked="${!#lists.isEmpty(resultTables[0].rows)}")
                   span.mx-2 Genuine
                 label.d-flex.align-items-center
-                  input.form-check-input.mt-0(type="checkbox" name="type-of-parts" value="#REPLACEMENT" th:checked="${!#lists.isEmpty(resultTables[1].rows)}")
+                  input.form-check-input.mt-0(type="checkbox" name="type-of-parts" value="#REPLACEMENT_container" th:checked="${!#lists.isEmpty(resultTables[1].rows)}")
                   span.mx-2 Replacement
                 hr
                 div(th:if="!${#sets.isEmpty(brands)}")
@@ -48,7 +48,7 @@ block content
                   a#reset-filters.btn.btn-outline-danger.w-25
                     .bi.bi-x
 
-        .col.col-12.col-lg-9(th:each="table : ${resultTables}" th:attr="data-name=${table.id}")
+        .col.col-12.col-lg-9(th:each="table : ${resultTables}" th:attr="data-name=${table.id},id=${table.id + '_container'}")
           h4.mt-2th(th:text="${table.id}")
           hr
           table.mb-3.table.table-striped.nowrap.dataTable-load.data-table(th:attr="id=${table.id}")

@@ -1,57 +1,77 @@
 import $ from 'jquery'
+import Cart from './lib/cart'
 
 $(function () {
-  const MAX_QUANTITY = 50;
-  const QUANTITY_STEP = 10;
+  const MAX_QUANTITY = 50
+  const QUANTITY_STEP = 10
 
-  let targetItem = null;
+  let targetItem = null
 
-  window.tables = [];
+  window.tables = []
 
   function getFormattedDiscount(item) {
-    const discount = item.discount;
-    const lines = [];
+    const discount = item.discount
+    const lines = []
     for (let i = discount.values.length - 1; i >= 0; i--) {
-      const value = discount.values[i];
-      const toValue = discount.values[i - 1];
-      const to = toValue && toValue < item.quantity ? toValue : item.quantity;
-      if (to < value)
-        break;
-      const textTo = Math.min(to - 1, item.quantity);
+      const value = discount.values[i]
+      const toValue = discount.values[i - 1]
+      const to = toValue && toValue < item.quantity ? toValue : item.quantity
+      if (to < value) {
+        break
+      }
+      const textTo = Math.min(to - 1, item.quantity)
 
-      let fromTo;
-      if (value !== textTo + 1)
-        fromTo = value + '-' + textTo;
-      else
-        fromTo = textTo;
+      let fromTo
+      if (value !== textTo + 1) {
+        fromTo = value + `-` + textTo
+      } else {
+        fromTo = textTo
+      }
 
-      lines.push('<div> <span>buy</span> <span>' + fromTo + '</span> <span>get</span> <span>' + (100 - discount.percents[i] * 100) + '%</span> — ' + formatPrice(item.price.value * discount.percents[i], item.price.currency) + '</span></div>');
+      lines.push(`<div> <span>buy</span> <span>` + fromTo + `</span> <span>get</span> <span>` + (100 - discount.percents[i] * 100) + `%</span> — ` + formatPrice(item.price.value * discount.percents[i], item.price.currency) + `</span></div>`)
     }
-    return lines.join('\r\n');
+    return lines.join(`\r\n`)
   }
 
-  $('.data-table').each(function (i, element) {
-    const el = $(element);
+  function getFormattedPrice(item) {
+    return `${item.price.value} ${item.price.currency}`
+  }
+  window.partAdd = function (offerId, value, max) {
+    const input = $(`input.input-quantity[data-offer-id="${offerId}"]`)
+    let newValue = parseInt(input.val(), 10) + value
+    newValue = Math.max(1, newValue)
+    newValue = Math.min(max, newValue)
+    input.val(newValue)
+  }
+
+  window.addItem = function (offerId) {
+    const input = $(`input.input-quantity[data-offer-id="${offerId}"]`)
+    const value = parseInt(input.val(), 10)
+    Cart.addItem(offerId, value)
+  }
+
+  $(`.data-table`).each(function (i, element) {
+    const el = $(element)
     const table = el
       .DataTable(
         {
           "deferRender": true,
-          responsive: {
+          "responsive": {
             breakpoints: [
               {
-                name: 'desktop',
+                name: `desktop`,
                 width: Infinity
               },
               {
-                name: 'tablet',
+                name: `tablet`,
                 width: 1024
               },
               {
-                name: 'fablet',
+                name: `fablet`,
                 width: 768
               },
               {
-                name: 'phone',
+                name: `phone`,
                 width: 400
               }
             ]
@@ -100,81 +120,117 @@ $(function () {
           ],
           "processing": true,
 
-          "order": [[6, "asc"]],
+          "order": [[6, `asc`]],
 
           "columns": [
             {
-              "data": "partnum",
+              "data": `partnum`,
               "orderable": false,
               "render": function (data) {
-                if (el.attr('id') === 'REPLACEMENT') {
-                  return data;
+                if (el.attr(`id`) === `REPLACEMENT`) {
+                  return data
                 }
-                return '<a target="_blank" href="' + window.$global.lang_prefix + '/partnum?partnum=' + encodeURIComponent(data) + '" title="' + $global.strings.partnum_description + ' ' + data + '">' + data + '</a>'
+                return `<a target="_blank" href="` + window.$global.lang_prefix + `/partnum?partnum=` + encodeURIComponent(data) + `" title="` + $global.strings.partnum_description + ` ` + data + `">` + data + `</a>`
               }
             },
             {
-              "data": "title",
+              "data": `title`,
               "orderable": false
 
             },
             {
-              "data": "manufacturer",
+              "data": `manufacturer`,
               "orderable": false,
             },
             {
-              "data": "store",
+              "data": `store`,
               "visible": false,
             },
             {
-              "data": "quantity",
-              "className": "center--table",
+              "data": `quantity`,
+              "className": `center--table`,
               "render": function (data, type, row) {
-                let quantity = parseInt(data, 10);
+                let quantity = parseInt(data, 10)
                 if (quantity > MAX_QUANTITY) {
-                  quantity = '> ' + MAX_QUANTITY;
+                  quantity = `> ` + MAX_QUANTITY
                 } else if (quantity > QUANTITY_STEP) {
-                  let base = parseInt(quantity / QUANTITY_STEP, 10);
+                  let base = parseInt(quantity / QUANTITY_STEP, 10)
                   if (quantity % QUANTITY_STEP === 0) {
-                    base--;
+                    base--
                   }
-                  quantity = '> ' + base * QUANTITY_STEP;
+                  quantity = `> ` + base * QUANTITY_STEP
                 }
-                return '<div class="d-flex align-items-center">' + quantity + '<div class="fs-7 ms-2 text-muted"> (' + row.unitsOfMeasure + ')</div></div>';
+                return `<div class="d-flex align-items-center">` + quantity + `<div class="fs-7 ms-2 text-muted"> (` + row.unitsOfMeasure + `)</div></div>`
               }
             },
             {
-              "data": "deliveryTime",
+              "data": `deliveryTime`,
             },
             {
-              "data": "salePrice",
+              "data": `salePrice`,
               "render": function (data, type, row) {
-                const price = formatPrice(data);
+                const price = formatPrice(data)
                 if (!row.discount) {
-                  return price;
+                  return price
                 }
-                const html = getFormattedDiscount(row);
+                const html = getFormattedDiscount(row)
                 if (html.trim().length === 0) {
-                  return price;
+                  return price
                 }
-                return '<span data-toggle="tooltip" data-placement="top" title="' + html + '"></span><p>' + price + '</p>';
+                return `<span data-toggle="tooltip" data-placement="top" title="` + html + `"></span><p>` + price + `</p>`
               }
             },
             {
               "data": null,
               "orderable": false,
-              "className": "text-end",
+              "className": `text-end`,
               "render": function (data, type, row, meta) {
-                const result = $global.basket.items[row.offerId];
-                let html = `
-                    <div class="d-flex justify-content-end"><a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="bi bi-cart-plus fs-7"></div></a></div>
-                `;
-                return html;
+                const result = $global.basket.items[row.offerId]
+                const html = `
+<div class="d-flex justify-content-end">
+   <a class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="bi bi-cart-plus fs-7"></div>
+   </a>
+   <div class="dropdown-menu add-to-cart p-0 border-0 fs-7" onclick="event.stopPropagation()">
+      <div class="card">
+         <div class="card-header px-2 py-2 fw-bold">${data.partnum}</div>
+         <div class="card-body px-2 py-2">
+            <div class="mb-1 text-truncate">${data.title}</div>
+            <div class="text-secondary">${data.manufacturer}</div>
+            <hr class="mb-2 mt-2" />
+            <div class="d-flex gap-2">
+               <div class="item w-100">
+                  <div class="fw-bold mb-1">Quantity</div>
+                  <div class="input-group input-group-sm">
+                     <button class="btn btn-outline-secondary" type="button" onclick="partAdd('${data.offerId}', -1, ${data.quantity})">
+                        <div class="bi bi-dash"></div>
+                     </button>
+                     <input class="form-control input-quantity"
+                       data-offer-id="${data.offerId}"
+                       value="${result ? result.count : 1}"
+                       type="number" min="1" max="${data.quantity}"
+                     />
+                     <button class="btn btn-outline-secondary input-add" type="button" onclick="partAdd('${data.offerId}', 1, ${data.quantity})">
+                        <div class="bi bi-plus"></div>
+                     </button>
+                  </div>
+               </div>
+               <div class="item w-100">
+                  <div class="text-secondary" style="font-size: 7px">1 ${data.unitsOfMeasure} = ${getFormattedPrice(data)}</div>
+               </div>
+            </div>
+            <div class="d-flex gap-2 mt-3">
+               <a class="btn btn-sm btn-success w-100" href="#" onclick="addItem('${data.offerId}')">Add</a>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>`
+                return html
               }
             },
             {
-              "data": "offerId",
+              "data": `offerId`,
               "visible": false,
               "orderable": false,
             }
@@ -182,39 +238,41 @@ $(function () {
           "paging": false,
           "searching": false,
           "info": false
-        });
+        })
 
-    const id = el.attr('id');
+    const id = el.attr(`id`)
 
     $global.resultTables.forEach(function (value) {
-      if (id !== value.id)
-        return;
-      table.rows.add(value.rows);
-    });
+      if (id !== value.id) {
+        return
+      }
+      table.rows.add(value.rows)
+    })
 
 
-    el.find('tbody').on('click', 'a.cart-table', function (e) {
-      e.preventDefault();
-      if (Cart.isProcess())
-        return;
-      $('.tooltipstered:not(.discount-tooltip)').tooltipster('destroy');
+    el.find(`tbody`).on(`click`, `a.cart-table`, function (e) {
+      e.preventDefault()
+      if (Cart.isProcess()) {
+        return
+      }
+      $(`.tooltipstered:not(.discount-tooltip)`).tooltipster(`destroy`)
 
       const data = table.row($(this)
-        .parents('tr'))
-        .data();
-      targetItem = data;
+        .parents(`tr`))
+        .data()
+      targetItem = data
 
       $(this).tooltipster({
         contentAsHTML: true,
-        theme: ['tooltipster-light', 'tooltipster-light-customized'],
-        content: tmpl('add_to_cart-popup', {
+        theme: [`tooltipster-light`, `tooltipster-light-customized`],
+        content: tmpl(`add_to_cart-popup`, {
           row: data,
           item: $global.basket.items[data.offerId],
           max: data.quantity
         }),
-        animation: 'grow',
+        animation: `grow`,
         interactive: true,
-        trigger: "custom",
+        trigger: `custom`,
         triggerOpen: {
           mouseenter: true,
           touchstart: true,
@@ -228,19 +286,19 @@ $(function () {
         arrow: true,
         distance: 0,
         delay: 1000
-      }).tooltipster('open');
-      setTimeout(updateCurrentPrice, 0);
-    });
-    window.tables.push(table);
-  });
+      }).tooltipster(`open`)
+      setTimeout(updateCurrentPrice, 0)
+    })
+    window.tables.push(table)
+  })
 
-  $('body').on('mouseenter', '.tooltip', function () {
-    if (!$(this).hasClass('tooltipstered')) {
+  $(`body`).on(`mouseenter`, `.tooltip`, function () {
+    if (!$(this).hasClass(`tooltipstered`)) {
       $(this).tooltipster(
         {
           contentAsHTML: true,
           minWidth: 200,
-          trigger: "custom",
+          trigger: `custom`,
           triggerOpen: {
             mouseenter: true,
             touchstart: true,
@@ -251,207 +309,198 @@ $(function () {
             originClick: true,
             touchleave: true
           },
-          theme: ['tooltipster-noir', 'tooltipster-noir-customized']
-        }).tooltipster('show');
+          theme: [`tooltipster-noir`, `tooltipster-noir-customized`]
+        }).tooltipster(`show`)
     }
-  });
+  })
 
-  $(document.body).on('click', 'button.cart-delete', function () {
-    $('.tooltipstered').tooltipster('hide');
-    Cart.removeItem(targetItem.offerId);
-  });
+  $(document.body).on(`click`, `button.cart-delete`, function () {
+    $(`.tooltipstered`).tooltipster(`hide`)
+    Cart.removeItem(targetItem.offerId)
+  })
 
-  $(document.body).on('click', 'button.cart-add', function () {
-    $('.tooltipstered').tooltipster('hide');
+  $(document.body).on(`click`, `button.cart-add`, function () {
+    $(`.tooltipstered`).tooltipster(`hide`)
 
-    Cart.addItem(targetItem.offerId, $('#modal-tooltip__input').val())
-  });
+    Cart.addItem(targetItem.offerId, $(`#modal-tooltip__input`).val())
+  })
 
   function getFraction(value) {
-    const discount = targetItem.discount;
+    const discount = targetItem.discount
     if (discount) {
       for (let i = 0; i < discount.values.length; i++) {
-        if (value >= discount.values[i])
-          return {i: i, percent: discount.percents[i], next: i - 1};
+        if (value >= discount.values[i]) {
+          return {i, percent: discount.percents[i], next: i - 1}
+        }
       }
     }
-    return {i: -1, percent: 1, next: discount ? discount.percents.length - 1 : -1};
+    return {i: -1, percent: 1, next: discount ? discount.percents.length - 1 : -1}
   }
 
   function formatPrice(price, currency) {
-    if (typeof price === 'number') {
-      return parseFloat(price.toFixed(2)) + ' ' + currency;
+    if (typeof price === `number`) {
+      return parseFloat(price.toFixed(2)) + ` ` + currency
     }
 
-    return parseFloat(price.value.toFixed(2)) + ' ' + price.currency;
+    return parseFloat(price.value.toFixed(2)) + ` ` + price.currency
   }
 
   function updateCurrentPrice() {
-    const priceEl = $('#modal-current_price');
-    const onePriceEl = $('#modal-one_price');
-    const count = parseInt($('#modal-tooltip__input').val(), 10);
+    const priceEl = $(`#modal-current_price`)
+    const onePriceEl = $(`#modal-one_price`)
+    const count = parseInt($(`#modal-tooltip__input`).val(), 10)
 
-    const fraction = getFraction(count);
-    const nextBuyEl = $('.modal-next_buy');
+    const fraction = getFraction(count)
+    const nextBuyEl = $(`.modal-next_buy`)
     if (fraction.next >= 0) {
-      const next = Math.min(targetItem.discount.values[fraction.next], targetItem.quantity);
+      const next = Math.min(targetItem.discount.values[fraction.next], targetItem.quantity)
       if (next !== count) {
-        $('#modal-next_buy_count').text(Math.min(targetItem.discount.values[fraction.next], targetItem.quantity));
-        $('#modal-next_buy_price').text(formatPrice(targetItem.price.value * targetItem.discount.percents[fraction.next], targetItem.price.currency));
-        nextBuyEl.show();
+        $(`#modal-next_buy_count`).text(Math.min(targetItem.discount.values[fraction.next], targetItem.quantity))
+        $(`#modal-next_buy_price`).text(formatPrice(targetItem.price.value * targetItem.discount.percents[fraction.next], targetItem.price.currency))
+        nextBuyEl.show()
       } else {
-        nextBuyEl.hide();
+        nextBuyEl.hide()
       }
     } else {
-      nextBuyEl.hide();
+      nextBuyEl.hide()
     }
-    const originalPrice = targetItem.discount ? targetItem.price.value : targetItem.salePrice.value;
-    const onePrice = (originalPrice * fraction.percent);
-    const price = onePrice * count;
+    const originalPrice = targetItem.discount ? targetItem.price.value : targetItem.salePrice.value
+    const onePrice = (originalPrice * fraction.percent)
+    const price = onePrice * count
 
-    priceEl.text(formatPrice(price, targetItem.price.currency));
-    onePriceEl.text(formatPrice(onePrice, targetItem.price.currency));
+    priceEl.text(formatPrice(price, targetItem.price.currency))
+    onePriceEl.text(formatPrice(onePrice, targetItem.price.currency))
   }
 
-  $(document.body).on('click', 'button.minus-add-to-cart', function () {
-    const input = $('#modal-tooltip__input');
-    let val = parseInt(input.val()) - 1;
-    if (val < 1)
-      val = 1;
-    input.val(val);
-    updateCurrentPrice();
-  });
+  $(document.body).on(`click`, `button.minus-add-to-cart`, function () {
+    const input = $(`#modal-tooltip__input`)
+    let val = parseInt(input.val()) - 1
+    if (val < 1) {
+      val = 1
+    }
+    input.val(val)
+    updateCurrentPrice()
+  })
 
-  $(document.body).on('click', 'button.plus-add-to-cart', function () {
-    const input = $('#modal-tooltip__input');
-    let val = parseInt(input.val()) + 1;
-    if (val > targetItem.quantity)
-      val = targetItem.quantity;
-    input.val(val);
-    updateCurrentPrice();
-  });
+  $(document.body).on(`click`, `button.plus-add-to-cart`, function () {
+    const input = $(`#modal-tooltip__input`)
+    let val = parseInt(input.val()) + 1
+    if (val > targetItem.quantity) {
+      val = targetItem.quantity
+    }
+    input.val(val)
+    updateCurrentPrice()
+  })
 
-  $(document.body).on('change', '#modal-tooltip__input', function () {
-    const input = $(this);
-    if (input.val() > targetItem.quantity)
-      input.val(targetItem.quantity);
-    updateCurrentPrice();
-  });
+  $(document.body).on(`change`, `#modal-tooltip__input`, function () {
+    const input = $(this)
+    if (input.val() > targetItem.quantity) {
+      input.val(targetItem.quantity)
+    }
+    updateCurrentPrice()
+  })
 
 
-  $(document).on("cart.data", function (event, data) {
-    Notify(data.message);
-    $global.basket = data.basket;
+  $(document).on(`cart.data`, function (event, data) {
+    Notify(data.message)
+    $global.basket = data.basket
 
     tables.forEach(function (t) {
       t.rows()
         .invalidate()
-    });
+    })
 
-    const count = Object.keys($global.basket.items).length;
-    const counter = $('.cart-counter');
-    if (count <= 0)
-      counter.hide();
-    else
-      counter.show().text(Object.keys($global.basket.items).length);
-  });
+    const count = Object.keys($global.basket.items).length
+    const counter = $(`.cart-counter`)
+    if (count <= 0) {
+      counter.hide()
+    } else {
+      counter.show().text(Object.keys($global.basket.items).length)
+    }
+  })
 
   function updateBrandNameFilter() {
-    const filters = [];
-    $('[name="brand-name"]')
+    const filters = []
+    $(`[name="brand-name"]`)
       .each(function () {
         if (this.checked) {
           filters.push($.fn.dataTable.util.escapeRegex($(this)
             .val()
-            .toLowerCase()));
+            .toLowerCase()))
         }
-      });
+      })
     tables.forEach(function (t) {
       t.column(2)
-        .search('^' + filters.join("|") + '$', true, false)
-        .draw();
-    });
+        .search(`^` + filters.join(`|`) + `$`, true, false)
+        .draw()
+    })
   }
 
   function updateSortBy() {
-    $('[name="sort-by"]')
+    $(`[name="sort-by"]`)
       .each(function (i, filter) {
-        const filterEl = $(filter);
+        const filterEl = $(filter)
         if (this.checked) {
           tables.forEach(function (t) {
             t.order([filterEl
-              .data("column"), filterEl
-              .data("type")])
-              .draw();
-          });
+              .data(`column`), filterEl
+              .data(`type`)])
+              .draw()
+          })
         }
-      });
+      })
   }
 
   function updateTypeParts(slide) {
-    let allDisabled = true;
-    const noDataMessage = $("#noDataMessage");
-
-    $('[name="type-of-parts"]').each(function () {
-      const element = $($(this)
-        .val())
-        .parent()
-        .parent();
+    $(`[name="type-of-parts"]`).each(function () {
+      const element = $($(this).val())
       if (this.checked) {
-        allDisabled = false;
-        if (!element.is(':visible')) {
-          slide ? element.slideDown() : element.show();
+        if (!element.is(`:visible`)) {
+          slide ? element.slideDown() : element.show()
         }
       } else {
-        if (element.is(':visible')) {
-          slide ? element.slideUp() : element.hide();
+        if (element.is(`:visible`)) {
+          slide ? element.slideUp() : element.hide()
         }
       }
-    });
-    if (allDisabled) {
-      if (!noDataMessage.is(':visible')) {
-        slide ? noDataMessage.slideDown() : noDataMessage.show();
-      }
-    } else {
-      if (noDataMessage.is(':visible')) {
-        slide ? noDataMessage.slideUp() : noDataMessage.hide();
-      }
+    })
+  }
+
+  function updateFilters(f) {
+    if (f) {
+      updateTypeParts(true)
     }
+    updateBrandNameFilter()
+    updateSortBy()
   }
 
-  function updateFilters() {
-    updateTypeParts(true);
-    updateBrandNameFilter();
-    updateSortBy();
-  }
+  updateFilters(false)
 
-  updateFilters(false);
-
-  /*setInterval(function () {
+  /* setInterval(function () {
     updateTypeParts(false);
     //updateBrandNameFilter();
   }, 2000);*/
 
-  $('[name="sort-by"]')
+  $(`[name="sort-by"]`)
     .change(function () {
-      updateSortBy();
-    });
+      updateSortBy()
+    })
 
-  $('#reset-filters')
+  $(`#reset-filters`)
     .click(function (e) {
-      e.preventDefault();
+      e.preventDefault()
       $(this)
-        .closest('form')
+        .closest(`form`)
         .get(0)
-        .reset();
-      updateFilters(true);
-    });
+        .reset()
+      updateFilters(true)
+    })
 
 
-  $('.filter-form').on('change', function () {
-    updateTypeParts(true);
-    updateBrandNameFilter();
-  });
+  $(`.filter-form`).on(`change`, function () {
+    updateTypeParts(true)
+    updateBrandNameFilter()
+  })
 
-  updateTypeParts();
-});
+  updateTypeParts()
+})
