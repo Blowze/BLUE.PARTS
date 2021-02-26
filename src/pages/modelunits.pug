@@ -15,8 +15,8 @@ block content
     hr.mb-1.mt-1
     .row.mt-5
       .col.col-6.col-md-4.col-lg-2.mb-4(th:each="unit : ${units}")
-        div.hidden(th:utext="${unit.id}") id
-        div.hidden(th:utext="${unit.unitCode}") code
+        .hidden(th:utext="${unit.id}") id
+        .hidden(th:utext="${unit.unitCode}") code
         a.card.text-decoration-none.link-secondary(href="/unitschema.html" th:href="${lang_prefix} + @{/unitschema/{manufacturer}(manufacturer=${#strings.toLowerCase(vehicle?.manufacturer)},modelId=${vehicle?.modelId},unitId=${unit.id})}")
           .card-body
             .fs-7(th:utext="${unit.title}") SHIFT LEVER & RETAINER

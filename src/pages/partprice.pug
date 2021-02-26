@@ -45,7 +45,7 @@ block content
                 hr
                 .d-flex.gap-2.align-items-center
                   a.btn.btn-primary.w-100 Search
-                  a.btn.btn-outline-danger.w-25#reset-filters
+                  a#reset-filters.btn.btn-outline-danger.w-25
                     .bi.bi-x
 
         .col.col-12.col-lg-9(th:each="table : ${resultTables}" th:attr="data-name=${table.id}")
