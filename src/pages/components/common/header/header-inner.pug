@@ -18,12 +18,12 @@ header.w-100
       .container.d-block
         .row.align-items-center
           .col-6.col-lg-3
-            a.navbar-brand.me-auto(href="/")
+            a.navbar-brand.me-auto(href="/" th:href="${lang_prefix} + @{/}")
               em.h5.fw-bold.text-white(th:text="#{logo.text}") BLUE.PARTS
           .col-6.d-none.d-lg-block
             form.d-flex.position-relative.search(th:action="${lang_prefix} + @{/partprice}" method="get")
               select.form-select.w-auto.pe-5.fs-7#select-type-of-search
-                option(value="1" selected th:text="#{main_page.car_model}") Part Number
+                option(value="1" selected th:text="#{main_page.part_number}") Part Number
                 option(value="2" th:text="#{main_page.vin}") VIN
               .input-group
                 input.form-control.pe-5.fs-7.py-2#search-form-input(type="text", th:placeholder="\#{_.placeholder.search-form.partnum}", name="partnum", required=true)

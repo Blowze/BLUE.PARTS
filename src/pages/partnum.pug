@@ -1,0 +1,39 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  main.main.pt-3.pt-md-5
+    .container
+      h1(th:text="#{partnum.heading(${partnum}, ${partnum_title}, ${partnum_manufacturer})}") Result Search by partnum
+      include components/common/breadcrumb
+      p.lead.mb-5.d-none.d-md-block(th:utext="#{partnum.heading.description(${partnum}, ${partnum_uses_count}, ${partnum_manufacturer}, ${lang_prefix} + @{/partprice(partnum=${partnum})})}") Partnum application page.
+      hr.mb-1.mt-1
+      table#table-partnum.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th(th:text="#{_.model}") model
+            th(th:text="#{_.code}") code
+            th(th:text="#{_.frame}") frameNo
+            th(th:text="#{_.engineType}") engine type
+            th(th:text="#{_.transmission}") transmission
+            th(th:text="#{_.body}") body
+            th(th:text="#{_.doors}") doors
+            th(th:text="#{_.generation}") generation
+            th(th:text="#{_.grade}") grade
+            th(th:text="#{_.region}") region
+            th(th:text="#{_.action}") action
+        tbody
+          tr(th:each="model : ${cards.models}")
+            td(th:text="${model.modelResponse.title}") model title
+            td(th:text="${model.modelResponse.modelCode}") code
+            td(th:text="${model.modelResponse.frameNo}") frameNo
+            td(th:text="${model.modelResponse.engineType}") engine type
+            td(th:text="${model.modelResponse.transmissionType}") transmission
+            td(th:text="${model.modelResponse.bodyType}") body
+            td(th:text="${model.modelResponse.doorsNumber}") doors
+            td(th:text="${model.modelResponse.generation}") generation
+            td(th:text="${model.modelResponse.grade}") grade
+            td(th:text="${model.modelResponse.country}") region
+            td
+              a(th:text="#{partnum.go_to_schema}" th:href="${lang_prefix} + @{/unitschema/{manufacturer}(make=${#strings.toLowerCase(model.modelResponse.manufacturer)},modelId=${model.modelId},unitId=${model.imageMapResponse.blockId})} + '#' + ${model.imageMapResponse.idxNum}")

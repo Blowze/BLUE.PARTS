@@ -1,0 +1,159 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block scripts
+  //script(th:inline="javascript").
+  //  /*<![CDATA[*/
+  //  $global.strings.confirm = /*[[#{_.yes}]]*/ '';
+  //  $global.strings.cancel = /*[[#{_.no}]]*/ '';
+  //  $global.strings.title = /*[[#{order_shipping.select.title}]]*/ '';
+  //  $global.strings.body = /*[[#{order_shipping.select.body}]]*/ '';
+  //  /*]]>*/
+  script(src="/js/main.min.js")
+block content
+  main.main.pt-3.pt-md-5
+    .container
+      .d-flex.justify-content-between.align-items-center
+        span
+          h2(th:text="#{_.order} + ' #'") [[${order.code}]]
+          span.text-secondary.d-flex.align-items-center
+            span(th:text="${#temporals.format(order.createDate, #messages.msg('format.datetime'))}") 14/1/2021 19:11:33
+            .badge.bg-success.mx-2(th:text="#{'enums.order.'+${order.status}}") Delivered
+
+        div(th:if="${order.status.value} <= ${T(guru.carman.platform.model.order.OrderStatus).ACCEPTED_BY_SUPPLIER.value}")
+          //a.btn.btn-outline-danger.mt-2 Cancel
+          form(method="POST" th:action="@{/profile/orders/order/cancel}")
+            input(name="id" th:value="${order.id}" type="hidden")
+            button.btn--cancel-order.btn-outline-danger.mt-2(name="button" th:text="#{order.cancel_order}" type="submit") Cancel order
+        div(th:if="${order.status} == ${T(guru.carman.platform.model.order.OrderStatus).SHIPPING}")
+          //a.btn.btn-outline-primary.mt-2 Goods Received
+          form(method="POST" th:action="@{/profile/orders/order/complete}")
+            input(name="id" th:value="${order.id}" type="hidden")
+            button.btn--cancel-order.btn-outline-success.mt-2(name="button" th:text="#{order.finish_order}" type="submit") Goods Received
+
+      hr
+      table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th(th:text="#{result-parts.table.partnum}") Part Number
+            th(th:text="#{result-parts.table.description}") Description
+            th(th:text="#{_.qty}") qty
+            th(th:text="#{_.price}") Price
+            th(th:text="#{_.status}") Status
+        tbody
+          tr(th:each="item : ${order.items}" th:with="status=${item.status.toString()}")
+            td(th:text="${item.oemNumber}")
+            td(th:text="${item.title.get(#locale)}")
+            td(th:text="${item.quantity}")
+            td [[${item.price}]]
+            td(th:with="status=${item.status}")
+              // .badge.bg - success RETURNED_TO_CARMAN
+              div.legend__item-status(th:classappend="${'order-status__icon--' + status.toString().toLowerCase()}" th:text="#{'enums.orderitem.' +${status}}")
+      .card.bg-light.border-0.mb-4.mt-2
+        .card-body.py-4
+          .row
+            .col-12.col-md-4
+              .d-flex
+                i.bi.bi-check2-circle.fs-3
+                .ms-3.mt-2
+                  .fw-bold.mb-1(th:text="#{_.ShippingAddress}") Shipping address:
+                  div(th:with="address=${order.getDeliveryAddress()}")
+                    .mb-1(th:if="${address.subdistrict != null}") [[${address.address} + ', ' + ${address.subdistrict.getName(#locale)} + ', ' + ${address.subdistrict.district.getName(#locale)} + ', ' + ${address.subdistrict.district.province.getName(#locale)} + ', ' +  ${address.getZipcode()}]]
+                    .mb-1(th:unless="${address.subdistrict != null}") [[${address.address2} + ', ' + ${address.address} + ', ' + ${address.city} + ', ' + ${address.province} + ', ' + ${address.getZipcode()} + ', ' +  ${address.getCountryName(#locale)}]]
+                    .mb-1(th:text="${order.client.name + ' ' + order.client.family}") Алексей Крайнов
+                    .mb-1(th:text="${order.deliveryAddress.phone}") 79117654321
+            .col-12.col-md-4
+              .d-flex
+                i.bi.bi-check2-circle.fs-3
+                .ms-3.mt-2
+                  .fw-bold.mb-1(th:text="#{_.BillingAddress}") Billing address:
+                  div(th:with="address=${order.getBillAddress()}" th:if="${address != null}")
+                    .mb-1(th:if="${address.subdistrict != null}") [[${address.address} + ', ' + ${address.subdistrict.getName(#locale)} + ', ' + ${address.subdistrict.district.getName(#locale)} + ', ' + ${address.subdistrict.district.province.getName(#locale)} + ', ' +  ${address.getZipcode()}]]
+                    .mb-1(th:unless="${address.subdistrict != null}") [[${address.address2} + ', ' + ${address.address} + ', ' + ${address.city} + ', ' + ${address.province} + ', ' + ${address.getZipcode()} + ', ' +  ${address.getCountryName(#locale)}]]
+                  .mb-1(th:block th:unless="${address != null}" th:text="#{_.address.sameAddress}") SAME ADDRESS
+            .col-12.col-md-4
+              .d-flex
+                i.bi.bi-check2-circle.fs-3
+                .ms-3.mt-2
+                  .fw-bold.mb-1 Amount
+                  .mb-1.fs-7
+                    span(th:text="#{_.itemsAmount}")
+                    span [[${orderFinalCalculation.itemsTotal}]]
+                  .mb-1.fs-7
+                    span(th:text="#{checkout.delivery-fee}")
+                    span [[${orderFinalCalculation.shippingCost}]]
+                  .mb-1.fs-7
+                    span(th:text="#{payment.hadling-fee}")
+                    span [[${orderFinalCalculation.handlingFee}]]
+                  .mb-1.fs-7
+                    span(th:text="#{_.grossAmountDiscount}")
+                    span [[${orderFinalCalculation.totalAmountDiscount}]]
+                  .mb-1.fs-7
+                    span(th:text="#{checkout.order-sub}")
+                    span [[${clientTotal}]]
+                  hr.mb-2
+                  .mb-1
+                    span.fw-bold(th:text="#{payment.total-amount}")
+                    span [[ ${clientTotal} ]]
+            .col-12
+              hr
+            .col-12
+              a.btn.btn-outline-primary.profile-order-btn.mt-2.me-3(th:text="#{order.download_invoice}") Download invoice
+
+      hr
+      a(data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample")
+        | Шаблон не оплаченно
+      hr
+      #collapseExample.collapse
+        .card.bg-light.border-0.mb-4
+          .card-body.py-4
+            .row
+              .col-12.col-md-4
+                .d-flex
+                  i.bi.bi-check2-circle.fs-3
+                  .ms-3.mt-2
+                    .fw-bold.mb-1 Recipient
+                    .mb-1 Алексей Крайнов
+                    .mb-1 krainoff.alesha@yandex.ru
+                    .mb-2 79117654321
+                .d-flex
+                  i.bi.bi-check2-circle.fs-3
+                  .ms-3.mt-2
+                    .fw-bold.mb-1 Delivery
+                    .mb-1 RAMA V, BANG KRASO, MUEANG NONTHABURI, NONTHABURI, 11000
+              .col-12.col-md-4
+                .d-flex
+                  i.bi.bi-check2-circle.fs-3
+                  .ms-3.mt-2
+                    .fw-bold.mb-1 Amount
+                    .mb-1.fs-7 Items: 78580.80 THB
+                    .mb-1.fs-7 Delivery fee: 78580.80 THB
+                    .mb-1.fs-7 Handling fee: 78580.80 THB
+                    .mb-1.fs-7 Discount: 78580.80 THB
+                    .mb-1.fs-7 Sub Total: 78580.80 THB
+                    hr.mb-2
+                    .mb-1
+                      span.fw-bold Total:
+                      span 78580.80 THB
+              .col-12.col-md-4
+                .card
+                  .card-body
+                    .fw-bold.mb-3 Pay now by:
+                    .d-flex.gap-2
+                      .card.card-delivery.w-100
+                        .card-body.px-2.py-2
+                          .form-check.mb-0.px-0
+                            i.bi.bi-credit-card-2-front.fs-2
+                            .fs-7 Delivery THB, +.0%
+                      .card.card-delivery.border-primary.w-100
+                        .card-body.px-2.py-2
+                          .form-check.mb-0.px-0
+                            i.bi.bi-credit-card-fill.fs-2
+                            .fs-7 Paypal, +3.4%
+                      .card.card-delivery.w-100
+                        .card-body.px-2.py-2
+                          .form-check.mb-0.px-0
+                            i.bi.bi-credit-card.fs-2
+                            .fs-7 Delivery THB, +.0%
+                    a.btn.btn-primary.btn-sm.mt-3(href="#") Place

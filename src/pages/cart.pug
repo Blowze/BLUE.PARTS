@@ -7,11 +7,11 @@ block content
     .modal-dialog.modal-lg
       .modal-content
         .modal-header
-          h5.modal-title Select address
+          h5.modal-title(th:text="#{_.address.select}") Select address
           button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
         .modal-body
           .row
-            .col-12.col-md-6.mb-4 
+            .col-12.col-md-6.mb-4
               label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio1")
                 .card-body
                   .d-flex
@@ -19,10 +19,10 @@ block content
                       .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
                       .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
                       .card-subtitle
-                        span.text-secondary.fs-7  Phone: 
+                        span.text-secondary.fs-7  Phone:
                         span.fs-7 123123123123
                     .gap-2.text-center
-                      input#inlineRadio1.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+                      input#inlineRadio1.form-check-input.mt-0(type="radio" name="inlineRadioOptions")
             .col-12.col-md-6
               label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio2")
                 .card-body
@@ -31,10 +31,10 @@ block content
                       .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
                       .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
                       .card-subtitle
-                        span.text-secondary.fs-7  Phone: 
+                        span.text-secondary.fs-7  Phone:
                         span.fs-7 123123123123
                     .gap-2.text-center
-                      input#inlineRadio2.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+                      input#inlineRadio2.form-check-input.mt-0(type="radio" name="inlineRadioOptions")
             .col-12.col-md-6
               label.card.card-delivery.mb-3.mb-md-0(for="inlineRadio3")
                 .card-body
@@ -43,46 +43,52 @@ block content
                       .card-title.fw-bold.fs-7(title="Adress #1123123123") Adress #1123123123
                       .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
                       .card-subtitle
-                        span.text-secondary.fs-7  Phone: 
+                        span.text-secondary.fs-7  Phone:
                         span.fs-7 123123123123
                     .gap-2.text-center
-                      input#inlineRadio3.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
+                      input#inlineRadio3.form-check-input.mt-0(type="radio" name="inlineRadioOptions")
           .d-flex.justify-content-end.gap-2
             a.btn.btn-primary(href="#") Save changes
   #modalAddDev.modal.fade(tabindex="-1" aria-labelledby="modalAddDevLabel" aria-hidden="true")
     .modal-dialog.modal-lg
       .modal-content
         .modal-header
-          h5.modal-title Select shipping service
+          h5.modal-title(th:text="#{cart.shipping.selectSvc}") Select shipping service
           button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
         .modal-body
-          .row.mb-2
-            .col-6.text-left.col-md-7
-              small Service type
-            .col-3.text-left
-              small Estimated delivery time
-            .col-3.col-md-2.text-center
-              small Cost
-          .row
-            label.col-6.text-left.col-md-7.d-flex.align-items-center(for="inlineRadio10")
-              input#inlineRadio10.form-check-input.mt-0(type="radio" name="inlineRadioOptions") 
-              span.mx-2 Free BKK shipping
-            .col-3.text-left 1
-            .col-3.col-md-2.text-center  0.00 THB
-          hr
-          a.btn.btn-primary(href="#") Save changes
+          .div.alert.alert-warning(th:if="${shippings == null}" role="alert" th:text="#{cart.shipping.cannotDelivery}") We can not deliver this item.
+          .div(th:unless="${shippings == null}")
+            .row.mb-2
+              .col-6.text-left.col-md-7
+                small(th:text="#{cart.shipping.svcType}") Service type
+              .col-3.text-left
+                small(th:text="#{cart.shipping.deliveryTime}") Estimated delivery time
+              .col-3.col-md-2.text-center
+                small(th:text="#{cart.shipping.cost}") Cost
+            .row(th:each="shipping,iter : ${shippings}")
+              label.col-6.text-left.col-md-7.d-flex.align-items-center(th:for="${'formCustomCheckbox' + iter.index}")
+                input.form-check-input.mt-0(th:id="${'formCustomCheckbox' + iter.index}" name="shipping" type="radio" th:value="${shipping}" required)
+                span.mx-2(th:for="${'formCustomCheckbox' + iter.index}" th:text="${shipping.serviceName}") Free BKK shipping
+              .col-3.text-left(th:text="${shipping.deliveryTime}") 1
+              .col-3.col-md-2.text-center(th:text="${shipping.price}")  0.00 THB
+            hr
+            a.btn.btn-primary(href="#") Save changes
   #modalTotal.modal-total.modal.modal-bottom.fade(tabindex="-1" aria-labelledby="modalTotalLabel" aria-hidden="true")
     .modal-dialog.h-100.d-flex.align-items-end
       .modal-content.b-none.rounded-0.border-0
-          .d-flex.align-items-center.justify-content-between.py-3.px-3.fw-bold Summary
+          .d-flex.align-items-center.justify-content-between.py-3.px-3.fw-bold(th:text="#{cart.order.summary}") Summary
             button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
           hr.my-0.mx-0
           .d-flex.justify-content-between.px-3.py-3.align-items-center
-            span Subtotal
+            span(th:text="#{cart.order.subtotal}") Subtotal
             .fw-bold 599999
           hr.my-0.mx-0
           .d-flex.justify-content-between.px-3.py-3.align-items-center
-            span Subtotal
+            span(th:text="${cart.subTotal}") Subtotal
+            .fw-bold 599999
+          hr.my-0.mx-0
+          .d-flex.justify-content-between.px-3.py-3.align-items-center
+            span(th:text="#{cart.order.shippingCost}") Shipping
             .fw-bold 599999
   main.main.pt-3.pt-md-5
     .container
@@ -103,7 +109,7 @@ block content
                 .row.mb-3
                   .col-md-1.order-md-1.order-1.col-12
                     input.form-check-input.d-md-block(type="checkbox" value="" aria-label="Checkbox for following text input")
-                    a.btn.btn-outline-danger.btn-sm.mt-md-3.ms-3.ms-md-0 
+                    a.btn.btn-outline-danger.btn-sm.mt-md-3.ms-3.ms-md-0
                       .bi.bi-trash
                   .order-md-2.order-2.col-md-11.col-12.col-md-2
                     .row
@@ -126,7 +132,7 @@ block content
               .row.card_disabled.bg-light.text-secondary
                 .col-md-1.order-md-1.order-1.col-12.mt-2
                   input.form-check-input.d-md-block(type="checkbox" value="" aria-label="Checkbox for following text input" disabled)
-                  a.btn.btn-outline-danger.btn-sm.mt-md-3.ms-3.ms-md-0 
+                  a.btn.btn-outline-danger.btn-sm.mt-md-3.ms-3.ms-md-0
                     .bi.bi-trash
                 .order-md-2.order-2.col-md-11.col-12.mt-3.col-md-2
                   .row
@@ -152,9 +158,9 @@ block content
                   span.fw-bold  52387.20 THB
                 .col-12.col-md-5.text-end
                   a(href="#" data-bs-toggle="modal" data-bs-target="#modalAddDev") [>] Free BKK shipping, ETD 1 day
-                  .mb-2 Will be shipped within 3 days 
+                  .mb-2 Will be shipped within 3 days
                   a.btn.btn-primary.w-10(href="") Buy all from this seller
-                   
+
         .col.col-12.col-lg-3.mb-4.mb-lg-0.d-flex.d-md-block.flex-column-reverse
           .sticky-lg-top.top-1
             .card.d-none.d-md-block
@@ -178,7 +184,7 @@ block content
                   .card-title.fw-bold(title="Adress #1123123123") Adress #1123123123
                   .card-text.fs-7.mb-1  123123123123, Ban Bat, Khet Pom Prap Sattru Phai, Bangkok, 10100, Thailand
                   .card-subtitle
-                    span.text-secondary.fs-7  Phone: 
+                    span.text-secondary.fs-7  Phone:
                     span.fs-7 123123123123
                   hr
                   .d-flex.gap-2.justify-content-end
@@ -195,4 +201,3 @@ block content
                 |26193.60 THB
                 i.bi.bi-chevron-down.ms-3.card-total__icon
               .btn.btn-primary.btn-sm BUY
-            

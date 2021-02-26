@@ -22,7 +22,7 @@
       li.border-top
         a.dropdown-item(href="/profile/client.html" th:href="${lang_prefix} + @{/profile/client}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-house.fs-5.me-2
             span.d-block(th:text="#{_.clientDetails}") Client details
       li
         a.dropdown-item(href="/profile/orders.html" th:href="${lang_prefix} + @{/profile/orders}")
@@ -45,31 +45,31 @@
       li
         a.dropdown-item(href="/supplier/price.html" th:href="${lang_prefix} + @{/supplier/price}")
           .d-flex.align-items-center
-            i.bi.bi-app.fs-5.me-2
+            i.bi.bi-journals.fs-5.me-2
             span.d-block(th:text="#{_.pricelists}") Price lists
       li
         a.dropdown-item(href="/supplier/discount.html" th:href="${lang_prefix} + @{/supplier/discount}")
           .d-flex.align-items-center
-            i.bi.bi-app.fs-5.me-2
+            i.bi.bi-percent.fs-5.me-2
             span.d-block(th:text="#{_.amountDiscount}") Amount Discount
       li.border-top
         a.dropdown-item(href="/supplier/pricing.html" th:href="${lang_prefix} + @{/supplier/pricing}")
           .d-flex.align-items-center
-            i.bi.bi-app.fs-5.me-2
+            i.bi.bi-calculator.fs-5.me-2
             span.d-block(th:text="#{menu.pricing}") Pricing
       li
         a.dropdown-item(href="/supplier/glossary.html" th:href="${lang_prefix} + @{/supplier/glossary}")
           .d-flex.align-items-center
-            i.bi.bi-info.fs-5.me-2
+            i.bi.bi-stickies.fs-5.me-2
             span.d-block(th:text="#{menu.glossary}") Glossary
       li.border-top
         a.dropdown-item(href="/supplier/profile/details.html" th:href="${lang_prefix} + @{/supplier/profile/details}")
           .d-flex.align-items-center
-            i.bi.bi-person.fs-5.me-2
+            i.bi.bi-building.fs-5.me-2
             span.d-block(th:text="#{_.supplierDetails}") Supplier details
     div(sec:authorize="isAuthenticated() && !hasAnyRole('ROLE_VISITOR', 'ROLE_STOCK_MANAGER', 'ROLE_SLAVE_CLIENT')")
       li.border-top
         a.dropdown-item(href="/profile/invite.html" th:href="${lang_prefix} + @{/invite}")
           .d-flex.align-items-center
-            i.bi.bi-box-arrow-up-right.fs-5.me-2
+            i.bi.bi-person-plus.fs-5.me-2
             span.d-block(th:text="#{_.generateInvitation}") Generate invitation

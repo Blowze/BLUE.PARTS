@@ -1,7 +1,7 @@
-extends ../components/common/layout
+extends components/common/layout
 
 block header
-  include ../components/common/header/header-inner
+  include components/common/header/header-inner
 block content
   #modalAddAddress.modal.fade(tabindex="-1" aria-labelledby="modalAddAddressLabel" aria-hidden="true")
     .modal-dialog.modal-sm
@@ -67,7 +67,7 @@ block content
             .mb-3
               .form-group.mb-2
                 label.mb-2(th:text="#{_.email}") Email
-                input#email.form-control(name="email" type="email" th:value="${client.email}" required )
+                input#email.form-control(name="email" type="email" th:value="${client.email}" required)
             .mb-3
               .form-group.mb-2
                 label.mb-2(th:text="#{_.phone}") Tel
@@ -166,7 +166,7 @@ block content
                 h5.mb-0(th:text="#{_.users}") User list
               hr
             .col-12
-              table#table.table.table-striped.responsive.nowrap.dataTable-load.mb-3(class="table")
+              table#table.table.table-striped.responsive.nowrap.dataTable-load.mb-3
                 thead
                   tr
                     th(th:text="#{_.№}") №
