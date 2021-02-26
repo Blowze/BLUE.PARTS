@@ -1,0 +1,75 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  #modalAddItem.modal.fade(tabindex="-1" aria-labelledby="modalAddItemLabel" aria-hidden="true")
+    .modal-dialog.modal-sm
+      .modal-content
+        .modal-header
+          h5.modal-title(th:text="#{_.address.select}") Add name
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          form.needs-validation(novalidate)
+            .form-group.mb-2
+              label.mb-2 Name
+              input.form-control(type="text")
+          .d-flex.justify-content-end.gap-2
+            a.btn.btn-primary(href="#") Save
+  main.main.pt-3.pt-md-5
+    .container
+      h2 Pricing
+      hr
+      .table-wrap
+        table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+          thead
+            tr
+              th(colspan='2') product groups
+              th(colspan='2')
+                strong GP
+              th(colspan='2')
+                strong KP
+              th(colspan='2')
+                strong Accessory
+              th(colspan='2')
+                strong BP
+              th(colspan='2')
+                strong Chemical
+
+          tbody
+            tr
+              td Brand
+              td Channel
+              td Discount
+              td Commission
+              td Discount
+              td Commission
+              td Discount
+              td Commission
+              td Discount
+              td Commission
+              td Discount
+              td Commission
+            tr
+              td Honda
+              td workshop
+              td
+                input.form-control.w-a(data-type='discount' data-brandid='406' data-saleschannelid='408' data-productgroupid='401' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='commission' data-brandid='406' data-saleschannelid='408' data-productgroupid='401' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='discount' data-brandid='406' data-saleschannelid='408' data-productgroupid='402' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='commission' data-brandid='406' data-saleschannelid='408' data-productgroupid='402' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='discount' data-brandid='406' data-saleschannelid='408' data-productgroupid='403' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='commission' data-brandid='406' data-saleschannelid='408' data-productgroupid='403' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='discount' data-brandid='406' data-saleschannelid='408' data-productgroupid='404' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='commission' data-brandid='406' data-saleschannelid='408' data-productgroupid='404' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='discount' data-brandid='406' data-saleschannelid='408' data-productgroupid='405' type='number' value='0.00' step='0.01')
+              td
+                input.form-control.w-a(data-type='commission' data-brandid='406' data-saleschannelid='408' data-productgroupid='405' type='number' value='0.00' step='0.01')
