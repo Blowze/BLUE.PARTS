@@ -292,7 +292,7 @@ table.dataTable tr.child ul li span {
 }
 
 header{
-  z-index: 9999;
+  z-index: 100;
   position: relative;
 }
 .unit-schema-part{
@@ -327,4 +327,11 @@ header{
   .card-checkout{
     font-size: 12px;
   }
+}
+.w-a{
+  width: auto !important;
+}
+.table-wrap{
+  overflow: auto;
+  max-width: 100%;
 }
