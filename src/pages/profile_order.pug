@@ -25,12 +25,12 @@ block content
           //a.btn.btn-outline-danger.mt-2 Cancel
           form(method="POST" th:action="@{/profile/orders/order/cancel}")
             input(name="id" th:value="${order.id}" type="hidden")
-            button.btn--cancel-order.btn-outline-danger.mt-2(name="button" th:text="#{order.cancel_order}" type="submit") Cancel order
+            button.btn--cancel-order.btn.btn-outline-danger.mt-2(name="button" th:text="#{order.cancel_order}" type="submit") Cancel order
         div(th:if="${order.status} == ${T(guru.carman.platform.model.order.OrderStatus).SHIPPING}")
           //a.btn.btn-outline-primary.mt-2 Goods Received
           form(method="POST" th:action="@{/profile/orders/order/complete}")
             input(name="id" th:value="${order.id}" type="hidden")
-            button.btn--cancel-order.btn-outline-success.mt-2(name="button" th:text="#{order.finish_order}" type="submit") Goods Received
+            button.btn--cancel-order.btn.btn-outline-success.mt-2(name="button" th:text="#{order.finish_order}" type="submit") Goods Received
 
       hr
       table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
@@ -49,7 +49,7 @@ block content
             td [[${item.price}]]
             td(th:with="status=${item.status}")
               // .badge.bg - success RETURNED_TO_CARMAN
-              div.legend__item-status(th:classappend="${'order-status__icon--' + status.toString().toLowerCase()}" th:text="#{'enums.orderitem.' +${status}}")
+              .legend__item-status(th:classappend="${'order-status__icon--' + status.toString().toLowerCase()}" th:text="#{'enums.orderitem.' +${status}}")
       .card.bg-light.border-0.mb-4.mt-2
         .card-body.py-4
           .row

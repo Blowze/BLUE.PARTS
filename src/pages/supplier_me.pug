@@ -1,7 +1,7 @@
-extends ../components/common/layout
+extends components/common/layout
 
 block header
-  include ../components/common/header/header-inner
+  include components/common/header/header-inner
 block content
   main.main.pt-3.pt-md-5
     .container
@@ -41,10 +41,24 @@ block content
                   button.btn.btn-primary.w-25(href="#" type="submit") Update
               .col-12
                 hr
-              .col-12.col-lg-6.mb-2
-                .form-group.mb-0
-                  h5 My settings
-                  select.form-select(aria-label="Default select example")
-                    option(selected) Select a language...
-                    option(value="1") English
-                    option(value="1") ไทย
+        .col-12
+          .form-group.mb-0
+            h5 User list:
+            table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+              thead
+                tr
+                  th №
+                  th Title
+                  th Name
+                  th Provider
+                  th Role
+                  th.text-end Action
+              tbody
+                tr
+                  td 1
+                  td Tra Tra
+                  td Алексей Крайнов
+                  td google
+                  td 	ROLE_SALES_MANAGER
+                  td.text-end
+                    .btn.btn-outline-danger Cancel
