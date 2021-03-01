@@ -3,14 +3,47 @@ extends components/common/layout
 block header
   include components/common/header/header-inner
 block content
+  #modalAddItem.modal.fade(tabindex="-1" aria-labelledby="modalAddItemLabel" aria-hidden="true")
+    .modal-dialog.modal-sm
+      .modal-content
+        .modal-header
+          h5.modal-title(th:text="#{_.address.select}") Add name
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          form.needs-validation(novalidate)
+            .form-group.mb-2
+              label.mb-2 Name
+              input.form-control(type="text")
+          .d-flex.justify-content-end.gap-2
+            a.btn.btn-primary(href="#") Save
   main.main.pt-3.pt-md-5
     .container
-      h2 Glossaries
+      h2 Sale channel glossary
       hr
-      .row.mb-5 
+      table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th Name
+            th.text-end Actions
+        tbody
+          tr
+            td workshop
+            td 
+              .d-flex.gap-2.justify-content-end 
+                .btn.btn-outline-warning Edit
+                .btn.btn-outline-danger delete
+      .text-center
+        a.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#modalAddItem") Add Item
+      .row.mt-4 
         .col-12.col-md-4
-         a.page-link.rounded(href="#") BRANDS
-        .col-12.col-md-4
-         a.page-link.rounded(href="#") SALE CHANNELS
-        .col-12.col-md-4
-         a.page-link.rounded(href="#") PRODUCT GROUPS
+          hr
+      .form-group.mb-0
+        h5 Default sales channel:
+        .row 
+          .col-12.col-md-4
+            select.form-select(aria-label="Default select example")
+              option(selected) Select a language...
+              option(value="1") English
+              option(value="1") ไทย
+        a.btn.btn-primary.mt-3(data-bs-toggle="modal" data-bs-target="#modalAddItem") Update
+        
