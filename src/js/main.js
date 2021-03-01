@@ -53,6 +53,22 @@ $(document).ready(() => {
     responsive: true,
     searching: false
   })
+  $(`#priceTable`).DataTable({
+    info: false,
+    autoWidth: true,
+    pagination: false,
+    lengthChange: true,
+    responsive: true,
+    searching: true
+  })
+  $(`#discountTable`).DataTable({
+    info: false,
+    autoWidth: true,
+    pagination: false,
+    lengthChange: true,
+    responsive: true,
+    searching: true
+  })
   $(`#partpriceTable`).DataTable({
     deferRender: true,
     responsive: {

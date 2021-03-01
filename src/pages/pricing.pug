@@ -3,19 +3,6 @@ extends components/common/layout
 block header
   include components/common/header/header-inner
 block content
-  #modalAddItem.modal.fade(tabindex="-1" aria-labelledby="modalAddItemLabel" aria-hidden="true")
-    .modal-dialog.modal-sm
-      .modal-content
-        .modal-header
-          h5.modal-title(th:text="#{_.address.select}") Add name
-          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-        .modal-body
-          form.needs-validation(novalidate)
-            .form-group.mb-2
-              label.mb-2 Name
-              input.form-control(type="text")
-          .d-flex.justify-content-end.gap-2
-            a.btn.btn-primary(href="#") Save
   main.main.pt-3.pt-md-5
     .container
       h2 Pricing

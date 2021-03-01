@@ -1,0 +1,194 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  main.main.pt-3.pt-md-5
+    #bulkDiscount.modal.fade(tabindex="-1" aria-labelledby="bulkDiscountLabel" aria-hidden="true")
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5.modal-title Bulk Discount
+            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+          .modal-body
+            form.needs-validation(novalidate)
+              .form-group.mb-2
+                label.mb-2 Discount name:
+                input.form-control(type="text")
+              hr
+            .form-group.mb-2
+              label.fw-bold.mb-2 Range of Discount %
+              .row
+                .col-4
+                  label(for="").fs-7.mb-1 Choose QTY 
+                .col-4
+                  label(for="").fs-7
+                .col-4
+                  label(for="").fs-7.mb-1 Discount %
+              .row.align-items-center
+                .col-4
+                  .d-flex.align-items-center
+                    input.form-control(type="text")
+                    span.ms-4 - 
+                .col-4
+                  input.form-control(type="text" disabled)
+                .col-4
+                  .d-flex.align-items-center
+                    input.form-control(type="text")
+                    a.btn.btn-sm.btn-secondary(href="#").ms-3
+                      i.bi.bi-plus
+              a(href="#").mt-2.d-block.fs-7 Add Row 
+            hr
+            .form-group.mb-2
+              label.fw-bold.mb-2 Duration
+              .d-flex.gap-3
+                .form-check
+                  input#exampleRadios1.form-check-input(type='radio' name='exampleRadios' value='option1' checked='')
+                  label.form-check-label(for='exampleRadios1')
+                    | Default radio
+                .form-check
+                  input#exampleRadios2.form-check-input(type='radio' name='exampleRadios' value='option2')
+                  label.form-check-label(for='exampleRadios2')
+                    | Second default radio
+                .form-check
+                  input#exampleRadios3.form-check-input(type='radio' name='exampleRadios' value='option3' disabled='')
+                  label.form-check-label(for='exampleRadios3')
+                    | Disabled radio
+              .d-flex.gap-3.mt-3.align-items-center
+                span.fs-7 from:
+                input.form-control(type="text")
+                span.fs-7 to: 
+                input.form-control(type="text")
+            hr
+            .form-group.mb-3
+              label.fw-bold.mb-2 Apply discount to:
+              .form-check.fs-7.mb-2
+                input#flexCheckDefault.form-check-input(type='checkbox' value='')
+                label.form-check-label(for='flexCheckDefault')
+                  | All brands
+              select.form-select(aria-label="Select an Amount discount ...")
+                option(selected) Active
+                option(value="1") Active
+                option(value="1") Active
+            .d-flex.justify-content-center
+              a.btn.w-100.btn-primary(href="#") Save discount template!
+    #applyDiscount.modal.fade(tabindex="-1" aria-labelledby="applyDiscountLabel" aria-hidden="true")
+      .modal-dialog.modal-sm
+        .modal-content
+          .modal-header
+            h5.modal-title Apply Discount
+            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+          .modal-body
+            form.needs-validation(novalidate)
+              .form-group.mb-2
+                label.mb-2.fs-7 Discount name:
+                select.form-select.form-select-sm.fs-7(aria-label="Select an Amount discount ...")
+                  option(selected) Active
+                  option(value="1") Active
+                  option(value="1") Active
+            hr
+            .d-flex.justify-content-center
+              a.btn.w-100.btn-sm.btn-primary(href="#") Apply Discount
+            .modal-text.fs-7.my-3 If you do not have any discounts or want to create a new one
+            a.btn.w-100.btn-sm.btn-outline-primary(href="#") Create a new Amount discount
+    #modalUpdate.modal.fade(tabindex="-1" aria-labelledby="modalUpdateLabel" aria-hidden="true")
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5.modal-title Update Pricelist
+            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+          .modal-body
+            .modal-text.fs-7.mb-4 You are going to update the price list. You need to prepare a file containing the items you want to update. During the update, only records that are in your file will be updated.
+            form.needs-validation(novalidate)
+              .form-group.mb-2
+                .row.align-items-center
+                  .col.col-4 
+                    label.mb-2.fs-7 Select File
+                  .col.col-8
+                    input#formFile.form-control.form-control-sm(type='file')
+            hr
+            .d-flex.justify-content-end.gap-2
+              a.btn.btn-primary(href="#") Upload pricelist
+    .container
+      .d-flex.justify-content-between.align-items-center.mb-2.flex-wrap.flex-md-nowrap
+        h2.me-3.mb-0 lalal
+        .d-flex.justify-content-between.w-100.align-items-center.flex-wrap.flex-md-nowrap
+          .form-group
+            .row.align-items-center
+              .col
+                label.fs-7.text-nowrap Set PriceList Status
+              .col
+                select.form-select.form-select-sm.fs-7(aria-label="Default select example")
+                  option(selected) Active
+                  option(value="1") Active
+                  option(value="1") Active
+          a(href="#discount") View Discount
+      .d-flex 
+        .me-3
+          span.fs-7 Upload
+          span.fs-7 1/3/2021 9:05:51
+        .me-3
+          span.fs-7 Last Update
+          span.fs-7 1/3/2021 9:05:51
+      
+      .d-flex.mt-3.justify-content-between.flex-wrap.flex-md-nowrap
+        a.btn.btn-sm.btn-outline-primary.mb-3.mb-md-0(href="#") Back to Pricelists
+        .btn-group
+          a(href="#").btn.btn-outline-danger.btn-sm  Delete Pricelist
+          a(href="#").btn.btn-outline-primary.btn-sm Download
+          a(href="#"  data-bs-toggle="modal" data-bs-target="#modalUpdate").btn.btn-outline-primary.btn-sm Replace
+          a(href="#"  data-bs-toggle="modal" data-bs-target="#modalUpdate").btn.btn-outline-primary.btn-sm Update
+      hr
+      table#priceTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th №
+            th Date:
+            th Price List name
+            th
+              .text-center Warehouse
+            th Type
+            th Availability
+            th
+              .text-center Total Items
+            th
+              .text-center Status:
+        tbody
+          tr
+            td 1
+            td 20/10/2020 7:44:30
+            td ToyotaPriceList
+            td 
+              .text-center Rama 2
+            td PART
+            td in Stock
+            td 
+              .text-center 11
+            td.text-center
+              .badge.bg-success new
+      .d-flex.mt-3.justify-content-between.align-items-center.flex-wrap.flex-md-nowrap
+        h2.mb-3.mb-md-0 Applied Discount
+        .btn-group
+          a(href="#").btn.btn-outline-primary.btn-sm  Sale Discount
+          a(href="#" data-bs-toggle="modal" data-bs-target="#bulkDiscount").btn.btn-outline-primary.btn-sm Bulk Discount
+          a(href="#"  data-bs-toggle="modal" data-bs-target="#applyDiscount").btn.btn-outline-primary.btn-sm Amount discount
+      hr
+      .table-wrap
+        table#discountTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+          thead
+            tr
+              th Date
+              th Discount type
+              th Price List name
+              th Discount name
+              th Duration
+              th action
+
+          tbody
+            tr
+              td 1
+              td 20/10/2020 7:44:30
+              td ToyotaPriceList
+              td Rama 2
+              td PART
+              td in Stock
