@@ -1,0 +1,74 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  #modalClose.modal.fade(tabindex="-1" aria-labelledby="modalCloseLabel" aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title(th:text="#{_.address.select}") Remove item from order!
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          span Do you really want to remove the item from order?
+        .modal-footer
+          a(href="" data-bs-dismiss="modal" aria-label="Close").btn.btn-danger No
+          a(href="" ).btn.btn-success Yes 
+  main.main.pt-3.pt-md-5
+    .container
+      .d-flex.justify-content-between.align-items-center.mb-2.flex-wrap.flex-md-nowrap
+        h3.me-3.mb-2.mb-md-0 Order 210302-0004
+        .btn-group
+          a(href="#").btn.btn-outline-danger cancel
+          a(href="#").btn.btn-outline-success accept
+      hr
+      .d-flex.flex-wrap.flex-md-nowrap.align-items-center
+        span
+          .me-3
+            span.fs-7.fw-bold.me-2 Status:
+            span.fs-7 TRANSFERRED_TO_SUPPLIER
+          .me-3
+            span.fs-7.fw-bold.me-2 Order date:
+            span.fs-7 2/3/2021 12:18:10
+        span
+          .me-3
+            span.fs-7.fw-bold.me-2 Total Items:
+            span.fs-7 2
+          .me-3
+            span.fs-7.fw-bold.me-2 Grand Total:
+            span.fs-7 3700.00 THB
+      hr
+      .d-flex.justify-content-between.flex-wrap.flex-md-nowrap
+        h4.me-3.mb-0 Order list
+        .btn-group
+          a(href="#").btn.btn-outline-primary PO
+          a(href="#").btn.btn-outline-primary.disabled Picking list
+          a(href="#" ).btn.btn-outline-primary.disabled Stickers
+      table#priceTable.mb-4.mt-1.table.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th #
+            th Supplier id item
+            th Supplier SKU
+            th PNO
+            th Brand
+            th Description
+            th QTY
+            th Sale price
+            th Status
+            th action
+        tbody
+          tr
+            td 1
+            td 4003
+            td 41110-BZ391-
+            td
+              a(href="#") 41110BZ391 
+            td TOYOTA
+            td CARRIER ASSY,  DIFFERENTIAL
+            td 1
+            td 59155 THB
+            td 
+              .fw-bold TRANSFERRED_TO_SUPPLIER
+            td
+              a(href="#"  data-bs-toggle="modal" data-bs-target="#modalClose") cancel item 

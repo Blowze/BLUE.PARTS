@@ -40,20 +40,20 @@ block content
               a(href="#").mt-2.d-block.fs-7 Add Row 
             hr
             .form-group.mb-2
-              label.fw-bold.mb-2 Duration
-              .d-flex.gap-3
+              label.fw-bold.mb-3 Duration
+              .d-flex.gap-2.fs-7
                 .form-check
                   input#exampleRadios1.form-check-input(type='radio' name='exampleRadios' value='option1' checked='')
                   label.form-check-label(for='exampleRadios1')
-                    | Default radio
+                    | Date:
                 .form-check
                   input#exampleRadios2.form-check-input(type='radio' name='exampleRadios' value='option2')
                   label.form-check-label(for='exampleRadios2')
-                    | Second default radio
+                    | Permanent discount
                 .form-check
                   input#exampleRadios3.form-check-input(type='radio' name='exampleRadios' value='option3' disabled='')
                   label.form-check-label(for='exampleRadios3')
-                    | Disabled radio
+                    | Disable
               .d-flex.gap-3.mt-3.align-items-center
                 span.fs-7 from:
                 input.form-control(type="text")
@@ -139,33 +139,45 @@ block content
           a(href="#"  data-bs-toggle="modal" data-bs-target="#modalUpdate").btn.btn-outline-primary.btn-sm Replace
           a(href="#"  data-bs-toggle="modal" data-bs-target="#modalUpdate").btn.btn-outline-primary.btn-sm Update
       hr
-      table#priceTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+      table#priceTable.mb-4.mt-1.table.responsive.nowrap.dataTable-load
         thead
           tr
-            th №
-            th Date:
-            th Price List name
-            th
-              .text-center Warehouse
-            th Type
-            th Availability
-            th
-              .text-center Total Items
-            th
-              .text-center Status:
+            th item ID
+            th Pno
+            th Brand
+            th Title
+            th Qty
+            th Units
+            th Group
+            th Price
+            th Markup
+            th Sale Price
+            th Time
         tbody
           tr
-            td 1
-            td 20/10/2020 7:44:30
-            td ToyotaPriceList
-            td 
-              .text-center Rama 2
-            td PART
-            td in Stock
-            td 
-              .text-center 11
-            td.text-center
-              .badge.bg-success new
+            td 4001
+            td 4012058052
+            td TOYOTA
+            td GEAR ASSY,  POWER
+            td 18
+            td pcs
+            td GP
+            td 1800
+            td 0
+            td 1800
+            td 2
+          tr
+            td 4001
+            td 4012058052
+            td TOYOTA
+            td GEAR ASSY,  POWER
+            td 18
+            td pcs
+            td GP
+            td 1800
+            td 0
+            td 1800
+            td 2
       .d-flex.mt-3.justify-content-between.align-items-center.flex-wrap.flex-md-nowrap
         h2.mb-3.mb-md-0 Applied Discount
         .btn-group
@@ -173,22 +185,21 @@ block content
           a(href="#" data-bs-toggle="modal" data-bs-target="#bulkDiscount").btn.btn-outline-primary.btn-sm Bulk Discount
           a(href="#"  data-bs-toggle="modal" data-bs-target="#applyDiscount").btn.btn-outline-primary.btn-sm Amount discount
       hr
-      .table-wrap
-        table#discountTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
-          thead
-            tr
-              th Date
-              th Discount type
-              th Price List name
-              th Discount name
-              th Duration
-              th action
+      table#discountTable.mb-4.mt-1.table.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th Date
+            th Discount type
+            th Price List name
+            th Discount name
+            th Duration
+            th action
 
-          tbody
-            tr
-              td 1
-              td 20/10/2020 7:44:30
-              td ToyotaPriceList
-              td Rama 2
-              td PART
-              td in Stock
+        tbody
+          tr
+            td 1
+            td 20/10/2020 7:44:30
+            td ToyotaPriceList
+            td Rama 2
+            td PART
+            td in Stock

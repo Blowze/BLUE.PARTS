@@ -1,0 +1,29 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  main.main.pt-3.pt-md-5
+    .container
+      h2 Order history
+      hr
+      table#ordersTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
+        thead
+          tr
+            th №
+            th Date:
+            th Order
+            th items:
+            th Total Amount
+            th Status:
+            th action
+        tbody
+          tr
+            td 1
+            td 2/3/2021 12:20:03
+            td 210302-0004
+            td 1
+            td 59155 THB
+            td TRANSFERRED_TO_SUPPLIER
+            td 
+              a(href="#") view order

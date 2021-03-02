@@ -56,7 +56,7 @@ $(document).ready(() => {
   $(`#priceTable`).DataTable({
     info: false,
     autoWidth: true,
-    pagination: false,
+    pagination: true,
     lengthChange: true,
     responsive: true,
     searching: true
@@ -126,6 +126,45 @@ $(document).ready(() => {
     searching: false,
     info: false
   })
+  $(`#ordersTable`).DataTable({
+    info: false,
+    hideEmptyCols: true,
+    dom: `lfBrtip`,
+    autoWidth: true,
+    lengthChange: false,
+    buttons: [
+      {
+        text: `ALL`,
+        className: `btn btn-outline-primary btn-sm mt-0 mb-1`
+      },
+      {
+        text: `accepted_by_supplier`,
+        className: `btn btn-outline-primary btn-sm mt-0 mb-1`
+      },
+      {
+        text: `transferred_to_supplier`,
+        className: `btn btn-outline-primary btn-sm mt-0 mb-1`
+      },
+      {
+        text: `transferred_to_supplier`,
+        className: `btn btn-outline-primary btn-sm mt-0 mb-1`
+      },
+       {
+        text: `transferred_to_supplier`,
+        className: `btn btn-outline-primary btn-sm mt-0 mb-1`
+      },
+      {
+        text: `transferred_to_supplier`,
+        className: `btn btn-outline-primary btn-sm mt-0 mb-1`
+      },
+      {
+        text: `transferred_to_supplier`,
+        className: `btn btn-outline-primary btn-sm mt-0 mb-1`
+      }
+    ]
+  })
+
+  
 
   Inputmask(`99-999-99`).mask(`.phone-mask`)
   $(`.card-delivery`).click(function () {

@@ -1,0 +1,13 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  main.main.pt-3.pt-md-5
+    .container
+      h2.mb-3 Generate invitation link
+      select.form-select.w-25.mb-3(aria-label="Default select example")
+        option(selected) For SUPPLIER USER
+        option(value="1") English
+        option(value="1") ไทย
+      a.btn.btn-primary(href="#") Generate

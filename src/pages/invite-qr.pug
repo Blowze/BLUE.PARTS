@@ -1,0 +1,17 @@
+extends components/common/layout
+
+block header
+  include components/common/header/header-inner
+block content
+  main.main.pt-3.pt-md-5
+    .container
+      .row 
+        .col-12.col-md-12.col-lg-4
+          h2.mb-3 Generate invitation link
+          select.form-select.mb-3(aria-label="Default select example")
+            option(selected) For SUPPLIER USER
+            option(value="1") English
+            option(value="1") ไทย
+          a.btn.btn-primary(href="#") Generate
+          img.d-block.mb-2(src="https://test.blue.parts/invite/img?token=a8975770-252b-4e92-a76f-1a57d7e11172")
+          input(type="text" class="form-control" placeholder="Link")
