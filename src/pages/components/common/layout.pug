@@ -30,40 +30,68 @@ html.h-100(lang="ru" th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:
         .modal-content
           .modal-body
             ul.nav
-              li.border-bottom.nav-item.py-3.w-100.pb-4(sec:authorize="isAuthenticated()")
-                span.d-block(sec:authentication="principal.username") Алексей Крайнов
-                span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
-              li.w-100.py-2
-                .d-flex.align-items-center
-                  i.bi.bi-person.fs-5.me-2
-                  span.d-block Client details
-              li.w-100.py-2
-                .d-flex.align-items-center
-                  i.bi.bi-box-arrow-up-right.fs-5.me-2
-                  span.d-block Generate invitation
-              li.w-100.py-2
-                .d-flex.align-items-center
-                  .d-flex.align-items-center.w-100
-                    i.bi.bi-cart2.fs-5.me-2
-                    span.d-block My cart
-                  span.badge.bg-danger 1
-              li.w-100.py-2
-                .d-flex.align-items-center
-                  .d-flex.align-items-center.w-100
-                    i.bi.bi-shop.fs-5.me-2
-                    span.d-block Garage
-                  span.badge.bg-danger 1
-
-              li.w-100.py-2
-                .d-flex.align-items-center
-                  i.bi.bi-box.fs-5.me-2
-                  span.d-block Orders
-
-              li.w-100.py-2
-                .d-flex.align-items-center
-                  i.bi.bi-gear.fs-5.me-2
-                  span.d-block Settings
-              li.w-100.py-2
-                .d-flex.align-items-center
-                  i.bi.bi-box-arrow-in-right.fs-5.me-2
-                  span.d-block Logout
+              div.w-100
+                li.py-1
+                  a.dropdown-item(href="/profile/me.html" th:href="${lang_prefix} + @{/profile/user}")
+                    span.d-block(sec:authentication="principal.username") Алексей Крайнов
+                    span.fs-7.d-block.text-secondary(sec:authentication="principal.email") krainovlife@gmail.com
+                li
+                  a.dropdown-item(th:href="@{/logout(lang=${lang})}")
+                    .d-flex.align-items-center
+                      i.bi.bi-box-arrow-up-right.fs-5.me-2
+                      span.d-block(th:text="#{_.logout}") Logout
+              div.w-100(sec:authorize="hasAnyRole('ROLE_MASTER_CLIENT', 'ROLE_SLAVE_CLIENT')")
+                li.border-top
+                  a.dropdown-item(href="/profile/client.html" th:href="${lang_prefix} + @{/profile/client}")
+                    .d-flex.align-items-center
+                      i.bi.bi-house.fs-5.me-2
+                      span.d-block(th:text="#{_.clientDetails}") Client details
+                li
+                  a.dropdown-item(href="/profile/orders.html" th:href="${lang_prefix} + @{/profile/orders}")
+                    .d-flex.align-items-center
+                      i.bi.bi-box.fs-5.me-2
+                      span.d-block(th:text="#{_.orderlist}") Orders
+                //li
+                //  a.dropdown-item(href="/profile/garage.html" th:href="${lang_prefix} + @{/profile/garage}")
+                //    .d-flex.align-items-center
+                //      .d-flex.align-items-center.w-100
+                //        i.bi.bi-shop.fs-5.me-2
+                //        span.d-block(th:text="#{_.garage}") My cars
+                //      span.badge.bg-danger(th:classappend="${vehicle_count == 0 ? 'hidden': ''}" th:text="${vehicle_count}") 1
+              div.w-100(sec:authorize="hasAnyRole('ROLE_SALES_MANAGER', 'ROLE_STOCK_MANAGER')")
+                li.border-top
+                  a.dropdown-item(href="/supplier/orders.html" th:href="${lang_prefix} + @{/supplier/orders}")
+                    .d-flex.align-items-center
+                      i.bi.bi-box.fs-5.me-2
+                      span.d-block(th:text="#{_.orderlist}") Orders
+                li
+                  a.dropdown-item(href="/supplier/price.html" th:href="${lang_prefix} + @{/supplier/price}")
+                    .d-flex.align-items-center
+                      i.bi.bi-journals.fs-5.me-2
+                      span.d-block(th:text="#{_.pricelists}") Price lists
+                li
+                  a.dropdown-item(href="/supplier/discount.html" th:href="${lang_prefix} + @{/supplier/discount}")
+                    .d-flex.align-items-center
+                      i.bi.bi-percent.fs-5.me-2
+                      span.d-block(th:text="#{_.amountDiscount}") Amount Discount
+                li.border-top
+                  a.dropdown-item(href="/supplier/pricing.html" th:href="${lang_prefix} + @{/supplier/pricing}")
+                    .d-flex.align-items-center
+                      i.bi.bi-calculator.fs-5.me-2
+                      span.d-block(th:text="#{menu.pricing}") Pricing
+                li
+                  a.dropdown-item(href="/supplier/glossary.html" th:href="${lang_prefix} + @{/supplier/glossary}")
+                    .d-flex.align-items-center
+                      i.bi.bi-stickies.fs-5.me-2
+                      span.d-block(th:text="#{menu.glossary}") Glossary
+                li.border-top
+                  a.dropdown-item(href="/supplier/profile/details.html" th:href="${lang_prefix} + @{/supplier/profile/details}")
+                    .d-flex.align-items-center
+                      i.bi.bi-building.fs-5.me-2
+                      span.d-block(th:text="#{_.supplierDetails}") Supplier details
+              div.w-100(sec:authorize="isAuthenticated() && !hasAnyRole('ROLE_VISITOR', 'ROLE_STOCK_MANAGER', 'ROLE_SLAVE_CLIENT')")
+                li.border-top
+                  a.dropdown-item(href="/profile/invite.html" th:href="${lang_prefix} + @{/invite}")
+                    .d-flex.align-items-center
+                      i.bi.bi-person-plus.fs-5.me-2
+                      span.d-block(th:text="#{_.generateInvitation}") Generate invitation

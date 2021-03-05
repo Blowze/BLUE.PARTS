@@ -3,7 +3,9 @@ header.position-absolute.w-100.fixed-top
     .container
       ul.nav.ms-auto.fs-7
         li.nav-item.dropdown
-          a#navbarDarkDropdownMenuLink.nav-link.link-light.px-3.py-0.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${#locale.getDisplayName(#locale)}") Language
+          a#navbarDarkDropdownMenuLink.nav-link.link-light.px-3.py-0.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${#locale.getDisplayName(#locale)}")
+            i.bi.bi-globe2.me-2
+            | Language 
           ul.dropdown-menu(aria-labelledby="navbarDarkDropdownMenuLink")
             li(th:each="alternative_entry : ${alternative_urls}")
               a.dropdown-item(th:href="${alternative_entry.getValue()}" th:text="${alternative_entry.getKey().getDisplayName(alternative_entry.getKey())}") English
