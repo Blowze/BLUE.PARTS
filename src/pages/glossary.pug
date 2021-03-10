@@ -20,20 +20,80 @@ block content
     .container
       h2 Sale channel glossary
       hr
-      table#orderTable.mb-4.mt-1.table.table-striped.table-bordered.responsive.nowrap.dataTable-load
-        thead
-          tr
-            th Name
-            th.text-end Actions
-        tbody
-          tr
-            td workshop
-            td 
-              .d-flex.gap-2.justify-content-end 
-                .btn.btn-outline-warning Edit
-                .btn.btn-outline-danger delete
-      .text-center
-        a.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#modalAddItem") Add Item
+      div.w-auto.d-inline-block
+        .text-end
+          a.btn.btn-primary.mb-3(data-bs-toggle="modal" data-bs-target="#modalAddItem") Add Item
+        table.mb-4.mt-1.table.table-bordered.w-auto
+          thead
+            tr
+              th.px-4.text-center Name
+              th.px-4.text-center Actions
+          tbody
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+            tr(style="vertical-align: middle")
+              td.px-4.text-center workshop
+              td.px-4
+                .d-flex.gap-2.justify-content-end 
+                  .btn.btn-outline-warning.btn-sm Edit
+                  .btn.btn-outline-danger.btn-sm Delete
+        ul.pagination.text-center
+          li.paginate_button.page-item.previous.disabled.w-100
+            a(href="#").page-link Previous
+          li.paginate_button.page-item.active.w-100
+            a(href="").page-link 1 
+          li.paginate_button.page-item.w-100
+            a(href="").page-link 2 
+          li.paginate_button.page-item.w-100
+            a(href="").page-link 3
+          li.paginate_button.page-item.next.disabled.w-100
+            a(href="#" aria-controls="priceTable" data-dt-idx="2" tabindex="0" class="page-link") Next
       .row.mt-4 
         .col-12.col-md-4
           hr
