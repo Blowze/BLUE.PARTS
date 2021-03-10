@@ -167,6 +167,7 @@ $(document).ready(() => {
   
 
   Inputmask(`99-999-99`).mask(`.phone-mask`)
+  Inputmask(`99.99`).mask(`.input-min`)
   $(`.card-delivery`).click(function () {
     $(`.card-delivery`).removeClass(`border-primary`)
     $(this).addClass(`border-primary`)
