@@ -341,3 +341,9 @@ header{
   max-width: 50px;
   padding-right: 0 !important;
 }
+.table-th thead tr th{
+  border-color: #ccc;
+}
+.table-th{
+  border-top: 1px solid #ccc;
+}
